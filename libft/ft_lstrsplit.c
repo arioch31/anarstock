@@ -6,32 +6,11 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/28 20:14:33 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/07 15:43:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2015/12/10 14:31:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static unsigned int	nb_words(const char *str, char c)
-{
-	unsigned int i;
-	unsigned int nb;
-
-	i = 0;
-	nb = 0;
-	while (i < ft_strlen(str))
-	{
-		while (str[i] == c)
-			i++;
-		if (str[i] != c && str[i])
-		{
-			nb++;
-			while (str[i] != c && str[i])
-				i++;
-		}
-	}
-	return (nb);
-}
 
 static unsigned int	len_word(const char *str, char c)
 {
