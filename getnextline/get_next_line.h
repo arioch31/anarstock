@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:32:13 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/21 15:14:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/05 14:59:35 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,5 @@
 char	*ft_read(int fd);
 char	*larg_input(char *input, char *buffer, int ln, int octet_lus);
 int		get_next_line(int const fd, char **line);
-
-
 
 #endif

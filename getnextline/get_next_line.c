@@ -6,44 +6,11 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/21 15:31:34 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/05 13:49:00 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-static unsigned int	len_line(const char *str)
-{
-	unsigned int i;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	return (i);
-}
-
-t_list				*ft_linesplit(const char *str)
-{
-	t_list			*list;
-	t_list			*elem;
-	unsigned int	i;
-	unsigned int	n;
-
-	list = NULL;
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < ft_strlen(str))
-	{
-		n = len_line(&str[i]);
-		elem = ft_lstnew(ft_strsub(str, i, n), n);
-		ft_lstapp(&list, elem);
-		i += n;
-		if (n == 0)
-			i++;
-	}
-	return (list);
-}
 
 int					get_next_line(int const fd, char **line)
 {
@@ -55,13 +22,10 @@ int					get_next_line(int const fd, char **line)
 	{
 		if ((input = ft_read(fd)))
 		{
-			list = ft_linesplit(input);
-			ft_lstaff(list);
-			if (!list)
-				return (-1);
+			list = ft_lstrsplit(input,'\n');
 		}
 		else
-			return (0);
+			return (-1);
 	}
 	if (list)
 	{
@@ -70,6 +34,8 @@ int					get_next_line(int const fd, char **line)
 		free(list->content);
 		free(list);
 		list = ptr;
+		if (!list)
+			return(0);
 		return (1);
 	}
 	return (-1);
