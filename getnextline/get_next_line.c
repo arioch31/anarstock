@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/07 19:37:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/08 08:57:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int					get_next_line(int const fd, char **line)
 	static t_list	*list = NULL;
 	t_list			*ptr;
 	char			*input;
-
+	if (fd < 0 || line == NULL)
+		return (-1);
 	if (!list)
 	{
 		if ((input = ft_read(fd)))
@@ -31,7 +32,8 @@ int					get_next_line(int const fd, char **line)
 	{
 		*line = ft_strdup(list->content);
 		ptr = list->next;
-		free(list->content);
+//		if (list->content)
+			free(list->content);
 		free(list);
 		list = ptr;
 		if (!list)
@@ -56,7 +58,7 @@ char				*ft_read(int const fd)
 	while ((octets_lus = read(fd, buffer, BUFF_SIZE)))
 	{
 		if (octets_lus == -1)
-			return (NULL);// gerer ces erreurs plus haut?
+			return (NULL);
 		len += octets_lus;
 		input = larg_input(input, buffer, len, octets_lus);
 		input[len] = '\0';
@@ -81,7 +83,7 @@ char				*larg_input(char *input, char *buffer, int ln, int oct_lus)
 			tmp[i] = input[i];
 			i++;
 		}
-		free(input);
+		//free(input);
 	}
 	i = 0;
 	while (i < oct_lus)

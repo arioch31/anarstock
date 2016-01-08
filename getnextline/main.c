@@ -17,6 +17,8 @@ int main(int ac, char **av)
 		}
 		close(fd);
 		ft_putnbr(res);
+		ft_putendl(str);
+
 	}
 	if (ac ==1)
 	{
@@ -27,6 +29,7 @@ int main(int ac, char **av)
 		}
 		close(0);
 		ft_putnbr(res);
+		ft_putendl(str);
 	}
 	return (0);
 }

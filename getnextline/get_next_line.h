@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:32:13 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/05 14:59:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/08 08:44:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-#define BUFF_SIZE 10
+#define BUFF_SIZE 1
 
 char	*ft_read(int fd);
 char	*larg_input(char *input, char *buffer, int ln, int octet_lus);
