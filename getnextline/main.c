@@ -30,6 +30,7 @@ int main(int ac, char **av)
 		close(0);
 		ft_putnbr(res);
 		ft_putendl(str);
+
 	}
 	return (0);
 }
