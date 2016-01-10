@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/10 17:56:07 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/10 17:37:19 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void				ft_lstadd(t_list **alst, t_list *nouveau);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaff(t_list *lst);
-void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstdelpropre(t_list **alst);
 t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
