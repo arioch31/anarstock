@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/09 17:50:15 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/10 15:51:32 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int		get_next_line(int const fd, char **line)
 	if (!list)
 	{
 		if ((input = ft_read(fd)))
+		{
 			list = ft_lstrsplit(input, '\n');
+			free(input);
+		}
 		else
 			return (-1);
 	}
@@ -31,6 +34,7 @@ int		get_next_line(int const fd, char **line)
 	{
 		*line = ft_strdup(list->content);
 		ptr = list->next;
+		//ft_delpropre
 		free(list->content);
 		free(list);
 		list = ptr;
@@ -45,6 +49,7 @@ char	*ft_read(int const fd)
 {
 	char	*buffer;
 	char	*input;
+	char	*tmp;
 	int		octets_lus;
 	int		len;
 
@@ -54,13 +59,16 @@ char	*ft_read(int const fd)
 	buffer = (char*)malloc(BUFF_SIZE + 1);
 	if (!buffer)
 		return (NULL);
+	ft_bzero(buffer, BUFF_SIZE + 1);
 	while ((octets_lus = read(fd, buffer, BUFF_SIZE)))
-	{
+	{	
+		tmp = input;
 		if (octets_lus == -1)
 			return (NULL);
 		buffer[octets_lus] = 0;
-		input = ft_strjoin(input, buffer);
+		input = ft_strjoin(tmp, buffer);//free/tmp ?
 		ft_bzero(buffer, BUFF_SIZE + 1);
+		free(tmp);
 	}
 	free(buffer);
 	return (input);
