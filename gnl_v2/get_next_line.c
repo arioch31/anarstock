@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/12 17:33:13 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/14 23:21:09 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,75 @@
 
 int		get_next_line(int const fd, char **line)
 {
-	static t_list	*slist = NULL;
-	t_list			*new_list;
-	t_list			*list;
+	static t_list	*list = NULL;
+	t_list			*ptr_list;
+	t_str_fd		*s;
 	char			*input;
 	int				res;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	input = malloc(1);
-	*input = '\0';
-	if (!slist || !seek_fd(slist, fd))
+	input = ft_strnew(0);
+	if ((res = ft_read(fd, &input)) && res > 0 )
 	{
-		if ((res = ft_read(fd, &input)) && res > 0 )
+		if (!list || !(ptr_list = seek_fd(list, fd)))
 		{
-			list = ft_lstrsplit(input, '\n');
-			free(input);
-	ft_lstaff(list);
-			new_list = ft_lstnew(list, sizeof(list));
-			ft_lstapp(&slist, new_list);
-			new_list->content_size = (unsigned int)fd;
+			*line = ft_strsub(input, 0, ft_strseekc(input, '\n'));
+			if (ft_strseekc(input, '\n') < ft_strlen(input))
+			{
+				s = crea_s(input, fd);
+				ft_lstapp(&list, ft_lstnew(s, sizeof(s)));
+			}
 		}
-		else return (res);
+		else
+		{
+			s = ptr_list->content;
+			*line = ft_strjoin(s->str, ft_strsub(input, 0, ft_strseekc(input, '\n')));
+			free(s->str);
+			s->str = ft_strdup(ft_strchr(input, '\n') + 1);
+		}
+	free(input);
 	}
-	list = seek_fd(slist, fd);
-	ft_putendl(list->content);
-	ft_putendl("test");
-	*line = ft_strdup(list->content);
-	if (list)
-		ft_lstdelpropre(&list);
-	return (1);
+	else
+	{
+		destr_s(seek_fd(list, fd)->content);
+		*line = "\0";
+	}
+	return (res);
+}
+
+t_str_fd	*crea_s(char *str, int fd)
+{
+	t_str_fd	*s;
+
+	s = malloc(sizeof(t_str_fd));
+	s->fd = fd;
+	s->str = ft_strdup(ft_strchr(str, '\n') + 1);
+	return (s);
+}
+
+void		destr_s(t_str_fd *s)
+{
+	if (s)
+	{
+	ft_bzero(s->str, ft_strlen(s->str) + 1);
+	free(s->str);
+	s->fd = 0;
+	free(s);
+	}
 }
 
 t_list	*seek_fd(t_list *start, int fd)
 {
-	t_list	*ptr;
+	t_list		*ptr;
+	t_str_fd	*s;
 
 	ptr = start;
 	while (ptr)
 	{
-		if (ptr->content_size == (unsigned int)fd)
-			return (ptr->content);
+		s = ptr->content;
+		if (s->fd == fd)
+			return (ptr);
 		ptr = ptr->next;
 	}
 	return (NULL);
@@ -65,15 +93,13 @@ int	ft_read(int const fd, char **input)
 	char	*buffer;
 	char	*tmp;
 	int		octets_lus;
-	int		len;
 
-	len = 0;
 	**input = '\0';
 	buffer = (char*)malloc(BUFF_SIZE + 1);
 	if (!buffer)
 		return (-1);
 	ft_bzero(buffer, BUFF_SIZE + 1);
-	while ((octets_lus = read(fd, buffer, BUFF_SIZE)))
+	while (!(ft_strchr(*input, '\n')) && (octets_lus = read(fd, buffer, BUFF_SIZE)))
 	{
 		tmp = *input;
 		if (octets_lus < 1)
@@ -84,5 +110,5 @@ int	ft_read(int const fd, char **input)
 		free(tmp);
 	}
 	free(buffer);
-	return (1);
+	return (octets_lus > 0);
 }

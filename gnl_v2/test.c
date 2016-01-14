@@ -9,7 +9,7 @@ int main (void)
 	str = (char *)malloc(1000 * 1000);
 	*str = '\0';
 	 while (len--)
-		 strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in      leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend        et, scelerisque non dolor. Suspendisse augue augue, tempus\n");
+		 strcat(str, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in      leo dignissim, gravida leo id, imperdiet urna. Aliquam magna nunc, maximus quis eleifend        et, scelerisque non dolor. Suspendisse augue augue, tempus\n\n");
 	if (str)
 	    write(1, str, strlen(str));
 	return (0);

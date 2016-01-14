@@ -4,7 +4,7 @@ FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = ./src/
 
-INC_PATH = ./includes/
+INC_PATH = ./include/
 
 OBJ_PATH = ./obj/
 
@@ -43,6 +43,7 @@ SRC_FILES =	ft_lstapp.c		\
 			ft_strcmp.c		\
 			ft_strmap.c		\
 			ft_strstr.c		\
+			ft_strseekc.c	\
 			ft_isdigit.c	\
 			ft_memalloc.c	\
 			ft_putendl.c	\

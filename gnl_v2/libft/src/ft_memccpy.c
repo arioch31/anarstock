@@ -31,7 +31,7 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	{
 		ptr_dest[i] = ptr_src[i];
 		i++;
-		ptr = &dest[i];
+		ptr = dest + i;
 		return (ptr);
 	}
 	return (NULL);
