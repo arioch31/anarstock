@@ -4,7 +4,7 @@ FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = ./src/
 
-INC_PATH = ./include/
+INC_PATH = ./includes/
 
 OBJ_PATH = ./obj/
 
