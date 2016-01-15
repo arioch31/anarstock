@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/15 06:47:57 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/15 07:19:29 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		get_next_line(int const fd, char **line)
 {
-	static char		*str;
+	static char		*str = NULL;
 	char			*input;
 	char			*tmp;
 	int				res;
@@ -26,7 +26,8 @@ int		get_next_line(int const fd, char **line)
 	{
 		if ((res = ft_read(fd, &input)) && res > 0)
 		{
-			str = ft_strdup(ft_strchr(input, '\n'));
+			str = ft_strsub(input, ft_strseekc(input, '\n') + 1 , ft_strlen(input) -ft_strseekc(input, '\n'));
+//			str = ft_strdup(ft_strchr(input, '\n'));
 			*line = ft_strsub(input, 0, ft_strseekc(input, '\n'));
 		}
 		else return (res);
@@ -53,7 +54,7 @@ int	ft_read(int const fd, char **input)
 	char	*tmp;
 	int		octets_lus;
 
-	**input = '\0';
+	*input = ft_strnew(0);
 	buffer = (char*)malloc(BUFF_SIZE + 1);
 	if (!buffer)
 		return (-1);
@@ -69,5 +70,5 @@ int	ft_read(int const fd, char **input)
 		free(tmp);
 	}
 	free(buffer);
-	return (octets_lus > 0);
+	return (ft_strlen(*input) > 0);
 }

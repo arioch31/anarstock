@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/15 06:31:08 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/15 07:13:11 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int		get_next_line(int const fd, char **line)
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	input = ft_strnew(0);
 	if (!list || !(ptr_list = seek_fd(list, fd)))
 	{
 		if ((res = ft_read(fd, &input)) && res > 0)
@@ -118,7 +117,7 @@ int	ft_read(int const fd, char **input)
 	char	*tmp;
 	int		octets_lus;
 
-	**input = '\0';
+	*input = ft_strnew(0);
 	buffer = (char*)malloc(BUFF_SIZE + 1);
 	if (!buffer)
 		return (-1);
@@ -134,5 +133,5 @@ int	ft_read(int const fd, char **input)
 		free(tmp);
 	}
 	free(buffer);
-	return (octets_lus > 0);
+	return (ft_strlen(input) > 0);
 }

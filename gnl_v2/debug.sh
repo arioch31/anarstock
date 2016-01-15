@@ -1,1 +1,1 @@
-gcc -Werror -Wall -Wextra -g -o gnl get_next_line.c main.c -Llibft/ -lft -Ilibft/includes/
+gcc -Werror -Wall -Wextra -g -o V1gnl gnl_v1.c main.c -Llibft/ -lft -Ilibft/includes/
