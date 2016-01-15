@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/28 20:14:33 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/09 17:50:17 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2015/12/10 14:31:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ t_list				*ft_lstrsplit(const char *str, char c)
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (i < ft_strlen(str) + 1)
+	while (i < ft_strlen(str))
 	{
-		n = len_word(&str[i], c);
-		elem = ft_lstnew(ft_strsub(str, i, n), n + 1);
-		ft_lstapp(&lst, elem);
-		i += n + 1;
+		while (str[i] == c)
+			i++;
+		if (str[i])
+		{
+			n = len_word(&str[i], c);
+			elem = ft_lstnew(ft_strsub(str, i, n), n);
+			ft_lstapp(&lst, elem);
+			i += len_word(&str[i], c);
+		}
 	}
 	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/10 17:37:19 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/14 23:13:50 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char				*ft_strstr (const char *s1, const char *s2);
 char				*ft_strnstr (const char *s1, const char *s2, size_t n);
 int					ft_strcmp (const char *s1, const char *s2);
 int					ft_strncmp (const char *s1, const char *s2, size_t n);
+size_t				ft_strseekc(char *str, char c);
 int					ft_tolower (int c);
 int					ft_toupper (int c);
 void				ft_putchar (char c);
@@ -82,7 +83,7 @@ void				ft_lstadd(t_list **alst, t_list *nouveau);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaff(t_list *lst);
-void				ft_lstdelpropre(t_list **alst);
+void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
