@@ -4,7 +4,7 @@
 int main (void)
 {
 	char    *str;
-	int     len = 2;
+	int     len = 200;
 				   
 	str = (char *)malloc(1000 * 1000);
 	*str = '\0';

@@ -21,9 +21,9 @@ int main(int ac, char **av)
 		ft_putendl(str);
 
 	}
-	if (ac ==1)
+/*	if (ac ==1)
 	{
-		while ((res =get_next_line(0, &str)) &&res != -1)
+*/		while ((res =get_next_line(0, &str)) &&res != -1)
 		{
 			ft_putnbr(res);
 			ft_putendl(str);
@@ -34,6 +34,6 @@ int main(int ac, char **av)
 		ft_putendl(str);
 
 
-	}
+//	}
 	return (0);
 }
