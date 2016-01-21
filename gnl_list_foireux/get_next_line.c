@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/21 02:14:47 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/21 01:17:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,91 @@
 
 int		get_next_line(int const fd, char **line)
 {
-	static char		*str[ULIMIT_FD];
+	static t_list	*list = NULL;
+	t_str_fd		**s;
 	char			*input;
 	char			*tmp;
 	int				res;
 
 	if (fd < 0 || line == NULL)
 		return (-1);
-	if (!str[fd])
+
+s = malloc(sizeof(*s));
+*s = NULL;
+	ft_putendl("fd = ");
+	ft_putnbr(fd);
+	ft_putchar('\n');
+	if (!list || !(*s = seek_fd(list, fd)))
 	{
 		if ((res = ft_read(fd, &input)) && res > 0)
-			cut_str(input, line, &str[fd]);
-		else
-			return (res);
+		{	
+*s = crea_s(input, fd);
+			ft_lstapp(&list, ft_lstnew(s, sizeof(*s)));
+			*line = ft_strsub(input, 0, ft_strseekc(input, '\n'));
+		}
+		else return (res);
 	}
 	else
 	{
-		res = ft_read(fd, &input);
-		tmp = ft_strjoin(str[fd], input);
+		ft_read(fd, &input);
+		tmp = ft_strjoin((*s)->str, input);
+		free((*s)->str);
+		(*s)->str = NULL;
+		free(input);
+		*line =  ft_strsub(tmp, 0, ft_strseekc(tmp, '\n'));
 		if (!*tmp)
-			return (res);
-		cut_str(tmp, line, &str[fd]);
+		{
+			destr_s(*s);
+			free(s);
+			return (0);
+		}
+		(*s)->str = ft_strsub(tmp, ft_strseekc(tmp, '\n') + 1 , ft_strlen(tmp) -ft_strseekc(tmp, '\n'));
 		free(tmp);
 	}
-	free(input);
 	return (1);
 }
 
-void	cut_str(char *input, char **first_part, char **last_part)
+t_str_fd	*crea_s(char *str, int fd)
 {
-	int	n;
+	t_str_fd	*s;
 
-	if (*last_part)
-		free(*last_part);
-	n = ft_strseekc(input, '\n');
-	*first_part = ft_strsub(input, 0, n);
-	*last_part = ft_strsub(input, n + 1, ft_strlen(input) - n);
+	s = malloc(sizeof(t_str_fd));
+	s->fd = fd;
+	s->str = ft_strdup(ft_strchr(str, '\n') + 1);
+	return (s);
 }
 
-int		ft_read(int const fd, char **input)
+void		destr_s(t_str_fd *s)
+{
+	if (s)
+	{
+		if (s->str)
+		{
+			ft_bzero(s->str, ft_strlen(s->str) + 1);
+			free(s->str);
+		}
+		s->fd = 0;
+		free(s);
+	}
+}
+
+t_str_fd	*seek_fd(t_list *start, int fd)
+{
+	t_list		*ptr;
+	t_str_fd	**s;
+
+	ptr = start;
+	while (ptr)
+	{
+		s = ptr->content;
+		if ((*s)->fd == fd)
+			return (*s);
+		ptr = ptr->next;
+	}
+	return (NULL);
+}
+
+int	ft_read(int const fd, char **input)
 {
 	char	*buffer;
 	char	*tmp;
@@ -63,8 +109,7 @@ int		ft_read(int const fd, char **input)
 	if (!buffer)
 		return (-1);
 	ft_bzero(buffer, BUFF_SIZE + 1);
-	while (!(ft_strchr(*input, '\n')) && \
-			(octets_lus = read(fd, buffer, BUFF_SIZE)))
+	while (!(ft_strchr(*input, '\n')) && (octets_lus = read(fd, buffer, BUFF_SIZE)))
 	{
 		tmp = *input;
 		if (octets_lus < 1)
