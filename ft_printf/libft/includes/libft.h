@@ -50,7 +50,7 @@ char				*ft_strstr (const char *s1, const char *s2);
 char				*ft_strnstr (const char *s1, const char *s2, size_t n);
 int					ft_strcmp (const char *s1, const char *s2);
 int					ft_strncmp (const char *s1, const char *s2, size_t n);
-size_t				ft_lenword(char *str, char c);
+size_t				ft_lenword(const char *str, char c);
 int					ft_tolower (int c);
 int					ft_toupper (int c);
 void				ft_putchar (char c);
