@@ -11,15 +11,65 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_printf.h"
+//#include "ft_printf.h"
 #include <stdarg.h>
+
+
+char    *arg_sub(const char *str)
+{
+    char    *sub;
+    char    *charset;
+    char    *charset2;
+
+    charset = "0123456789-+. $hlLjtz";
+    charset2 = "dDiuUoOxXeEfFaAgGcCsSp%";
+    sub = (char*)str;
+    if (*str != '%')
+        return (NULL);
+    sub++;
+    while (ft_strchr(charset, *sub))
+        sub++;
+    if (ft_strchr(charset2, *sub))
+        return (ft_strsub(str, 0, ++sub - str));
+    else
+        return (NULL);
+}
+
+t_list *arg_dissect(const char *str)
+{
+    t_list  *start;
+    char    *ptr;
+    char    *test;
+
+    start = NULL;
+    ptr = (char*)str;
+    while (*ptr)
+    {
+        test = ft_strsub(ptr, 0, ft_strchr(ptr, '%') - ptr);
+        ft_lstapp(&start, ft_lstnew(test, ft_strlen(test)));
+        ptr = ft_strchr(ptr, '%');
+        if (!(test = arg_sub(ptr)))
+            return(NULL);
+        ft_lstapp(&start, ft_lstnew(test, ft_strlen(test)));
+        ptr += ft_strlen(test);
+        if(!ft_strchr(ptr, '%'))
+        {
+            ft_lstapp(&start, ft_lstnew(ptr, ft_strlen(ptr)));
+            return (start);
+        }
+    }
+
+    return (start);
+}
 
 int	ft_printf(const char *str, ...)
 {
     va_list	ap;
+    t_list  *l_sp;
+    t_list  *l_vp;
+    t_list  *start;
+    t_list  *elem;
     char	*tmp;
-    char 	*foireux;
-    char 	*foireux2;
 
     if(!str)
     {
@@ -31,107 +81,41 @@ int	ft_printf(const char *str, ...)
         ft_putendl(str);
         return (1);
     }
+    l_sp = arg_dissect(str);
+    if (!l_sp)
+        return (0);
+    // ft_lstaff(start);
+    ft_lstaff(l_sp);
+    start = l_sp;
     va_start(ap, str);
-    foireux = ft_strdup(str);
-    while (ft_lenword(foireux, '%') != ft_strlen(foireux) && (foireux = ft_strchr(foireux, '%') + 1))
+    l_vp = NULL;
+    while(start)
     {
-        if (*foireux == 'd')
-            tmp = ft_strjoin(str, ft_itoa(va_arg(ap, int)));
-        if (*foireux == 'c')
+        tmp = ((char*)start->content);
+        if (*tmp== '%')
         {
-            foireux2 = malloc(1);
-            *foireux2 =  va_arg(ap, int);
-            tmp = ft_strjoin(tmp, foireux2);
+            if (ft_strchr("dDioOuUxX", tmp[ft_strlen(tmp) - 1]))
+            elem= ft_lstnew(&va_arg(ap, int),sizeof(int));
+        //    else if (ft_strchr("aAeEfFgG", tmp[ft_strlen(tmp) - 1]))
+        //    elem= ft_lstnew(va_arg(ap, float),sizeof(float));
+            ft_lstapp(&l_vp, elem);
         }
-        if (*foireux == 's')
-            tmp = ft_strjoin(tmp, va_arg(ap, char* ));
+        start = start->next;
     }
     va_end(ap);
+    ft_lstaff(l_vp);
+    tmp = ft_strnew(0);
+    while (start)
+    {
+        tmp = ft_strjoin(tmp, start->content);
+        start =start->next;
+    }
+    ft_putchar('\n');
+    ft_putendl(tmp);
+
     return (1);
 }
 
-t_param *arg_dissect(char *str, truc_liste *first)
-{
-    t_param *t;
-    char    *ptr;
-    char    flags[6] = "+-0 #";
-    int num;
-
-    num = -1;
-    ptr = str;
-    t = malloc(sizeof(t_param));
-    t->p$ = NULL;
-    while (*ptr >='0' && *ptr <= '9')
-    {
-        if (num = -1)
-            num = ft_atoi(ptr);
-        ptr++;
-    }
-    if (*ptr = '$')
-    {
-        if (num <= 0)
-        {
-            free(t);
-            return (NULL);
-        }
-        str = ++ptr;
-        t->p$ = firstliste(n°num);
-        num = -1;
-    }
-    while (*str = '0' || *str == '#' || *str == '+' || *str == ' ')
-    {
-        if (*str == '-')
-        {
-            if (t->flags->left)
-                return(NULL);
-            t->flags->left = 1;
-            ptr++;
-        }
-        //idem pour les 4 autres?
-    }
-    while (*ptr >='0' && *ptr <= '9')
-    {
-        if (num = -1)
-            num = ft_atoi(ptr);
-        ptr++;
-    }
-}
-
-t->withd = num;
-//fonction serch_star(?)
-    if (*str = '*')
-{       if (num > 0)
-    return (NULL);
-    t->withd = *firstliste(actuel++);
-    *ptr++;
-}
-    if(*ptr == '.')
-    {
-    t->precision = ft_atoi(str++);
-    while(*ptr <= '9' && *str >= '0')
-        ptr++;
-    }
-}
-//   FORET DE IF POUR LENGTH ET TYPE
-/*
-   char **decoupe_string(char *str)
-   {
-   char 	**tab;
-   int		nb;
-   int		i;
-
-   i = 0;
-   nb = 1;
-   while(str[i])
-   {
-   i += ft_lenword(str, '%');
-   while (str[i] && !ft_ispace(str[i]))//!!!!!!!! pas espace en fait, mais caratere de conversion
-   i++;
-   nb++;
-   }	
-
-   }
-   */
 int main (void)
 {
     int  d;
@@ -142,6 +126,6 @@ int main (void)
     c = ';';
     str = "test ok";
 
-    d = ft_printf("test de valist: %d ", d, c, str);
+    d = ft_printf("%lutest de valist:%d %% %d", 8,9,256 , str);
     return (0);
 }
