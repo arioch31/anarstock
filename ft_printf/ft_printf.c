@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 13:20:37 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/26 16:14:03 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char    *arg_sub(const char *str)
         return (NULL);
     sub = (char*)str;
     sub++;
-    while (ft_strchr(PREFLAGS, *sub) || ft_strchr(FLAGS, *sub))
+    while (ft_strchr(PREFLAGS, *sub) || ft_strchr(FLAGS, *sub) \
+			|| ft_strchr(NUMERICS, *sub) || *sub == '$')
         sub++;
     if (ft_strchr(CONVERTERS, *sub))
         return (ft_strsub(str, 0, ++sub - str));
@@ -54,11 +55,65 @@ t_list *arg_dissect(const char *str)
             ptr = ft_strchr(ptr, '%');
             if (!(test = arg_sub(ptr)))
                 return(NULL);//exit free?
-            ft_lstapp(&start, ft_lstnew(test, ft_strlen(test)));
+            ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
             ptr += ft_strlen(test);
         }
     }
     return (start);
+}
+
+t_param	*arg_decrypt(const char *str)
+{
+	t_param	*p;
+	char	*ptr;
+	char	c;
+	int		i;
+
+	p = malloc(sizeof(t_param));
+	ptr = (char*)str;
+	ptr++;
+	i = 0;
+	if (ft_strchr(NUMERICS, *ptr))
+	{
+		i = ft_atoi(ptr);
+		while (ft_strchr(NUMERICS, *ptr))
+			ptr++;
+		if (*ptr == '$')
+		{
+			if (!i)
+				return (NULL);
+			ptr++;
+			p->p_index = i;
+			i = 0;	
+		}
+	}
+	while (ft_strchr(PREFLAGS, *ptr))
+			p->padding = ft_strjoin(p->padding, ft_strsub(ptr++, 0, 1));
+	if (i && *(p->padding))
+		return (NULL);
+//	if (start = '*') p->withd = ???parametre
+	p->withd = ft_atoi(ptr);
+	while (ft_strchr(NUMERICS, *ptr))
+		ptr++;
+	if ((*ptr = '.'))
+	{
+	   p->precision = ft_atoi(++ptr);
+	while (ft_strchr(NUMERICS, *ptr))
+		ptr++;
+	}
+//	if (start = '*') p->precision = ???parametre
+	if ((*ptr == 'h' || *ptr == 'l') && *ptr == *(ptr + 1))
+		p->length = *ptr - 1;
+	else if (ft_strchr(FLAGS, *ptr))
+		p->length = *ptr;
+	while (ft_strchr(FLAGS, *ptr))
+		ptr++;
+	if (!ft_strchr(CONVERTERS, *ptr))
+		return (NULL);
+	p->type = *ptr;
+
+		
+	return (p);
 }
 
 int	ft_printf(const char *str, ...)
@@ -87,7 +142,10 @@ int	ft_printf(const char *str, ...)
     ft_lstaff(l_sp);
     start = l_sp;
     va_start(ap, str);
-    l_vp = NULL;
+
+
+
+	l_vp = NULL;
     while(start)
     {
         if ((tmp = ((char*)start->content)))
@@ -113,7 +171,7 @@ int	ft_printf(const char *str, ...)
                  //   start->content = padd_zero(ft_itoa(va_arg(ap, int)), 3);
                 //       else if (c == 'u')
                 //       start->content = ft_itoa((unsigned int)va_arg(ap, int));
-                /* else if (c == 'o')
+            /*     else if (c == 'o')
                  return (ft_printoctal(ap));
                  else if (c == 'x')
                  return (ft_printhexa(ap));
@@ -122,17 +180,20 @@ int	ft_printf(const char *str, ...)
                  else if (c == '%')
                  return (ft_putchar(c));
                  else if (c == 's')
-                 return (ft_printstr(ap));*/
+                 return (ft_printstr(ap));
             }
         //if (ft_strchr("dDioOuUxX", tmp[ft_strlen(tmp) - 1]))
         //  elem= ft_lstnew(va_arg(ap, int),sizeof(int));
         //else if (ft_strchr("aAeEfFgG", tmp[ft_strlen(tmp) - 1]))
         //  elem= ft_lstnew(va_arg(ap, float),sizeof(float));
-        
+        */
+	}
         start = start->next;
     }
-    va_end(ap);
-    ft_lstaff(l_sp);
+
+
+	va_end(ap);
+	ft_lstaff(l_sp);
     tmp = ft_strnew(0);
     start = l_sp;
     while (start)

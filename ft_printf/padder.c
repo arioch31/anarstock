@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 12:06:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 13:23:13 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/26 15:18:26 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,3 +72,16 @@ char *padd_zero(char *str, size_t size)
 		return(str);
 }
 
+char *padd_space(char *str, int is_neg)
+{
+	if (!is_neg)
+		return (ft_strjoin(" ", str));
+	return (str);
+}
+
+char	*padd_plus(char *str, int is_neg)
+{
+	if (!is_neg)
+		return (ft_strjoin("+", str));
+	return (str);
+}
