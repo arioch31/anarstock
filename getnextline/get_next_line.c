@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/21 02:14:47 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/23 15:42:55 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,60 +16,60 @@ int		get_next_line(int const fd, char **line)
 {
 	static char		*str[ULIMIT_FD];
 	char			*input;
-	char			*tmp;
 	int				res;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || line == NULL || fd > ULIMIT_FD)
 		return (-1);
-	if (!str[fd])
+	if (str[fd])
 	{
-		if ((res = ft_read(fd, &input)) && res > 0)
-			cut_str(input, line, &str[fd]);
+		res = 1;
+		if (ft_strchr(str[fd], END))
+			cut_str(str[fd], line, &str[fd]);
+		else if (ft_read(fd, &input) > 0)
+			cut_str(ft_strjoin(str[fd], input), line, &str[fd]);
+		else if (*str[fd])
+		{
+			*line = ft_strdup(str[fd]);
+			free(str[fd]);
+		}
 		else
-			return (res);
+			return (0);
 	}
-	else
-	{
-		res = ft_read(fd, &input);
-		tmp = ft_strjoin(str[fd], input);
-		if (!*tmp)
-			return (res);
-		cut_str(tmp, line, &str[fd]);
-		free(tmp);
-	}
-	free(input);
-	return (1);
+	else if ((res = ft_read(fd, &input)) && res > 0)
+		cut_str(input, line, &str[fd]);
+	return (res);
 }
 
 void	cut_str(char *input, char **first_part, char **last_part)
 {
-	int	n;
+	int		n;
+	char	*tmp;
 
-	if (*last_part)
-		free(*last_part);
-	n = ft_strseekc(input, '\n');
+	tmp = *last_part;
+	n = ft_strseekc(input, END);
 	*first_part = ft_strsub(input, 0, n);
 	*last_part = ft_strsub(input, n + 1, ft_strlen(input) - n);
+	if (tmp)
+		free(tmp);
 }
 
 int		ft_read(int const fd, char **input)
 {
 	char	*buffer;
 	char	*tmp;
-	int		octets_lus;
+	int		o_lus;
 
 	*input = ft_strnew(0);
 	buffer = (char*)malloc(BUFF_SIZE + 1);
 	if (!buffer)
 		return (-1);
 	ft_bzero(buffer, BUFF_SIZE + 1);
-	while (!(ft_strchr(*input, '\n')) && \
-			(octets_lus = read(fd, buffer, BUFF_SIZE)))
+	while (!(ft_strchr(*input, END)) && (o_lus = read(fd, buffer, BUFF_SIZE)))
 	{
 		tmp = *input;
-		if (octets_lus < 1)
-			return (octets_lus);
-		buffer[octets_lus] = 0;
+		if (o_lus < 1)
+			return (o_lus);
+		buffer[o_lus] = 0;
 		*input = ft_strjoin(tmp, buffer);
 		ft_bzero(buffer, BUFF_SIZE + 1);
 		free(tmp);

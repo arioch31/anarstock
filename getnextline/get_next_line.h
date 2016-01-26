@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:32:13 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/21 02:15:29 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/22 08:58:08 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # define BUFF_SIZE 16
 # define ULIMIT_FD 256
+# define END '\n'
 
 int		ft_read(int fd, char **input);
 int		get_next_line(int const fd, char **line);
