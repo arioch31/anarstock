@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 16:14:03 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/26 17:53:00 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,53 @@
 #include "ft_printf.h"
 #include <stdarg.h>
 
+t_param	*new_param(void)
+{
+	t_param	*p;
 
+	p = malloc(sizeof(t_param));
+	p->p_index = 0;
+	p->padding = ft_strnew(0);
+	p->next = NULL;
+	p->pp = NULL;
+	p->withd = 0;
+	p->precision = 0;
+	p->length = 0;
+	p->type = 0;
+
+	return(p);
+}
+
+void	aff_param(t_param *p)
+{
+	ft_putendl("=============================================");
+	ft_putstr("affichage parametres:\n index :\t");
+	ft_putnbr(p->p_index);
+	ft_putstr("\npadding :\t");
+	ft_putstr(p->padding);
+	ft_putstr("\n withd:  \t");
+	ft_putnbr(p->withd);
+	ft_putstr("\nprecision:\t");
+	ft_putnbr(p->precision);
+	ft_putstr("\nflags:  \t");
+	if (p->length)
+	ft_putchar(p->length);
+	else
+		ft_putchar('0');
+	ft_putstr("\ntype: \t\t");
+	if (p->type)
+	ft_putchar(p->type);
+	else
+		ft_putchar('0');
+	ft_putstr("\n\n");
+}
+
+void	destr_param(t_param *p)
+{
+	free(p->padding);
+	p->padding = NULL;
+	free(p);
+}
 char    *arg_sub(const char *str)
 {
     char    *sub;
@@ -68,10 +114,10 @@ t_param	*arg_decrypt(const char *str)
 	char	*ptr;
 	char	c;
 	int		i;
-
-	p = malloc(sizeof(t_param));
-	ptr = (char*)str;
-	ptr++;
+	
+	ft_putendl(ft_strjoin("param=\t", str));
+	p = new_param();
+	ptr = (char*)str + 1;
 	i = 0;
 	if (ft_strchr(NUMERICS, *ptr))
 	{
@@ -86,6 +132,8 @@ t_param	*arg_decrypt(const char *str)
 			p->p_index = i;
 			i = 0;	
 		}
+		else
+			ptr = (char*)str + 1;
 	}
 	while (ft_strchr(PREFLAGS, *ptr))
 			p->padding = ft_strjoin(p->padding, ft_strsub(ptr++, 0, 1));
@@ -95,7 +143,7 @@ t_param	*arg_decrypt(const char *str)
 	p->withd = ft_atoi(ptr);
 	while (ft_strchr(NUMERICS, *ptr))
 		ptr++;
-	if ((*ptr = '.'))
+	if (*ptr == '.')
 	{
 	   p->precision = ft_atoi(++ptr);
 	while (ft_strchr(NUMERICS, *ptr))
@@ -110,15 +158,16 @@ t_param	*arg_decrypt(const char *str)
 		ptr++;
 	if (!ft_strchr(CONVERTERS, *ptr))
 		return (NULL);
-	p->type = *ptr;
-
-		
+	p->type = *ptr;	
+	aff_param(p);
 	return (p);
 }
+
 
 int	ft_printf(const char *str, ...)
 {
     va_list	ap;
+	t_param	*test;
     t_list  *l_sp;
     t_list  *l_vp;
     t_list  *start;
@@ -139,7 +188,7 @@ int	ft_printf(const char *str, ...)
     l_sp = arg_dissect(str);
     if (!l_sp)
         return (0);
-    ft_lstaff(l_sp);
+ ft_lstaff(l_sp);
     start = l_sp;
     va_start(ap, str);
 
@@ -151,7 +200,12 @@ int	ft_printf(const char *str, ...)
         if ((tmp = ((char*)start->content)))
             if (*tmp== '%')
             {
-                c = *(tmp+1);
+				if ((test = arg_decrypt(tmp)))
+				{
+				//aff_param(test);
+                destr_param(test);
+				}
+				c = *(tmp+1);
                 if (c == '%')
                 {
                     free(start->content);
@@ -193,7 +247,7 @@ int	ft_printf(const char *str, ...)
 
 
 	va_end(ap);
-	ft_lstaff(l_sp);
+//	ft_lstaff(l_sp);
     tmp = ft_strnew(0);
     start = l_sp;
     while (start)
@@ -215,14 +269,20 @@ int main (void)
     
     d = 88;
     c = ';';
+    str = ft_strdup("%% %zd %12$0-+12.12lls %12hd");
+
     
-    
-    str = ft_strdup("test ok");
-	d = ft_printf("%itest de%% valist:%d %i %c", 8,9,256 , 42);
+	ft_putstr("%itest de%% valist:%d %hhd %c\n");
+	d = ft_printf("%itest de%% valist:%d %hhd %c\n", 8,9,256 , 42);
+    ft_putendl(str);
+	ft_printf(str,88, "test", 96); 
+	/*
+	str = ft_strdup("test ok");
     ft_putendl(padd_zero(str, 16));
     str = ft_strdup("test ok");
     ft_putendl(padd_right(str, 16));
     str = ft_strdup("test ok");
-    ft_putendl(padd_left(str, 16));
+    ft_putendl(padd_left(str, 16));*/
+
 	return (0);
 }
