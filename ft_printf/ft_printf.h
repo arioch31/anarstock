@@ -6,13 +6,20 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/25 10:35:48 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/26 13:10:26 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# define CONVERTERS "dDiuUoOxXeEfFaAgGcCsSp%"
+# define FLAGS		"hlLjtz"
+# define PREFLAGS	"0123456789-+. $"
 
+char	*padd_left(char *str, size_t size);
+char	*padd_zero(char *str, size_t size);
+char	*padd_right(char *str, size_t size);
 
+/*
 typedef struct  s_param
 {
 void        *p$;//index du parametre visé suivi d'un $
@@ -33,5 +40,6 @@ typedef struct s_flaglist
     int hash;
     int zero;
 }               t_flaglist;
+*/
 
 #endif
