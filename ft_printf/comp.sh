@@ -1,2 +1,2 @@
 make -C libft/
-gcc -o test ft_printf.c checker.c param.c padder.c -I. -Ilibft/includes/ -Llibft/ -lft
+gcc -o test main.c ft_printf.c checker.c param.c padder.c -I. -Ilibft/includes/ -Llibft/ -lft
