@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 03:13:32 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 07:24:13 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_param	*new_param(void)
 	p->precision = 0;
 	p->length = 0;
 	p->type = 0;
-
+	p->ptr = malloc(sizeof(char*));
 	return(p);
 }
 
@@ -51,8 +51,8 @@ void	aff_param(t_param *p)
 	else
 		ft_putchar('0');
     ft_putstr("\n str visée: \t");
-    if (p->ptr && *(p->ptr))
-        ft_putendl(*p->ptr);
+    if (p->ptr && (p->ptr->content))
+        ft_putendl(p->ptr->content);
 
 	ft_putstr("\n\n");
 }
@@ -74,13 +74,12 @@ t_param	*arg_decrypt(char *str)
     int		i;
 
     p = new_param();
-    ptr = (char*)str + 1;
     i = 0;
-
+	if (*str != '%')
+		return (NULL);
     if (get_dollar(p, str + 1) > 0)
         str = ft_strchr(str, '$') + 1;
     if (!get_sizes(p, str + 1))
         return(NULL);
-    p->ptr = &str;
     return (p);
 }

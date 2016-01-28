@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 02:36:49 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 07:20:21 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # define FLAGS		"hlLjtz"
 # define PREFLAGS	"0-+. #"
 # define NUMERICS	"0123456789"
-# define INT_CONV	"dDiuUoOxXn"
+# define INT_CONV	"dDiuUoOxX"
 # define FLOAT_CONV "aAeEfFgG"
 # define FLOAT_FORB "ghkzjt"
 # define HASH_VALID	"eEfFgGoOxX"
 
 typedef struct  s_param
 {
+    t_list        *ptr;
 	size_t        p_index;//index du parametre visé suivi d'un $
 	char			*padding;
 	size_t        withd;//min withd *-> le parametre du va_list sert de withd
@@ -32,7 +33,6 @@ typedef struct  s_param
 	char        length;//precise la longueur du type visé (long, short etc)
 	char        type;
 	void        *pp;//parametre de la fonction ft (va_list)
-    char        **ptr;
 	struct s_param     *next;
 
 }            t_param;

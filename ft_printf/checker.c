@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 04:56:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 07:25:10 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int 	err_checker(t_param *p)
 				 || ft_strchr(p->padding,' ') || ft_strchr(p->padding,'0')))
 		return (0);
 	 if (p->type == '%')
-		return (!ft_strequ(*(p->ptr), "%%"));
+		return (!ft_strequ((p->ptr->content), "%%"));
 	 if (p->type == 'n')
-		return (!ft_strequ(*(p->ptr), "%n"));
+		return (!ft_strequ((p->ptr->content), "%n"));
 	return (1);
 }
