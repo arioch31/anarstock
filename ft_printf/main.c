@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 03:36:57 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 03:58:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int main (void)
 
 	l = 18446744073709551615ULL;//?
 	k = -1;
-	//d = ft_printf("%itest de%D valist:\n%D \n%ld\n", i,ULONG_MAX - (unsigned long long)k, ULONG_MAX-10 , k );
-	while (++i < 51)
+	d = ft_printf("%itest de%D valist:\n%D \n%ld\n", i,ULONG_MAX - (unsigned long long)k, ULONG_MAX-10 , k );
+	while (++i < 5)
 	{
 	 ft_printf("%D \n",ULONG_MAX - (unsigned long long)i);
-	printf("%lO max ull -%hd\n", ULONG_MAX-i, i);
+	printf("%lU max ull -%hd\n", ULONG_MAX-i, i);
 	}
 	/*
 	   str = ft_strdup("test ok");
