@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 17:53:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 01:17:57 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ int get_types(t_param *p, char *str)
     if (ft_strchr(CONVERTERS, *str))
     {
         p->type = *str;
-        return (1);
+		if(p->length == 'l' && p->type >= 'a' && p->type <= 'x' && p->type != 'n' && p->type != 'p')
+		{
+			p->length = 0;
+			p->type += 'A' - 'a';
+		}
+	   	return (1);
     }
     return (0);
 }
@@ -82,4 +87,31 @@ char    *arg_sub(const char *str)
         return (ft_strsub(str, 0, sub - str + 1));
     else
         return (NULL);
+}
+
+int 	err_checker(t_param *p)
+{
+	char	*ptr;
+
+	ptr = p->padding;
+	if (p->withd && p->precision > p->withd)
+	   return (0);	
+	while (*(ptr++))
+		if (ft_strchr(ptr + 1, *ptr))
+			return (0);
+	if ((p->type == 's' || p->type == 'S') && (*(p->padding) && *(p->padding) != '-'))
+			return (0);
+	if (ft_strchr(FLOAT_CONV, p->type) && ft_strchr(FLOAT_FORB, p->length))
+			return (0);
+	 if ((p->type == 'c' || p->type == 'C') && (p->precision || (*(p->padding) && *(p->padding) != '-')))
+			return (0);
+	 if (ft_strchr(INT_CONV, p->type) && p->length == 'L')
+		return (0);
+	 if (ft_strchr(p->padding, '#') && !ft_strchr(HASH_VALID, p->type))
+		return (0);
+	 if (p->type == '%')
+		return (!ft_strequ(*(p->ptr), "%%"));
+	 if (p->type == 'n')
+		return (!ft_strequ(*(p->ptr), "%n"));
+	return (1);
 }

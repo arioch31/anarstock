@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 17:53:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 03:13:32 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	destr_param(t_param *p)
 {
 	free(p->padding);
 	p->padding = NULL;
+	p->ptr = NULL;
 	free(p);
 }
 
@@ -72,19 +73,14 @@ t_param	*arg_decrypt(char *str)
     char	c;
     int		i;
 
-    ft_putendl(ft_strjoin("param=\t", str));
     p = new_param();
     ptr = (char*)str + 1;
     i = 0;
 
     if (get_dollar(p, str + 1) > 0)
         str = ft_strchr(str, '$') + 1;
-    //remontée d'erreur?
-
-
     if (!get_sizes(p, str + 1))
         return(NULL);
     p->ptr = &str;
-    aff_param(p);
     return (p);
 }

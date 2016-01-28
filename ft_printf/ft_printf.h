@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/26 17:25:07 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 02:36:49 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define FLAGS		"hlLjtz"
 # define PREFLAGS	"0-+. #"
 # define NUMERICS	"0123456789"
+# define INT_CONV	"dDiuUoOxXn"
+# define FLOAT_CONV "aAeEfFgG"
+# define FLOAT_FORB "ghkzjt"
+# define HASH_VALID	"eEfFgGoOxX"
 
 typedef struct  s_param
 {
@@ -39,8 +43,8 @@ typedef struct  s_param
 char	*padd_left(char *str, size_t size);
 char	*padd_zero(char *str, size_t size);
 char	*padd_right(char *str, size_t size);
-char	*padd_space(char *str, int is_neg);
-char	*padd_plus(char *str, int is_neg);
+char	*add_char(char *str, char c);
+char	*padd_char(char *str, char c, int is_neg);
 /*
  * *param.c
  */
@@ -55,4 +59,11 @@ int     get_dollar(t_param *p, char *str);
 int     get_sizes(t_param *p, char *str);
 int     get_types(t_param *p, char *str);
 char    *arg_sub(const char *str);
+int		err_checker(t_param *p);
+/*
+ ** ft_printf.c
+ */
+t_list	*arg_dissect(const char *str);
+int		ft_printf(const char *str, ...);
+
 #endif
