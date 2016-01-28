@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 01:17:57 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/28 04:56:54 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,13 @@ int 	err_checker(t_param *p)
 			return (0);
 	if (ft_strchr(FLOAT_CONV, p->type) && ft_strchr(FLOAT_FORB, p->length))
 			return (0);
-	 if ((p->type == 'c' || p->type == 'C') && (p->precision || (*(p->padding) && *(p->padding) != '-')))
+	 if ((p->type == 'c' || p->type == 'C') && 
+			 (p->precision || (*(p->padding) && *(p->padding) != '-')))
 			return (0);
 	 if (ft_strchr(INT_CONV, p->type) && p->length == 'L')
 		return (0);
-	 if (ft_strchr(p->padding, '#') && !ft_strchr(HASH_VALID, p->type))
+	 if (ft_strchr(p->padding, '#') && (!ft_strchr(HASH_VALID, p->type)
+				 || ft_strchr(p->padding,' ') || ft_strchr(p->padding,'0')))
 		return (0);
 	 if (p->type == '%')
 		return (!ft_strequ(*(p->ptr), "%%"));
