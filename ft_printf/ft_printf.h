@@ -6,14 +6,14 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 07:20:21 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/29 06:00:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include "libft.h"
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include "libft.h"
+# include <stdarg.h>
 # define CONVERTERS "dDiuUoOxXeEfFaAgGcCsSpn%"
 # define FLAGS		"hlLjtz"
 # define PREFLAGS	"0-+. #"
@@ -23,47 +23,53 @@
 # define FLOAT_FORB "ghkzjt"
 # define HASH_VALID	"eEfFgGoOxX"
 
-typedef struct  s_param
+typedef struct			s_param
 {
-    t_list        *ptr;
-	size_t        p_index;//index du parametre visé suivi d'un $
-	char			*padding;
-	size_t        withd;//min withd *-> le parametre du va_list sert de withd
-	size_t        precision;//max withd *->le parametre du va_list...
-	char        length;//precise la longueur du type visé (long, short etc)
-	char        type;
-	void        *pp;//parametre de la fonction ft (va_list)
-	struct s_param     *next;
+	t_list				*ptr;
+	size_t				p_index;//index du parametre visé suivi d'un $
+	char				*padding;
+	size_t				withd;//min withd *-> le parametre du va_list sert de withd
+	size_t				precision;//max withd *->le parametre du va_list...
+	char				length;//precise la longueur du type visé (long, short etc)
+	char				type;
+	void				*pp;//parametre de la fonction ft (va_list)
+	struct s_param		*next;
+}						t_param;
 
-}            t_param;
+/*
+** padder.c
+*/
+
+char					*padd_left(char *str, size_t size);
+char					*padd_zero(char *str, size_t size);
+char					*padd_right(char *str, size_t size);
+char					*add_char(char *str, char c);
+char					*padd_char(char *str, char c, int is_neg);
 
 /*
- * * padder.c
- */
-char	*padd_left(char *str, size_t size);
-char	*padd_zero(char *str, size_t size);
-char	*padd_right(char *str, size_t size);
-char	*add_char(char *str, char c);
-char	*padd_char(char *str, char c, int is_neg);
+**param.c
+*/
+
+t_param					*new_param(void);
+void					aff_param(t_param *p);//voué a disparaitre!
+void					destr_param(t_param *p);
+t_param					*arg_decrypt(char *str);
+
 /*
- * *param.c
- */
-t_param *new_param(void);
-void    aff_param(t_param *p);//voué a disparaitre!
-void    destr_param(t_param *p);
-t_param *arg_decrypt(char *str);
+**checker.c
+*/
+
+int						get_dollar(t_param *p, char *str);
+int						get_sizes(t_param *p, char *str);
+int						get_types(t_param *p, char *str);
+char					*arg_sub(const char *str);
+int						err_checker(t_param *p);
+
 /*
- * *checker.c
- */
-int     get_dollar(t_param *p, char *str);
-int     get_sizes(t_param *p, char *str);
-int     get_types(t_param *p, char *str);
-char    *arg_sub(const char *str);
-int		err_checker(t_param *p);
-/*
- ** ft_printf.c
- */
-t_list	*arg_dissect(const char *str);
-int		ft_printf(const char *str, ...);
+** ft_printf.c
+*/
+
+t_list					*arg_dissect(const char *str);
+int						ft_printf(const char *str, ...);
 
 #endif

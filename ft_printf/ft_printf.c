@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 09:04:55 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/01/29 05:56:36 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,46 @@ t_list *arg_dissect(const char *str)
 	}
 	return (start);
 }
-
+/*
 int controler(t_param *p, va_list ap)
-{
+{	
+	char		c;
+	short		nain;
+	char		*tmp;
+	int			entier;
+	long		rocco;
+	long long	chuck;
+	float		canard;
+	double		whisky;
+	long double	mabite;
+	tmp = ft_strnew(1);
+	while (p)
+	{
+		if (p->type == 'c' || p->length == 'g')
+			*tmp = va_arg(ap, char);
+		else if (p->type == 's')
+			tmp = va_arg(ap, char*);
+		else if (p->length == 'h')
+			nain = va_arg(ap, short);
+		else if (p->length == 'l' && ft_strchr(INT_CONV, p->type))
+			rocco = va_arg(ap, long);
+		else if (p->length == 'l' && ft_strchr(FLOAT_CONV, p->type))
+			whisky = va_arg(ap, double);
+		else if (p->length == 'k'&& ft_strchr(INT_CONV, p->type))
+			chuck = va_arg(ap, long long);
+		else if (p->length == 'k' && ft_strchr(FLOAT_CONV, p->type))
+			mabite = va_arg(ap, long double);
+		else if (ft_strchr(INT_CONV, p->type))
+			entier = va_arg(ap, int);
+		else if (ft_strchr(FLOAT_CONV, p->type))
+			canard = va_arg(ap, float);
 
+		p->ptr->content = buff_arg(tmp, p, 0); //facto?
+		p = p>next;
+	}
 	return(1);
 }
-
+*/
 t_param	*param_list(t_list *ptr)
 {
 	t_param *start;
@@ -156,7 +189,8 @@ int	ft_printf(const char *str, ...)
 	}
 */
 	va_end(ap);
-	tmp = ft_strnew(0);
+//	tmp = ft_strnew(0);
+	tmp = NULL;
 	start = lst;
 	while (start)
 	{
