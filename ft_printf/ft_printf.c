@@ -6,7 +6,7 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/29 05:56:36 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/03 14:25:29 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ int	ft_printf(const char *str, ...)
 	while (test)
 	{
 		ft_putendl("test2");
-	//	*(test->ptr) = ft_strdup("test ok");
 		aff_param(test);
 		test = test->next;
 	}	
@@ -189,7 +188,6 @@ int	ft_printf(const char *str, ...)
 	}
 */
 	va_end(ap);
-//	tmp = ft_strnew(0);
 	tmp = NULL;
 	start = lst;
 	while (start)

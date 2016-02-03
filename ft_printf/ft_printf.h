@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/29 06:00:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/03 16:55:29 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct			s_param
 	size_t				p_index;//index du parametre visé suivi d'un $
 	char				*padding;
 	size_t				withd;//min withd *-> le parametre du va_list sert de withd
-	size_t				precision;//max withd *->le parametre du va_list...
+	size_t				precision;//max withd *->le parametre du va_list... penser a '0' dans padding -> withd pr les int
 	char				length;//precise la longueur du type visé (long, short etc)
 	char				type;
 	void				*pp;//parametre de la fonction ft (va_list)
