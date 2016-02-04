@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/03 16:55:29 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/04 18:25:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ char					*padd_char(char *str, char c, int is_neg);
 */
 
 t_param					*new_param(void);
-void					aff_param(t_param *p);//voué a disparaitre!
 void					destr_param(t_param *p);
 t_param					*arg_decrypt(char *str);
+t_list					*str_tolist(const char *str);
+char					*arg_sub(const char *str);
+void					aff_param(t_param *p);//voué a disparaitre!
 
 /*
 **checker.c
@@ -62,14 +64,21 @@ t_param					*arg_decrypt(char *str);
 int						get_dollar(t_param *p, char *str);
 int						get_sizes(t_param *p, char *str);
 int						get_types(t_param *p, char *str);
-char					*arg_sub(const char *str);
+int						check_char(t_param *p);
 int						err_checker(t_param *p);
+
+/*
+** converter.c
+*/
+
+char	*buff_arg(char *res, t_param *p, int is_neg);
+char *conv_decimal(t_param *p, long long s);
+char *conv_u_base(t_param *p, unsigned long long s, int base);
+
 
 /*
 ** ft_printf.c
 */
-
-t_list					*arg_dissect(const char *str);
 int						ft_printf(const char *str, ...);
 
 #endif

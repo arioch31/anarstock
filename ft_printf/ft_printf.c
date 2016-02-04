@@ -3,98 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/03 14:25:29 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/04 18:38:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "ft_printf.h"
 
-t_list *arg_dissect(const char *str)
-{
-	t_list  *start;
-	char    *ptr;
-	char    *test;
-
-	start = NULL;
-	ptr = (char*)str;
-	while (*ptr)
-	{
-		if(!ft_strchr(ptr, '%'))
-		{
-			ft_lstapp(&start, ft_lstnew(ptr, ft_strlen(ptr)));
-			return (start);
-		}
-		else
-		{
-			test = ft_strsub(ptr, 0, ft_strchr(ptr, '%') - ptr);
-			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
-			ptr = ft_strchr(ptr, '%');
-			if (!(test = arg_sub(ptr)))
-				return(NULL);//exit free?
-			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
-			ptr += ft_strlen(test);
-		}
-	}
-	return (start);
-}
-/*
-int controler(t_param *p, va_list ap)
-{	
-	char		c;
-	short		nain;
-	char		*tmp;
-	int			entier;
-	long		rocco;
-	long long	chuck;
-	float		canard;
-	double		whisky;
-	long double	mabite;
-	tmp = ft_strnew(1);
-	while (p)
-	{
-		if (p->type == 'c' || p->length == 'g')
-			*tmp = va_arg(ap, char);
-		else if (p->type == 's')
-			tmp = va_arg(ap, char*);
-		else if (p->length == 'h')
-			nain = va_arg(ap, short);
-		else if (p->length == 'l' && ft_strchr(INT_CONV, p->type))
-			rocco = va_arg(ap, long);
-		else if (p->length == 'l' && ft_strchr(FLOAT_CONV, p->type))
-			whisky = va_arg(ap, double);
-		else if (p->length == 'k'&& ft_strchr(INT_CONV, p->type))
-			chuck = va_arg(ap, long long);
-		else if (p->length == 'k' && ft_strchr(FLOAT_CONV, p->type))
-			mabite = va_arg(ap, long double);
-		else if (ft_strchr(INT_CONV, p->type))
-			entier = va_arg(ap, int);
-		else if (ft_strchr(FLOAT_CONV, p->type))
-			canard = va_arg(ap, float);
-
-		p->ptr->content = buff_arg(tmp, p, 0); //facto?
-		p = p>next;
-	}
-	return(1);
-}
-*/
 t_param	*param_list(t_list *ptr)
 {
 	t_param *start;
 	t_param	*last;
 	t_param	*elem;
 	char	*tmp;
-	
+
 	start = NULL;
 	last = NULL;
 	while (ptr)
 	{
-		if (((tmp = (char*)ptr->content)) && *tmp == '%') 
+		if (((tmp = (char*)ptr->content)) && *tmp == '%')
 		{
 		  	if ((elem = arg_decrypt(tmp)) && err_checker(elem))
-			{	
+			{
 				elem->ptr = ptr;
 				if (start)
 				{
@@ -118,10 +51,9 @@ t_param	*param_list(t_list *ptr)
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
-	t_param	*test;
+	t_param	*p;
 	t_list  *lst;
 	t_list  *start;
-	char    c;
 	char	*tmp;
 
 	if(!str)
@@ -134,36 +66,39 @@ int	ft_printf(const char *str, ...)
 		ft_putendl(str);
 		return (1);
 	}
-	lst = arg_dissect(str);
+	lst = str_tolist(str);
 	if (!lst)
 		return (0);
-	ft_lstaff(lst);
 	va_start(ap, str);
-	test = param_list(lst);
-	while (test)
+	p = param_list(lst);
+	while (p)
 	{
-		ft_putendl("test2");
-		aff_param(test);
-		test = test->next;
-	}	
+	/*	if (p->type == 'c')
+			p->ptr->content = buff_arg(add_char(NULL, va_arg(ap, char)), p, 0);
+		*/if (p->type == 'd' || p->type == 'i')
+				p->ptr->content = conv_decimal(p, (long long)va_arg(ap, int));
+				if (p->type == '%')
+						p->ptr->content = buff_arg(add_char(NULL, '%'), p, 0);
+		p = p->next;
+	}
 /*	start = lst;
 	while(start)
 	{
 		if ((tmp = ((char*)start->content)))
 			if (*tmp== '%')
 			{
-				if ((test = arg_decrypt(tmp)))
+				if ((p = arg_decrypt(tmp)))
 				{
-					if (err_checker(test))
+					if (err_checker(p))
 						ft_putendl("argument OK");
 					else
 						ft_putendl("argument error");
-					//aff_param(test);
+					//aff_param(p);
 				}
 				else
 					return (0);
 				tmp++;
-				c = test->type;
+				c = p->type;
 				if (c == '%')
 				{
 					free(start->content);
@@ -179,11 +114,10 @@ int	ft_printf(const char *str, ...)
 				else if (c == 'd' || c == 'i')
 					start->content = ft_itoa(va_arg(ap, int));
 				else if (c == 'D')
-					start->content = ft_ultoa_base(va_arg(ap, int), 10, 0);
-				if (test)
-				destr_param(test);
-
-			}	
+					start->content = ft_ultoa_base_base(va_arg(ap, int), 10, 0);
+				if (p)
+				destr_param(p);
+			}
 		start = start->next;
 	}
 */
@@ -196,6 +130,5 @@ int	ft_printf(const char *str, ...)
 		start =start->next;
 	}
 	ft_putstr(tmp);
-
 	return (1);
 }

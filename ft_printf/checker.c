@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/29 06:00:41 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/04 18:29:51 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,25 @@ int		get_types(t_param *p, char *str)
 	if (ft_strchr(CONVERTERS, *str))
 	{
 		p->type = *str;
+		if (*str == 'D' || *str == 'O' || *str == 'U')
+		{
+			p->length = 'l';
+			p->type = *str + 32;
+		}
 		return (1);
 	}
 	return (0);
 }
 
-char	*arg_sub(const char *str)
+int		check_char(t_param *p)
 {
-	char	*sub;
-
-	if (!str || *str != '%')
-		return (NULL);
-	sub = (char*)str;
-	sub++;
-	while (ft_strchr(PREFLAGS, *sub) || ft_strchr(FLAGS, *sub) \
-			|| ft_strchr(NUMERICS, *sub) || *sub == '$')
-		sub++;
-	if (ft_strchr(CONVERTERS, *sub))
-		return (ft_strsub(str, 0, sub - str + 1));
-	else
-		return (NULL);
+	if (*(p->padding) && *(p->padding) != '-')
+		return (0);
+	if (p->length)
+		return (0);
+	if ((p->type == 'c' || p->type == 'C') && p->precision)
+		return (0);
+	return (1);
 }
 
 int		err_checker(t_param *p)
@@ -94,11 +93,8 @@ int		err_checker(t_param *p)
 	while (*(ptr++))
 		if (ft_strchr(ptr + 1, *ptr))
 			return (0);
-	if (((p->type == 's' || p->type == 'S') && \
-			(*(p->padding) && *(p->padding) != '-')) || \
-			((p->type == 'c' || p->type == 'C') && \
-			(p->precision || (*(p->padding) && *(p->padding) != '-'))))
-		return (0);
+	if (p->type == 's' || p->type == 'S' ||	p->type == 'c' || p->type == 'C')
+			return (check_char(p));
 	if (ft_strchr(FLOAT_CONV, p->type) && ft_strchr(FLOAT_FORB, p->length))
 		return (0);
 	if (ft_strchr(INT_CONV, p->type) && p->length == 'L')
