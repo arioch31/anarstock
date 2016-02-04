@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/04 18:38:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/04 18:57:46 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,28 @@ int	ft_printf(const char *str, ...)
 	p = param_list(lst);
 	while (p)
 	{
-	/*	if (p->type == 'c')
-			p->ptr->content = buff_arg(add_char(NULL, va_arg(ap, char)), p, 0);
-		*/if (p->type == 'd' || p->type == 'i')
+		if (p->type == 'c')
+			p->ptr->content = buff_arg(add_char(NULL, (char)va_arg(ap, int)), p, 0);
+		if (p->type == 'd' || p->type == 'i')
 				p->ptr->content = conv_decimal(p, (long long)va_arg(ap, int));
-				if (p->type == '%')
-						p->ptr->content = buff_arg(add_char(NULL, '%'), p, 0);
+		if (p->type == '%')
+				p->ptr->content = buff_arg(add_char(NULL, '%'), p, 0);
+		if (p->type == 'o')
+						p->ptr->content = conv_u_base(p, (unsigned long long)va_arg(ap, int), 8);
+
 		p = p->next;
 	}
+	va_end(ap);
+	tmp = NULL;
+	start = lst;
+	while (start)
+	{
+		tmp = ft_strjoin(tmp, start->content);
+		start =start->next;
+	}
+	ft_putstr(tmp);
+	return (1);
+}
 /*	start = lst;
 	while(start)
 	{
@@ -119,16 +133,4 @@ int	ft_printf(const char *str, ...)
 				destr_param(p);
 			}
 		start = start->next;
-	}
-*/
-	va_end(ap);
-	tmp = NULL;
-	start = lst;
-	while (start)
-	{
-		tmp = ft_strjoin(tmp, start->content);
-		start =start->next;
-	}
-	ft_putstr(tmp);
-	return (1);
-}
+	}*/
