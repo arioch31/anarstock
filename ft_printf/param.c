@@ -12,6 +12,33 @@
 
 #include "ft_printf.h"
 
+int		check_type(t_param *p)
+{
+/*	if (p->type = 'c' && !p->length)
+		p->definer = 'c';
+	else if (ft_strchr(INT_CONV, p->type))
+	{
+		(p->length == 'g' ? p->definer = 'c' : );
+		(p->length == 'h' ? p->definer = 's' : );
+		(p->length == 'l' ? p->definer = 'l' : );
+		(p->length == 'k' ? p->definer = 'L' : p->definer = 'i');
+	}
+	else if (ft_strchr(FLOAT_CONV, p->type))
+	{
+		(p->length == 'l' ? p->definer = 'd' : );
+		(p->length == 'k' || p->length == 'L' ? p->definer = 'D' : p->definer = 'f');
+
+	}
+	else if (p->type == 'n' || p->type == 'p')
+		//go_fuck_yourself;
+		ft_putendl("not yet");
+	else if (p->type == '%')
+		return (1);
+	else 
+		return (0);
+*/	return (1);
+}
+
 t_param	*arg_decrypt(char *str)
 {
 	t_param	*p;
@@ -25,8 +52,11 @@ t_param	*arg_decrypt(char *str)
 		return (NULL);
 	if (get_dollar(p, str + 1) > 0)
 		str = ft_strchr(str, '$') + 1;
-	if (!get_sizes(p, str + 1))
+	if (!get_sizes(p, str + 1) || !check_type(p))
+	{
+		ft_putendl("get_size foiré");
 		return (NULL);
+	}
 	return (p);
 }
 
@@ -51,7 +81,7 @@ t_list *str_tolist(const char *str)
 			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
 			ptr = ft_strchr(ptr, '%');
 			if (!(test = arg_sub(ptr)))
-				return(NULL);//exit free?
+				return(0);
 			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
 			ptr += ft_strlen(test);
 		}
@@ -104,7 +134,10 @@ t_param	*param_list(t_list *ptr)
 				}
 			}
 			else
+			{
+				ft_putendl("param_list foiré");
 				return (NULL);
+			}
 		}
 		ptr = ptr->next;
 	}

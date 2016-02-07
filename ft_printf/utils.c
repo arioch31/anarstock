@@ -20,7 +20,6 @@ t_param	*new_param(void)
 	p->p_index = 0;
 	p->padding = ft_strnew(0);
 	p->next = NULL;
-	p->pp = NULL;
 	p->withd = 0;
 	p->precision = 0;
 	p->length = 0;
@@ -37,6 +36,12 @@ void	destr_param(t_param *p)
 	free(p);
 }
 
+int		exit_where(char *msg)
+{
+	ft_putendl(msg);
+	exit(0);
+	return (0);
+}
 
 void	aff_param(t_param *p)
 {

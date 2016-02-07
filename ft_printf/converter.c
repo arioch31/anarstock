@@ -16,24 +16,6 @@
 
 char	*buff_arg(char *res, t_param *p, int is_neg)
 {
-	if (ft_strchr(p->padding, '#'))
-	{
-		if (p->type == 'x')
-			res = add_char(add_char(res, 'x'), '0');
-		if (p->type == 'X')
-			res = add_char(add_char(res, 'X'), '0');
-		if (p->type == 'o')
-			res = add_char(res, '0');
-	}
-	else if (is_neg)
-		res = add_char(res, '-');
-	else if (ft_strchr(p->padding, '+'))
-		res = add_char(res, '+');
-	else if (ft_strchr(p->padding, ' '))
-		res = add_char(res, ' ');
-	else if (ft_strchr(p->padding, '0') && p->type != 'n' && \
-			!(p->precision && ft_strchr(INT_CONV, p->type)))
-		res = padd_zero(res, p->withd);
 	if (p->precision && (p->type == 's' || p->type == 'S'))
 		res = ft_strsub(res, 0, p->precision); //traitement pour S?
 	if (ft_strchr(p->padding, '-'))
@@ -71,10 +53,12 @@ char *conv_decimal(t_param *p, long long s)
 	return (res);
 }
 
-char *conv_u_base(t_param *p, unsigned long long s, int base)
+char *conv_u_base(t_param *p, unsigned long long s)
 {
 	char			*res;
 
+	if (p->type == 'd' || p->type == 'i')
+		return (conv_decimal(p, s));
 	if (p->type == 'u')
 		res = ft_ultoa_base(s, 10, 0);
 	else if (p->type == 'o')

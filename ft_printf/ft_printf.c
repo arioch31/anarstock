@@ -42,13 +42,38 @@ int	ft_printf(const char *str, ...)
 	{
 		if (p->type == 'c')
 			p->ptr->content = buff_arg(add_char(NULL, (char)va_arg(ap, int)), p, 0);
-		if (p->type == 'd' || p->type == 'i')
-				p->ptr->content = conv_decimal(p, (long long)va_arg(ap, int));
-		if (p->type == '%')
-				p->ptr->content = buff_arg(add_char(NULL, '%'), p, 0);
-		if (p->type == 'o')
-						p->ptr->content = conv_u_base(p, (unsigned long long)va_arg(ap, int), 8);
-
+		
+		else if (p->type == 'd' || p->type == 'i')
+		{
+			if (p->length == 'l')
+				p->ptr->content = conv_u_base(p, (long long)va_arg(ap, long int));	
+			else if (p->length == 'k')	
+				p->ptr->content = conv_u_base(p, (long long)va_arg(ap, long long));
+			else if (p->length == 'h')
+				p->ptr->content = conv_u_base(p, (short int)va_arg(ap, int));
+			else if (p->length == 'g')
+				p->ptr->content = conv_u_base(p, (char)va_arg(ap, int));
+			else
+				p->ptr->content = conv_u_base(p, (int)va_arg(ap, int));
+		}
+		else if (ft_strchr(INT_CONV, p->type))
+		{
+			if (p->length == 'l')
+				p->ptr->content = conv_u_base(p, (unsigned long long)va_arg(ap, unsigned long int));	
+			else if (p->length == 'k')	
+				p->ptr->content = conv_u_base(p, (unsigned long long)va_arg(ap, long long));
+			else if (p->length == 'h')
+				p->ptr->content = conv_u_base(p, (unsigned short int)va_arg(ap, unsigned int));
+			else if (p->length == 'g')
+				p->ptr->content = conv_u_base(p, (unsigned char)va_arg(ap, unsigned int));
+			else
+				p->ptr->content = conv_u_base(p, (unsigned int)va_arg(ap, unsigned int));
+		}
+		else if (p->type == '%')
+			p->ptr->content = buff_arg(add_char(NULL, '%'), p, 0);
+		else if (p->type == 's')
+			p->ptr->content = ft_strdup(va_arg(ap, char *));
+			
 		p = p->next;
 	}
 	va_end(ap);
@@ -56,7 +81,7 @@ int	ft_printf(const char *str, ...)
 	start = lst;
 	while (start)
 	{
-		tmp = ft_strjoin(tmp, start->content);
+		tmp = ft_strjoin(tmp, (start->content ? start->content : "NULL"));
 		start =start->next;
 	}
 	ft_putstr(tmp);

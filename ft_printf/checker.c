@@ -69,6 +69,7 @@ int		get_types(t_param *p, char *str)
 		}
 		return (1);
 	}
+	ft_putendl("get_types foiré");
 	return (0);
 }
 
@@ -90,8 +91,8 @@ int		err_checker(t_param *p)
 	ptr = p->padding;
 	if (p->withd && p->precision > p->withd)
 		return (0);
-	while (*(ptr++))
-		if (ft_strchr(ptr + 1, *ptr))
+	while (*ptr)
+		if (ft_strchr(ptr + 1, *ptr++))
 			return (0);
 	if (p->type == 's' || p->type == 'S' ||	p->type == 'c' || p->type == 'C')
 			return (check_char(p));
