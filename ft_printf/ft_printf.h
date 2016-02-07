@@ -50,13 +50,18 @@ char					*padd_char(char *str, char c, int is_neg);
 **param.c
 */
 
-t_param					*new_param(void);
-void					destr_param(t_param *p);
 t_param					*arg_decrypt(char *str);
 t_list					*str_tolist(const char *str);
 char					*arg_sub(const char *str);
-void					aff_param(t_param *p);//voué a disparaitre!
+t_param					*param_list(t_list *ptr);
 
+/*
+**utils.c
+*/
+
+void					aff_param(t_param *p);//voué a disparaitre!
+t_param					*new_param(void);
+void					destr_param(t_param *p);
 /*
 **checker.c
 */

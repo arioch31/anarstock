@@ -13,40 +13,7 @@
 
 #include "ft_printf.h"
 
-t_param	*param_list(t_list *ptr)
-{
-	t_param *start;
-	t_param	*last;
-	t_param	*elem;
-	char	*tmp;
 
-	start = NULL;
-	last = NULL;
-	while (ptr)
-	{
-		if (((tmp = (char*)ptr->content)) && *tmp == '%')
-		{
-		  	if ((elem = arg_decrypt(tmp)) && err_checker(elem))
-			{
-				elem->ptr = ptr;
-				if (start)
-				{
-					last->next = elem;
-					last = last->next;
-				}
-				else
-				{
-					last = elem;
-					start = last;
-				}
-			}
-			else
-				return (NULL);
-		}
-		ptr = ptr->next;
-	}
-	return (start);
-}
 
 int	ft_printf(const char *str, ...)
 {
