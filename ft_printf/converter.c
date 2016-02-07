@@ -25,6 +25,36 @@ char	*buff_arg(char *res, t_param *p, int is_neg)
 	return (res);
 }
 
+char	*conv_d(t_param *p,va_list ap)
+{
+
+	if (p->length == 'l')
+		return (conv_decimal(p, (long long)va_arg(ap, long int)));	
+	else if (p->length == 'k')	
+		return (conv_decimal(p, (long long)va_arg(ap, long long)));
+	else if (p->length == 'h')
+		return (conv_decimal(p, (short int)va_arg(ap, int)));
+	else if (p->length == 'g')
+		return (conv_decimal(p, (char)va_arg(ap, int)));
+	else
+		return(conv_decimal(p, (int)va_arg(ap, int)));
+}
+
+char	*conv_u(t_param *p,va_list ap)
+{
+
+	if (p->length == 'l')
+		return (conv_u_base(p, (unsigned long long)va_arg(ap, unsigned long int)));	
+	else if (p->length == 'k')	
+		return (conv_u_base(p, (unsigned long long)va_arg(ap, unsigned long long)));
+	else if (p->length == 'h')
+		return (conv_u_base(p, (unsigned short int)va_arg(ap, unsigned int)));
+	else if (p->length == 'g')
+		return (conv_u_base(p, (unsigned char)va_arg(ap, unsigned int)));
+	else
+		return(conv_u_base(p, (unsigned int)va_arg(ap, unsigned int)));
+}
+
 char *conv_decimal(t_param *p, long long s)
 {
 	char			*res;

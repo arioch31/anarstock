@@ -84,6 +84,9 @@ char 					*conv_u_base(t_param *p, unsigned long long s);
 /*
 ** ft_printf.c
 */
+
+char					*conv_d(t_param *p, va_list ap);
+char					*conv_u(t_param *p, va_list ap);
 int						ft_printf(const char *str, ...);
 
 #endif

@@ -12,9 +12,8 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
-#include <limits.h>
 
-int main (void)
+int main(void)
 {
 	int  d;
 	char c;
@@ -30,14 +29,18 @@ int main (void)
 
 	 ft_printf("test %i %c %% test de valist: %D  %ldaaaaa\n", i, d, j , k );
 	ft_printf("test %%c %c \n", d);
-	ft_printf("test ft %%hho %hho \n", i);
-	printf("test pf %%hho %hho \n", i);
+	ft_printf("test ft %%#hho %#hho \n", i);
+	printf("test pf %%#hho %#hho \n", i);
 
-	ft_printf("test ft %% #x %#x \n", i);
+	ft_printf("test ft %%#x %#x \n", i);
 	printf("test pf %%#x %#x \n", i);
 
 	ft_printf("test ft %%x %x \n", i);
 	printf("test pf %%x %x \n", i);
+
+	ft_printf("_________________________________");
+	ft_printf("test %%d %d", k);
+	printf("test %%d %d", k);
 
 	ft_printf("test ft %%#X %#X \n", i);
 	printf("test pf %%#X %#X \n", i);
@@ -51,11 +54,32 @@ int main (void)
 
 	ft_printf("test ft %%hhu %hhu \n", i);
 	printf("test pf %%hhu %hhu \n", i);
+	
+	ft_printf("test ft %%hhu %hhu \n", i);
+	printf("test pf %%hhu %hhu \n", i);
+	
+	ft_printf("test ft %%hhd %hhd \n", 250);
+	printf("test pf %%hhd %hhd \n", 250);
 
 	ft_printf("test ft %%c %c \n", d + 513);
 	printf("test pf %%c %c \n", d + 513);
 
 
 	ft_printf("test ft %%s %s \n", "test ok!");
+	ft_printf("_________________________________");
+	ft_printf("test ft %%p %p \n", NULL);
+	printf("test pf %%p %p \n", NULL);
+	
+	ft_printf("test ft %%p %p \n", &d);
+	printf("test pf %%p %p \n", &d);
+	
+	ft_printf("test ft %%p %p \n", &k);
+	printf("test pf %%p %p \n", &k);
+	ft_printf("test ft %%p %p \n", NULL);
+	printf("test pf %%p %p \n", NULL);	
+	ft_printf("test ft %%p %p \n", &i);
+	printf("test pf %%p %p \n", &i);
+	ft_printf("test ft %%p %p \n", &j);
+	printf("test pf %%p %p \n", &j);
 	return (0);
 }
