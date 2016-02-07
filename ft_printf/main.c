@@ -18,6 +18,7 @@ int main(void)
 	int  d;
 	char c;
 	short i, j ,k;
+	int		*ptr;
 
 	d = 42;
 	c = -42;
@@ -25,6 +26,8 @@ int main(void)
 
 	j = 32767;//?
 	k = -1;
+	ptr = malloc(sizeof(int));
+	*ptr = d;
 	 ft_printf("\"test %%i %%c %% test de valist: %%D  %%ldaaaaa\", i, d,j , k \n");
 
 	 ft_printf("test %i %c %% test de valist: %D  %ldaaaaa\n", i, d, j , k );
@@ -79,7 +82,11 @@ int main(void)
 	printf("test pf %%p %p \n", NULL);	
 	ft_printf("test ft %%p %p \n", &i);
 	printf("test pf %%p %p \n", &i);
-	ft_printf("test ft %%p %p \n", &j);
-	printf("test pf %%p %p \n", &j);
+
+	ft_printf("test ptr %d\n", *ptr);
+	ft_printf("test ft %%n %n %d\n", ptr, *ptr, j);
+	ft_printf("test ptr %d\n", *ptr);
+	printf("test 123456789 pf %%n %n %d %d\n", ptr, *ptr, j);
+	ft_printf("test ptr %d\n", *ptr);
 	return (0);
 }

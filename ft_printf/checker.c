@@ -77,10 +77,12 @@ int		check_char(t_param *p)
 {
 	if (*(p->padding) && *(p->padding) != '-')
 		return (0);
-	if (p->length)
+	if (p->length && p->length != 'l')
 		return (0);
 	if ((p->type == 'c' || p->type == 'C') && p->precision)
 		return (0);
+	if (p->length == 'l' && (p->type == 'c' || p->type == 's'))
+		p->type -= 32;
 	return (1);
 }
 
