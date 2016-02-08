@@ -17,16 +17,18 @@
 int main(void)
 {
 	int  d;
-	char c;
+	
 	short i, j ,k;
 	int		*ptr;
 	int		test;
 	int		tab[80];
-	wchar_t	c_test;
+	wchar_t	c;
 	wchar_t	*s_test;
+	wchar_t *str;
+
 	setlocale(LC_ALL, "");
 	d = 42;
-	c = -42;
+	
 	i = 0;
 	while (i < 80)
 	{
@@ -34,17 +36,11 @@ int main(void)
 		i++;
 	}
 
-	c_test = 42;
+
 
 	j = 32767;//?
 	k = -1;
-	ptr = malloc(sizeof(int));
-	s_test = (wchar_t *)ptr;
-	*s_test = c_test;
-	*(s_test + 1) = 947;
-	tab[0] = (int)c_test;
-	tab[1] = 948;
-	d = 947;
+	
 	test = 0;
 	if (test)
 	{
@@ -93,11 +89,35 @@ int main(void)
 		ft_printf("test ptr %d\n", *ptr);
 	}
 	ft_printf("_________________________________");
-	ft_printf("test ft %%p %p \n", NULL);
-	printf("test pf %%d %d \n", tab[0]);
-	printf("test pf %%C %C \n", c_test);
-	printf("test pf %%C %C \n", 947);
-	printf("test pf %%S %S \n", s_test);
-	write(1, tab, 8);
+  str = malloc(sizeof(wchar_t) * 12);
+  	c = 42;
+  *str = c;
+  *(str + 1) = c + 1;
+  *(str + 2) = c + 2;
+  *(str + 3) = c + 3;
+  *(str + 4) = 42;
+ft_printf("%%S = \t%S \n",str);
+	printf("%%S = \t%S \n",str);
+
+  c = 42;
+  *(str + 5) = c;
+  *(str + 6) = c + 1;
+  *(str + 7) = c + 2;
+  *(str + 8) = c + 3;
+ft_printf("%%S = \t%S \n",str);
+	printf("%%S = \t%S \n",str);
+
+  c = 5210;
+  *(str + 9) = c + 1;
+  *(str + 10) = c + 2;
+  *(str + 11) = c + 3;
+ft_printf("%%S = \t%S \t%S\n",str, str + 4);
+	printf("%%S = \t%S \t%S\n",str, str + 4);
+
+ft_printf("%%S = \t%S \n",str);
+	printf("%%S = \t%S \n",str);
+
+
+
 	return (0);
 }

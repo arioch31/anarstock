@@ -47,6 +47,10 @@ int		ft_printf(const char *str, ...)
 			p->ptr->content = buff_arg(add_char(NULL, '%'), p);
 		else if (p->type == 's')
 			p->ptr->content = buff_arg(va_arg(ap, char *), p);
+		else if (p->type == 'C')
+			p->ptr->content = buff_arg(ft_wctostr(va_arg(ap, wchar_t)), p);
+		else if (p->type == 'S')
+			p->ptr->content = buff_arg(ft_strwctostr(va_arg(ap, wchar_t *)), p);
 		else if (p->type == 'd' || p->type == 'i')
 			p->ptr->content = conv_d(p, ap);
 		else if (p->type == 'n')

@@ -83,6 +83,16 @@ char					*conv_u(t_param *p, va_list ap);
 char					*buff_arg(char *res, t_param *p);
 char 					*buff_decimal(t_param *p, long long s);
 char 					*buff_u_base(t_param *p, unsigned long long s);
+/*
+** ft_wchar.c
+*/
+
+long int  ft_wctolint(wchar_t wc);
+int   ft_writewc(wchar_t wc);
+char  *ft_wctostr(wchar_t wc);
+char  *ft_strwctostr(wchar_t *wc);
+int   ft_writeswc(wchar_t *wc);
+
 
 
 /*
