@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/04 18:25:12 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/08 12:05:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,19 @@ int						err_checker(t_param *p);
 ** converter.c
 */
 
-char					*buff_arg(char *res, t_param *p, int is_neg);
-char 					*conv_decimal(t_param *p, long long s);
-char 					*conv_u_base(t_param *p, unsigned long long s);
+char					*conv_p(t_param *p, va_list ap);
+int						conv_n(t_param *p, t_list *start, va_list ap);
+char					*conv_d(t_param *p, va_list ap);
+char					*conv_u(t_param *p, va_list ap);
+char					*buff_arg(char *res, t_param *p);
+char 					*buff_decimal(t_param *p, long long s);
+char 					*buff_u_base(t_param *p, unsigned long long s);
 
 
 /*
 ** ft_printf.c
 */
 
-char					*conv_d(t_param *p, va_list ap);
-char					*conv_u(t_param *p, va_list ap);
 int						ft_printf(const char *str, ...);
 
 #endif

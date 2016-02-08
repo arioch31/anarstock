@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/04 18:29:51 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/08 11:45:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int		err_checker(t_param *p)
 	ptr = p->padding;
 	if (p->withd && p->precision > p->withd)
 		return (0);
-	while (*ptr)
-		if (ft_strchr(ptr + 1, *ptr++))
+	while (*(ptr++))
+		if (ft_strchr(ptr, *(ptr - 1)))
 			return (0);
 	if (p->type == 's' || p->type == 'S' ||	p->type == 'c' || p->type == 'C')
 			return (check_char(p));
