@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 23:06:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 00:13:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,7 @@ int		ft_printf(const char *str, ...)
 	tmp = NULL;
 	if (!str)
 	{
-		ft_putendl("NULL");
-		return (1);
-	}
-	if (!str[ft_lenword(str, '%')])
-	{
-		ft_putendl(str);
+		ft_putstr("(null)");
 		return (1);
 	}
 	if (!(lst = str_tolist(str)))
@@ -65,5 +60,5 @@ int		ft_printf(const char *str, ...)
 	va_end(ap);
 	tmp = ft_lstcat(lst);
 	ft_putstr(tmp);
-	return (1);
+	return (ft_strlen(tmp));
 }

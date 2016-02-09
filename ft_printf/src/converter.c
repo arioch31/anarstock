@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 14:25:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 21:34:46 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 00:29:32 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ char		*conv_p(t_param *p, va_list ap)
 	p->padding = add_char(p->padding, '#');
 	p->length = 'k';
 	i = (unsigned long int)(va_arg(ap, void *));
-	if (i)
-		return (buff_u_base(p, i));
-	else
-		return (NULL);
-}
+	return (buff_u_base(p, i));
+	}
 
 void		conv_n(t_param *p, t_list *start, va_list ap)
 {
@@ -93,6 +90,8 @@ char		*conv_u(t_param *p, va_list ap)
 
 char		*buff_arg(char *res, t_param *p)
 {
+	if (!res)
+		return (NULL);
 	if (p->precision && (p->type == 's' || p->type == 'S'))
 		res = ft_strsub(res, 0, p->precision);
 	if (ft_strchr(p->padding, '-'))

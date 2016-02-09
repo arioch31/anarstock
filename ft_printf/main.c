@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 23:10:34 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 00:40:08 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 {
 	int  d;
 
-	short i, j ,k;
+	int i, j ,k;
 	int		*ptr;
 	int		test;
 	int		tab[80];
@@ -27,21 +27,8 @@ int main(void)
 	wchar_t *str;
 
 	setlocale(LC_ALL, "");
-	d = 42;
 
-	i = 0;
-	while (i < 80)
-	{
-		tab[i] = d + i;
-		i++;
-	}
-
-
-
-	j = 32767;//?
-	k = -1;
-
-	test = 1;
+	test = 0;
 	if (test)
 	{
 		ft_printf("\"test %%i %%c %% test de valist: %%D  %%ldaaaaa\", i, d,j , k \n");
@@ -83,46 +70,41 @@ int main(void)
 		printf("test pf %%p %p \n", NULL);
 		ft_printf("test ft %%p %p \n", &i);
 		printf("test pf %%p %p \n", &i);
-		ft_printf("test ------------------------------------");
-/*
-		printf("test ptr %d\n", *ptr);
-		ft_printf("test ptr %d\n", *ptr);
-
-		//ft_printf("test ft %%n %n %d\n", ptr, *ptr, j);
-		ft_printf("test ptr %d\n", *ptr);
-		printf("test 123456789 pf %%n %n %d %d\n", ptr, *ptr, j);
-		ft_printf("test ptr %d\n", *ptr);*/
-	}
-	ft_printf("_________________________________");
-  str = malloc(sizeof(wchar_t) * 12);
+		ft_printf("test2 ------------------------------------\n");
+		printf("test1 ------------------------------------\n");
+		ft_printf("_________________________________");
+  	str = malloc(sizeof(wchar_t) * 12);
   	c = 42;
-  *str = c;
-  *(str + 1) = c + 1;
-  *(str + 2) = c + 2;
-  *(str + 3) = c + 3;
-  *(str + 4) = 42;
-ft_printf("%%S = \t%S \n",str);
-	printf("%%S = \t%S \n",str);
+	  *str = c;
+	  *(str + 1) = c + 1;
+	  *(str + 2) = c + 2;
+	  *(str + 3) = c + 3;
+	  *(str + 4) = 42;
+		ft_printf("%%S = \t%S \n",str);
+		printf("%%S = \t%S \n",str);
+	  c = 42;
+	  *(str + 5) = c;
+	  *(str + 6) = c + 1;
+	  *(str + 7) = c + 2;
+	  *(str + 8) = c + 3;
+		ft_printf("%%S = \t%S \n",str);
+		printf("%%S = \t%S \n",str);
+	  c = 5210;
+	  *(str + 9) = c + 1;
+	  *(str + 10) = c + 2;
+	  *(str + 11) = c + 3;
+		ft_printf("%%S = \t%S \t%S\n",str, str + 4);
+		printf("%%S = \t%S \t%S\n",str, str + 4);
+		ft_printf("%%S = \t%S \n",str);
+		printf("%%S = \t%S \n",str);
+	}
 
-  c = 42;
-  *(str + 5) = c;
-  *(str + 6) = c + 1;
-  *(str + 7) = c + 2;
-  *(str + 8) = c + 3;
-ft_printf("%%S = \t%S \n",str);
-	printf("%%S = \t%S \n",str);
+	ft_printf(NULL);
+	ft_printf("This is a simple test.\n");
+	i = ft_printf("ft%3c",0);
+	ft_putendl("");
+	j = printf("pf%3c", 0);
 
-  c = 5210;
-  *(str + 9) = c + 1;
-  *(str + 10) = c + 2;
-  *(str + 11) = c + 3;
-ft_printf("%%S = \t%S \t%S\n",str, str + 4);
-	printf("%%S = \t%S \t%S\n",str, str + 4);
-
-ft_printf("%%S = \t%S \n",str);
-	printf("%%S = \t%S \n",str);
-
-
-
+	printf("\nft %d \tpf %d",i, j);
 	return (0);
 }
