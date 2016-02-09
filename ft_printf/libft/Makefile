@@ -59,6 +59,7 @@ SRC_FILES =	ft_ispace.c		\
 			ft_strtrim.c	\
 			ft_itoa.c		\
 			ft_ultoa.c		\
+			ft_umaxtoa.c		\
 			ft_memchr.c		\
 			ft_putnbr.c		\
 			ft_strdup.c		\

@@ -15,6 +15,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 typedef struct		s_list
 {
@@ -76,6 +77,7 @@ char				*ft_strtrim(const char *str);
 char				**ft_strsplit(const char *str, char c);
 char				*ft_itoa(int n);
 char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
+char				*ft_umaxtoa_base(uintmax_t  n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(const void *content, size_t content_size);
