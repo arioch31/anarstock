@@ -74,8 +74,9 @@ SRC_FILES =	ft_ispace.c		\
 			ft_lstaff.c		\
 			ft_lstinsert.c	\
 			ft_lstrsplit.c	\
-			ft_lstdelpropre.c
-			
+			ft_lstdelpropre.c\
+			ft_lstcat.c
+
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_FILES))
@@ -90,7 +91,7 @@ $(NAME):
 	@mv $(SRC_FILES:.c=.o) ./obj
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	
+
 clean:
 	@rm -rf $(OBJ)
 fclean:	clean

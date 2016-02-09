@@ -6,13 +6,13 @@
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/28 22:26:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 03:56:43 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/09 22:54:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_temp(char *res, unsigned long long nb,int base, int maj)
+static char	*ft_temp(char *res, unsigned long long nb, int base, int maj)
 {
 	unsigned long long		coeff;
 	unsigned int			i;
@@ -22,8 +22,7 @@ static char	*ft_temp(char *res, unsigned long long nb,int base, int maj)
 	i = 0;
 	charset = ft_strdup("0123456789abcdef");
 	charset_maj = ft_strdup("0123456789ABCDEF");
-
-	coeff = base;	
+	coeff = base;
 	while (coeff < nb && coeff * base > coeff)
 		coeff = coeff * base;
 	while (coeff > nb)
@@ -44,9 +43,9 @@ static char	*ft_temp(char *res, unsigned long long nb,int base, int maj)
 
 char		*ft_ultoa_base(unsigned long long n, int base, int maj)
 {
-	char *res;
-	int nb;
-	unsigned long long cpt;
+	char				*res;
+	int					nb;
+	unsigned long long	cpt;
 
 	res = NULL;
 	if (base < 2 || base > 16)

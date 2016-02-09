@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/28 02:19:21 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/09 22:57:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char				*ft_strtrim(const char *str);
 char				**ft_strsplit(const char *str, char c);
 char				*ft_itoa(int n);
 char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
-char				*ft_umaxtoa_base(uintmax_t  n, int base, int maj);
+char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(const void *content, size_t content_size);
@@ -87,6 +87,7 @@ void				ft_lstadd(t_list **alst, t_list *nouveau);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaff(t_list *lst);
+char				*ft_lstcat(t_list *start);
 void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);

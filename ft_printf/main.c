@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/08 14:15:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/09 23:10:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int main(void)
 {
 	int  d;
-	
+
 	short i, j ,k;
 	int		*ptr;
 	int		test;
@@ -28,7 +28,7 @@ int main(void)
 
 	setlocale(LC_ALL, "");
 	d = 42;
-	
+
 	i = 0;
 	while (i < 80)
 	{
@@ -40,8 +40,8 @@ int main(void)
 
 	j = 32767;//?
 	k = -1;
-	
-	test = 0;
+
+	test = 1;
 	if (test)
 	{
 		ft_printf("\"test %%i %%c %% test de valist: %%D  %%ldaaaaa\", i, d,j , k \n");
@@ -76,17 +76,22 @@ int main(void)
 		printf("test pf %%p %p \n", NULL);
 		ft_printf("test ft %%p %p \n", &d);
 		printf("test pf %%p %p \n", &d);
+		ft_printf("_________________________________");
 		ft_printf("test ft %%p %p \n", &k);
 		printf("test pf %%p %p \n", &k);
 		ft_printf("test ft %%p %p \n", NULL);
 		printf("test pf %%p %p \n", NULL);
 		ft_printf("test ft %%p %p \n", &i);
 		printf("test pf %%p %p \n", &i);
+		ft_printf("test ------------------------------------");
+/*
+		printf("test ptr %d\n", *ptr);
 		ft_printf("test ptr %d\n", *ptr);
-		ft_printf("test ft %%n %n %d\n", ptr, *ptr, j);
+
+		//ft_printf("test ft %%n %n %d\n", ptr, *ptr, j);
 		ft_printf("test ptr %d\n", *ptr);
 		printf("test 123456789 pf %%n %n %d %d\n", ptr, *ptr, j);
-		ft_printf("test ptr %d\n", *ptr);
+		ft_printf("test ptr %d\n", *ptr);*/
 	}
 	ft_printf("_________________________________");
   str = malloc(sizeof(wchar_t) * 12);
