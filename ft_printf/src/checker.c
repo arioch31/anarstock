@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 20:13:51 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:19:01 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ int		get_dollar(t_param *p, char *str)
 int		get_sizes(t_param *p, char *str)
 {
 	while (ft_strchr(PREFLAGS, *str))
-		p->padding = ft_strjoin(p->padding, ft_strsub(str++, 0, 1));
+	{
+		if (!ft_strchr(p->padding, *str))
+			p->padding = ft_strjoin(p->padding, ft_strsub(str++, 0, 1));
+		else
+			return (0);
+	}
 	p->withd = ft_atoi(str);
 	while (ft_strchr(NUMERICS, *str))
 		str++;
@@ -69,7 +74,6 @@ int		get_types(t_param *p, char *str)
 		}
 		return (1);
 	}
-	ft_putendl("get_types foiré");
 	return (0);
 }
 
@@ -91,11 +95,11 @@ int		err_checker(t_param *p)
 	char	*ptr;
 
 	ptr = p->padding;
-	if (p->withd && p->precision > p->withd)
-		return (0);
-	while (*(ptr++))
-		if (ft_strchr(ptr, *(ptr - 1)))
-			return (0);
+	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '-') \
+	&& ft_strchr(ptr, '0'))
+		*ft_strchr(ptr, '0') = 'a';
+	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '0') && !p->precision)
+		p->precision = p->withd;
 	if (p->type == 's' || p->type == 'S' || p->type == 'c' || p->type == 'C')
 		return (check_char(p));
 	if (ft_strchr(FLOAT_CONV, p->type) && ft_strchr(FLOAT_FORB, p->length))

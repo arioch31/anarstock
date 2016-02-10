@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 12:06:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 22:58:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 02:11:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,4 @@ char	*add_char(char *str, char c)
 	tmp = ft_strnew(1);
 	*tmp = c;
 	return (ft_strjoin(tmp, str));
-}
-
-char	*padd_char(char *str, char c, int is_neg)
-{
-	if (!is_neg)
-		return (add_char(str, c));
-	return (str);
 }

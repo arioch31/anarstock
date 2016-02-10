@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 00:40:08 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:06:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,37 +73,30 @@ int main(void)
 		ft_printf("test2 ------------------------------------\n");
 		printf("test1 ------------------------------------\n");
 		ft_printf("_________________________________");
-  	str = malloc(sizeof(wchar_t) * 12);
+		str = malloc(sizeof(wchar_t) * 12);
   	c = 42;
 	  *str = c;
 	  *(str + 1) = c + 1;
 	  *(str + 2) = c + 2;
 	  *(str + 3) = c + 3;
 	  *(str + 4) = 42;
-		ft_printf("%%S = \t%S \n",str);
-		printf("%%S = \t%S \n",str);
 	  c = 42;
 	  *(str + 5) = c;
 	  *(str + 6) = c + 1;
 	  *(str + 7) = c + 2;
 	  *(str + 8) = c + 3;
-		ft_printf("%%S = \t%S \n",str);
-		printf("%%S = \t%S \n",str);
 	  c = 5210;
 	  *(str + 9) = c + 1;
 	  *(str + 10) = c + 2;
-	  *(str + 11) = c + 3;
-		ft_printf("%%S = \t%S \t%S\n",str, str + 4);
-		printf("%%S = \t%S \t%S\n",str, str + 4);
-		ft_printf("%%S = \t%S \n",str);
-		printf("%%S = \t%S \n",str);
-	}
+	  *(str + 11) = 0;
+}
+		j = ft_printf("%4.1s", "42");
+		i = printf("%4.1s", "42");
+		ft_putchar('\n');
 
-	ft_printf(NULL);
-	ft_printf("This is a simple test.\n");
-	i = ft_printf("ft%3c",0);
-	ft_putendl("");
-	j = printf("pf%3c", 0);
+		//j = ft_printf("%4.1s", "42");
+
+
 
 	printf("\nft %d \tpf %d",i, j);
 	return (0);

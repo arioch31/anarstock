@@ -6,11 +6,26 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 14:25:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 00:29:32 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:16:40 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char		*conv_ws(t_param *p, va_list ap)
+{
+		char	*str;
+		wchar_t *test;
+
+		test = NULL;
+		test = va_arg(ap, wchar_t *);
+		if (!test)
+			return (NULL);
+		str = ft_strwctostr(test);
+		if (*str == '%')
+			str++;
+		return (buff_arg(str, p));
+}
 
 char		*conv_p(t_param *p, va_list ap)
 {
@@ -86,17 +101,4 @@ char		*conv_u(t_param *p, va_list ap)
 		return (buff_u_base(p, (ssize_t)va_arg(ap, ssize_t)));
 	else
 		return (buff_u_base(p, (unsigned int)va_arg(ap, unsigned int)));
-}
-
-char		*buff_arg(char *res, t_param *p)
-{
-	if (!res)
-		return (NULL);
-	if (p->precision && (p->type == 's' || p->type == 'S'))
-		res = ft_strsub(res, 0, p->precision);
-	if (ft_strchr(p->padding, '-'))
-		res = padd_left(res, p->withd);
-	else
-		res = padd_right(res, p->withd);
-	return (res);
 }

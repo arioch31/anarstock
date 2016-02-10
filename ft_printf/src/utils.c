@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 21:09:28 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 03:35:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,13 @@ char	*buff_decimal(t_param *p, intmax_t s)
 	}
 	res = ft_umaxtoa_base(s, 10, 0);
 	if (p->precision)
-		res = padd_zero(res, p->precision - 1);
+		res = padd_zero(res, p->precision);
 	if (neg)
 		res = add_char(res, '-');
 	else if (ft_strchr(p->padding, '+'))
 		res = add_char(res, '+');
 	else if (ft_strchr(p->padding, ' '))
 		res = add_char(res, ' ');
-	res = padd_zero(res, p->precision);
 	if (ft_strchr(p->padding, '-'))
 		res = padd_right(res, p->withd);
 	else

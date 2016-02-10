@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 20:36:02 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 21:32:01 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 01:59:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long int	ft_wctolint(wchar_t wc)
 {
 	if (wc < 0x80)
-		return ((int)wc);
+		return ((long int)wc);
 	if (wc < 0x1000)
 		return (0xc080 + ((wc / 0x40) * 0x100) + (wc % 0x40));
 	if (wc < 0x20000)
@@ -59,6 +59,8 @@ char		*ft_wctostr(wchar_t wc)
 	long long	tmp;
 
 	i = 0;
+	if (!wc)
+		return (NULL);
 	tmp = ft_wctolint(wc);
 	res = ft_strnew(4);
 	c = (char)(tmp / 0x1000000);
@@ -80,6 +82,9 @@ char		*ft_strwctostr(wchar_t *wc)
 {
 	char		*str;
 
+	if (wc == 0)
+		return (NULL);
+	str = ft_strnew(0);
 	while (*wc)
 	{
 		str = ft_strjoin(str, ft_wctostr(*wc));

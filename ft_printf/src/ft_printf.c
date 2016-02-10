@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 00:13:12 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:06:02 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	get_values(t_param *p, va_list ap, t_list *lst)
 		else if (p->type == 'C')
 			p->ptr->content = buff_arg(ft_wctostr(va_arg(ap, wchar_t)), p);
 		else if (p->type == 'S')
-			p->ptr->content = buff_arg(ft_strwctostr(va_arg(ap, wchar_t *)), p);
+			p->ptr->content = conv_ws(p, ap);
 		else if (p->type == 'd' || p->type == 'i')
 			p->ptr->content = conv_d(p, ap);
 		else if (p->type == 'n')
@@ -54,8 +54,8 @@ int		ft_printf(const char *str, ...)
 	}
 	if (!(lst = str_tolist(str)))
 		return (0);
-	va_start(ap, str);
 	p = param_list(lst);
+	va_start(ap, str);
 	get_values(p, ap, lst);
 	va_end(ap);
 	tmp = ft_lstcat(lst);

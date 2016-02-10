@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 21:36:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:16:21 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # define CONVERTERS "dDiuUoOxXeEfFaAgGcCsSpn%"
 # define FLAGS		"hlLjtz"
-# define PREFLAGS	"0-+. #"
+# define PREFLAGS	"0-+ #"
 # define NUMERICS	"0123456789"
 # define INT_CONV	"dDiuUoOxX"
 # define FLOAT_CONV "aAeEfFgG"
@@ -43,7 +43,6 @@ char					*padd_left(char *str, size_t size);
 char					*padd_zero(char *str, size_t size);
 char					*padd_right(char *str, size_t size);
 char					*add_char(char *str, char c);
-char					*padd_char(char *str, char c, int is_neg);
 
 /*
 **param.c
@@ -53,6 +52,7 @@ t_param					*arg_decrypt(char *str);
 t_list					*str_tolist(const char *str);
 char					*arg_sub(const char *str);
 t_param					*param_list(t_list *ptr);
+char					*buff_arg(char *res, t_param *p);
 
 /*
 **utils.c
@@ -77,11 +77,11 @@ int						err_checker(t_param *p);
 ** converter.c
 */
 
+char					*conv_ws(t_param *p, va_list ap);
 char					*conv_p(t_param *p, va_list ap);
 void					conv_n(t_param *p, t_list *start, va_list ap);
 char					*conv_d(t_param *p, va_list ap);
 char					*conv_u(t_param *p, va_list ap);
-char					*buff_arg(char *res, t_param *p);
 
 /*
 ** ft_wchar.c

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/09 21:52:45 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 04:04:50 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ t_param		*arg_decrypt(char *str)
 	if (*str != '%')
 		return (NULL);
 	if (get_dollar(p, str + 1) > 0)
-		str = ft_strchr(str, '$') + 1;
+		str = ft_strchr(str, '$');
 	if (!get_sizes(p, str + 1))
-	{
-		ft_putendl("get_size foiré");
 		return (NULL);
-	}
 	return (p);
 }
 
@@ -69,7 +66,7 @@ char		*arg_sub(const char *str)
 	sub = (char*)str;
 	sub++;
 	while (ft_strchr(PREFLAGS, *sub) || ft_strchr(FLAGS, *sub) \
-			|| ft_strchr(NUMERICS, *sub) || *sub == '$')
+			|| ft_strchr(NUMERICS, *sub) || *sub == '$' || *sub == '.')
 		sub++;
 	if (ft_strchr(CONVERTERS, *sub))
 		return (ft_strsub(str, 0, sub - str + 1));
@@ -99,4 +96,21 @@ t_param		*param_list(t_list *ptr)
 		ptr = ptr->next;
 	}
 	return (start);
+}
+
+char		*buff_arg(char *res, t_param *p)
+{
+	char	*str;
+
+	if (!res)
+		return (NULL);
+	if (p->precision && (p->type == 's' || p->type == 'S'))
+			str = ft_strsub(res, 0, p->precision);
+	else
+			str = ft_strdup(res);
+	if (ft_strchr(p->padding, '-'))
+		str = padd_right(str, p->withd);
+	else
+		str = padd_left(str, p->withd);
+	return (str);
 }
