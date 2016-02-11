@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 03:35:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/11 00:31:57 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ char	*buff_u_base(t_param *p, uintmax_t s)
 {
 	char			*res;
 
-	if (p->type == 'd' || p->type == 'i')
-		return (buff_decimal(p, s));
 	if (p->type == 'u')
 		res = ft_umaxtoa_base(s, 10, 0);
 	else if (p->type == 'o')

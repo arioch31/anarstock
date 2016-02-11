@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:06:34 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/11 00:44:15 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 {
 	int  d;
 
-	int i, j ,k;
+	int i, j ,k, l;
 	int		*ptr;
 	int		test;
 	int		tab[80];
@@ -90,14 +90,13 @@ int main(void)
 	  *(str + 10) = c + 2;
 	  *(str + 11) = 0;
 }
-		j = ft_printf("%4.1s", "42");
-		i = printf("%4.1s", "42");
-		ft_putchar('\n');
+		ptr= malloc(sizeof(int));
+		i =ft_printf("%-5%");
+		ft_printf("\n");
 
-		//j = ft_printf("%4.1s", "42");
+		j = printf("{%010d}", -42);
 
+		printf("\nft %d \t pf %d\n", i, j);
 
-
-	printf("\nft %d \tpf %d",i, j);
 	return (0);
 }

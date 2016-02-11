@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:04:50 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/11 00:38:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ char		*buff_arg(char *res, t_param *p)
 	if (!res)
 		return (NULL);
 	if (p->precision && (p->type == 's' || p->type == 'S'))
-			str = ft_strsub(res, 0, p->precision);
+		str = ft_strsub(res, 0, p->precision);
 	else
-			str = ft_strdup(res);
+		str = ft_strdup(res);
 	if (ft_strchr(p->padding, '-'))
 		str = padd_right(str, p->withd);
 	else

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 14:25:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:16:40 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/11 00:38:06 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 char		*conv_ws(t_param *p, va_list ap)
 {
-		char	*str;
-		wchar_t *test;
+	char	*str;
+	wchar_t *test;
 
-		test = NULL;
-		test = va_arg(ap, wchar_t *);
-		if (!test)
-			return (NULL);
-		str = ft_strwctostr(test);
-		if (*str == '%')
-			str++;
-		return (buff_arg(str, p));
+	test = NULL;
+	test = va_arg(ap, wchar_t *);
+	if (!test)
+		return (NULL);
+	str = ft_strwctostr(test);
+	if (*str == '%')
+		str++;
+	return (buff_arg(str, p));
 }
 
 char		*conv_p(t_param *p, va_list ap)
@@ -36,7 +36,7 @@ char		*conv_p(t_param *p, va_list ap)
 	p->length = 'k';
 	i = (unsigned long int)(va_arg(ap, void *));
 	return (buff_u_base(p, i));
-	}
+}
 
 void		conv_n(t_param *p, t_list *start, va_list ap)
 {

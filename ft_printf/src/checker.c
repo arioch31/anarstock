@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:19:01 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/10 23:33:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int		get_sizes(t_param *p, char *str)
 	while (ft_strchr(PREFLAGS, *str))
 	{
 		if (!ft_strchr(p->padding, *str))
-			p->padding = ft_strjoin(p->padding, ft_strsub(str++, 0, 1));
+			p->padding = ft_strjoin(p->padding, ft_strsub(str, 0, 1));
 		else
 			return (0);
+		str++;
 	}
 	p->withd = ft_atoi(str);
 	while (ft_strchr(NUMERICS, *str))
@@ -52,6 +53,9 @@ int		get_sizes(t_param *p, char *str)
 		while (ft_strchr(NUMERICS, *str))
 			str++;
 	}
+	if (ft_strchr(INT_CONV, p->type) && ft_strchr(p->padding, '0') \
+		&& !p->precision && p->withd)
+		p->precision = p->withd;
 	return (get_types(p, str));
 }
 
@@ -98,8 +102,6 @@ int		err_checker(t_param *p)
 	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '-') \
 	&& ft_strchr(ptr, '0'))
 		*ft_strchr(ptr, '0') = 'a';
-	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '0') && !p->precision)
-		p->precision = p->withd;
 	if (p->type == 's' || p->type == 'S' || p->type == 'c' || p->type == 'C')
 		return (check_char(p));
 	if (ft_strchr(FLOAT_CONV, p->type) && ft_strchr(FLOAT_FORB, p->length))
@@ -107,7 +109,7 @@ int		err_checker(t_param *p)
 	if (ft_strchr(INT_CONV, p->type) && p->length == 'L')
 		return (0);
 	if (ft_strchr(p->padding, '#') && (!ft_strchr(HASH_VALID, p->type)
-				|| ft_strchr(p->padding, ' ') || ft_strchr(p->padding, '0')))
+				|| ft_strchr(p->padding, ' ')))
 		return (0);
 	if (p->type == '%')
 		return (!ft_strequ((p->ptr->content), "%%"));
