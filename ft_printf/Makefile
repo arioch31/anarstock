@@ -10,7 +10,7 @@ INC_LIB_PATH = ./libft/includes
 
 OBJ_PATH = ./libft/obj/
 
-SRC_FILES =	checker.c converter.c ft_printf.c ft_wchar.c padder.c param.c utils.c
+SRC_FILES =	checker.c converter.c ft_printf.c ft_wchar.c padder.c param.c utils.c buff_arg.c
 
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 

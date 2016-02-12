@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/11 00:38:16 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/12 05:11:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list		*str_tolist(const char *str)
 	{
 		if (!ft_strchr(ptr, '%'))
 		{
-			ft_lstapp(&start, ft_lstnew(ptr, ft_strlen(ptr)));
+			ft_lstapp(&start, ft_lstnew(ptr, ft_strlen(ptr) + 1));
 			return (start);
 		}
 		else
@@ -96,21 +96,4 @@ t_param		*param_list(t_list *ptr)
 		ptr = ptr->next;
 	}
 	return (start);
-}
-
-char		*buff_arg(char *res, t_param *p)
-{
-	char	*str;
-
-	if (!res)
-		return (NULL);
-	if (p->precision && (p->type == 's' || p->type == 'S'))
-		str = ft_strsub(res, 0, p->precision);
-	else
-		str = ft_strdup(res);
-	if (ft_strchr(p->padding, '-'))
-		str = padd_right(str, p->withd);
-	else
-		str = padd_left(str, p->withd);
-	return (str);
 }

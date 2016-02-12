@@ -1,0 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   buff_arg.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/02/11 19:28:26 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/12 05:11:39 by aeguzqui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+char		*buff_arg(char *res, t_param *p)
+{
+	char	*str;
+
+	if (!res)
+		return (NULL);
+	if (p->precision && (p->type == 's' || p->type == 'S'))
+		str = ft_strsub(res, 0, p->precision);
+	else
+		str = ft_strdup(res);
+	if (ft_strchr(p->padding, '-'))
+		str = padd_right(str, p->withd);
+	else
+		str = padd_left(str, p->withd);
+	return (str);
+}
+
+int			withd_modifier(t_param *p, int neg)
+{
+	if (ft_strchr(p->padding, '#') && (p->type == 'x' || p->type == 'X'))
+		return (2);
+	if (ft_strchr(p->padding, '#') && p->type == 'o')
+		return (1);
+	if (p->type == 'd' && neg == 1)
+		return (1);
+	if (p->type == 'd' && !neg && \
+			(ft_strchr(p->padding, ' ') || ft_strchr(p->padding, '+')))
+		return (1);
+	return (0);
+}
+
+char		*buff_intstr(t_param *p, char *res, int neg)
+{
+	res = padd_zero(res, p->precision);
+	if (ft_strchr(p->padding, '0') \
+			&& p->withd > withd_modifier(p, neg) + ft_strlen(res))
+		res = padd_zero(res, p->withd - withd_modifier(p, neg));
+	if (neg)
+		res = add_char(res, '-');
+	else if (p->type == 'd' && ft_strchr(p->padding, '+'))
+		res = add_char(res, '+');
+	else if (p->type == 'd' && ft_strchr(p->padding, ' '))
+		res = add_char(res, ' ');
+	else if (ft_strchr(p->padding, '#'))
+	{
+		if (p->type == 'x')
+			res = add_char(res, 'x');
+		else if (p->type == 'X')
+			res = add_char(res, 'X');
+		res = add_char(res, '0');
+	}
+	if (ft_strchr(p->padding, '-'))
+		res = padd_right(res, p->withd);
+	else
+		res = padd_left(res, p->withd);
+	return (res);
+}
+
+char		*buff_decimal(t_param *p, intmax_t s)
+{
+	char			*res;
+	int				neg;
+
+	neg = 0;
+	if (s < 0)
+	{
+		neg = 1;
+		if (s - 1 < s)
+			s = -s;
+	}
+	res = ft_umaxtoa_base(s, 10, 0);
+	return (buff_intstr(p, res, neg));
+}
+
+char		*buff_u_base(t_param *p, uintmax_t s)
+{
+	char			*res;
+
+	if (p->type == 'u')
+		res = ft_umaxtoa_base(s, 10, 0);
+	else if (p->type == 'o')
+		res = ft_umaxtoa_base(s, 8, 0);
+	else
+		res = ft_umaxtoa_base(s, 16, (p->type == 'X'));
+	return (buff_intstr(p, res, 0));
+}

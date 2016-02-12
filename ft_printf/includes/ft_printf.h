@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:16:21 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/12 03:03:56 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,16 @@ t_param					*arg_decrypt(char *str);
 t_list					*str_tolist(const char *str);
 char					*arg_sub(const char *str);
 t_param					*param_list(t_list *ptr);
+
+/*
+** buff_arg.c
+*/
+
 char					*buff_arg(char *res, t_param *p);
+int						withd_modifier(t_param *p, int neg);
+char					*buff_intstr(t_param *p, char *res, int neg);
+char					*buff_decimal(t_param *p, intmax_t s);
+char					*buff_u_base(t_param *p, uintmax_t s);
 
 /*
 **utils.c
@@ -61,8 +70,7 @@ char					*buff_arg(char *res, t_param *p);
 t_param					*new_param(void);
 void					destr_param(t_param *p);
 int						app_param(t_param **start, t_param *elem);
-char					*buff_decimal(t_param *p, intmax_t s);
-char					*buff_u_base(t_param *p, uintmax_t s);
+
 /*
 **checker.c
 */

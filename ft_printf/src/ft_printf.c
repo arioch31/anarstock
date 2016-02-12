@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 04:06:02 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/12 05:12:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	get_values(t_param *p, va_list ap, t_list *lst)
 			p->ptr->content = conv_p(p, ap);
 		else if (p->type == 'c')
 			p->ptr->content = \
-				buff_arg(add_char(NULL, (char)va_arg(ap, int)), p);
+			buff_arg(add_char(NULL, (char)va_arg(ap, int)), p);
 		else if (p->type == '%')
 			p->ptr->content = buff_arg(add_char(NULL, '%'), p);
 		else if (p->type == 's')

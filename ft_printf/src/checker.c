@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 23:33:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/12 04:08:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ int		get_sizes(t_param *p, char *str)
 		while (ft_strchr(NUMERICS, *str))
 			str++;
 	}
-	if (ft_strchr(INT_CONV, p->type) && ft_strchr(p->padding, '0') \
-		&& !p->precision && p->withd)
-		p->precision = p->withd;
 	return (get_types(p, str));
 }
 
@@ -99,8 +96,10 @@ int		err_checker(t_param *p)
 	char	*ptr;
 
 	ptr = p->padding;
-	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '-') \
-	&& ft_strchr(ptr, '0'))
+	if (p->type == 'i')
+		p->type = 'd';
+	if (ft_strchr(INT_CONV, p->type) && ft_strchr(ptr, '0') \
+	&& (p->precision || ft_strchr(ptr, '-')))
 		*ft_strchr(ptr, '0') = 'a';
 	if (p->type == 's' || p->type == 'S' || p->type == 'c' || p->type == 'C')
 		return (check_char(p));
@@ -111,9 +110,5 @@ int		err_checker(t_param *p)
 	if (ft_strchr(p->padding, '#') && (!ft_strchr(HASH_VALID, p->type)
 				|| ft_strchr(p->padding, ' ')))
 		return (0);
-	if (p->type == '%')
-		return (!ft_strequ((p->ptr->content), "%%"));
-	if (p->type == 'n')
-		return (!ft_strequ((p->ptr->content), "%n"));
 	return (1);
 }

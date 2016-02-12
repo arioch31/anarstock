@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/11 00:31:57 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/11 19:49:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,57 +58,4 @@ void	destr_param(t_param *p)
 	p->padding = NULL;
 	p->ptr = NULL;
 	free(p);
-}
-
-char	*buff_decimal(t_param *p, intmax_t s)
-{
-	char			*res;
-	int				neg;
-
-	neg = 0;
-	if (s < 0)
-	{
-		neg = 1;
-		s = -s;
-	}
-	res = ft_umaxtoa_base(s, 10, 0);
-	if (p->precision)
-		res = padd_zero(res, p->precision);
-	if (neg)
-		res = add_char(res, '-');
-	else if (ft_strchr(p->padding, '+'))
-		res = add_char(res, '+');
-	else if (ft_strchr(p->padding, ' '))
-		res = add_char(res, ' ');
-	if (ft_strchr(p->padding, '-'))
-		res = padd_right(res, p->withd);
-	else
-		res = padd_left(res, p->withd);
-	return (res);
-}
-
-char	*buff_u_base(t_param *p, uintmax_t s)
-{
-	char			*res;
-
-	if (p->type == 'u')
-		res = ft_umaxtoa_base(s, 10, 0);
-	else if (p->type == 'o')
-		res = ft_umaxtoa_base(s, 8, 0);
-	else
-		res = ft_umaxtoa_base(s, 16, (p->type == 'X'));
-	res = padd_zero(res, p->precision);
-	if (ft_strchr(p->padding, '#'))
-	{
-		if (p->type == 'x')
-			res = add_char(res, 'x');
-		else if (p->type == 'X')
-			res = add_char(res, 'X');
-		res = add_char(res, '0');
-	}
-	if (ft_strchr(p->padding, '-'))
-		res = padd_right(res, p->withd);
-	else
-		res = padd_left(res, p->withd);
-	return (res);
 }
