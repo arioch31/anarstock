@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/12 03:03:56 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/14 22:26:47 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int						err_checker(t_param *p);
 char					*conv_ws(t_param *p, va_list ap);
 char					*conv_p(t_param *p, va_list ap);
 void					conv_n(t_param *p, t_list *start, va_list ap);
+void					conv_c(t_param *p, va_list ap);
 char					*conv_d(t_param *p, va_list ap);
 char					*conv_u(t_param *p, va_list ap);
 

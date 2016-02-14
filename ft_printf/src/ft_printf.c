@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/12 05:12:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/14 23:23:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,49 @@ void	get_values(t_param *p, va_list ap, t_list *lst)
 	{
 		if (p->type == 'p')
 			p->ptr->content = conv_p(p, ap);
-		else if (p->type == 'c')
-			p->ptr->content = \
-			buff_arg(add_char(NULL, (char)va_arg(ap, int)), p);
-		else if (p->type == '%')
-			p->ptr->content = buff_arg(add_char(NULL, '%'), p);
+		else if (p->type == 'c' || p->type == 'C' || p->type == '%')
+			conv_c(p, ap);
 		else if (p->type == 's')
+		{
 			p->ptr->content = buff_arg(va_arg(ap, char *), p);
-		else if (p->type == 'C')
-			p->ptr->content = buff_arg(ft_wctostr(va_arg(ap, wchar_t)), p);
+			p->ptr->content_size = ft_strlen(p->ptr->content) + 1;
+		}
 		else if (p->type == 'S')
+		{
 			p->ptr->content = conv_ws(p, ap);
-		else if (p->type == 'd' || p->type == 'i')
-			p->ptr->content = conv_d(p, ap);
+			p->ptr->content_size = ft_strlen(p->ptr->content) + 1;
+		}
 		else if (p->type == 'n')
 			conv_n(p, lst, ap);
+		else if (p->type == 'd')
+				p->ptr->content = conv_d(p, ap);
 		else if (ft_strchr(INT_CONV, p->type))
 			p->ptr->content = conv_u(p, ap);
 		p = p->next;
 	}
+}
+
+int		lst_write(t_list *p)
+{
+	int	cpt;
+
+	cpt = 0;
+	while (p)
+	{
+		if (!p->content)
+		{
+			ft_putstr("(null)");
+			cpt += 6;
+		}
+
+		else
+		{
+			write(1, p->content, p->content_size - 1);
+			cpt += p->content_size - 1;
+		}
+		p = p->next;
+	}
+	return (cpt);
 }
 
 int		ft_printf(const char *str, ...)
@@ -58,7 +82,5 @@ int		ft_printf(const char *str, ...)
 	va_start(ap, str);
 	get_values(p, ap, lst);
 	va_end(ap);
-	tmp = ft_lstcat(lst);
-	ft_putstr(tmp);
-	return (ft_strlen(tmp));
+	return (lst_write(lst));
 }

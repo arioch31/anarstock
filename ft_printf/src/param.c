@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 03:03:20 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/12 05:11:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/14 20:59:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ t_list		*str_tolist(const char *str)
 			ft_lstapp(&start, ft_lstnew(ptr, ft_strlen(ptr) + 1));
 			return (start);
 		}
-		else
+		else if (*ptr != '%')
 		{
 			test = ft_strsub(ptr, 0, ft_strchr(ptr, '%') - ptr);
 			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
 			ptr = ft_strchr(ptr, '%');
-			if (!(test = arg_sub(ptr)))
-				return (NULL);
-			ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
-			ptr += ft_strlen(test);
 		}
+		if (!(test = arg_sub(ptr)))
+			return (NULL);
+		ft_lstapp(&start, ft_lstnew(test, ft_strlen(test) + 1));
+		ptr += ft_strlen(test);
 	}
 	return (start);
 }

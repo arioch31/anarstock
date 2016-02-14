@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 19:28:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/12 05:11:39 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/15 00:12:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,32 @@ char		*buff_arg(char *res, t_param *p)
 	if (!res)
 		return (NULL);
 	if (p->precision && (p->type == 's' || p->type == 'S'))
-		str = ft_strsub(res, 0, p->precision);
+	{
+			str = ft_strsub(res, 0, p->precision);
+			if (ft_strchr(p->padding, '-'))
+				str = padd_right(str, p->withd);
+			else
+				str = padd_left(str, p->withd);
+	}
+	else if (!*res && (p->type == 'c' || p->type == 'C'))
+	{
+			str = ft_strnew(p->withd + 1);
+			str = ft_memset(str, ' ', p->withd);
+			if (!ft_strchr(p->padding, '-') && p->withd)
+				*(str + p->withd - 1) = '\0';
+			else
+				*str = '\0';
+	}
 	else
+	{
 		str = ft_strdup(res);
 	if (ft_strchr(p->padding, '-'))
 		str = padd_right(str, p->withd);
 	else
 		str = padd_left(str, p->withd);
+	}
 	return (str);
+
 }
 
 int			withd_modifier(t_param *p, int neg)
@@ -67,6 +85,7 @@ char		*buff_intstr(t_param *p, char *res, int neg)
 		res = padd_right(res, p->withd);
 	else
 		res = padd_left(res, p->withd);
+	p->ptr->content_size = ft_strlen(res) + 1;
 	return (res);
 }
 
@@ -90,6 +109,8 @@ char		*buff_u_base(t_param *p, uintmax_t s)
 {
 	char			*res;
 
+	if (s == 0 && ft_strchr(p->padding, '#'))
+		*ft_strchr(p->padding, '#') = 'a';
 	if (p->type == 'u')
 		res = ft_umaxtoa_base(s, 10, 0);
 	else if (p->type == 'o')

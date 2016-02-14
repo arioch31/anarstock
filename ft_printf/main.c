@@ -6,40 +6,27 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/12 03:09:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/12 04:33:11 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/14 23:10:55 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int main (void)
 {
+  int i,j;
 
-  ft_printf(NULL);
+  i = ft_printf("%2c", 0);
+  ft_printf("\n");
+  ft_printf("%-2c", 0);
   ft_printf("\n");
 
-  ft_printf("%d", 1);
-  ft_printf("\n");
-  ft_putendl("test %%%%%%%%%%%%%%%%%%%%%%%%%%");
+  /*j = printf("%2c", 0);
+  printf("\n");
+  printf("ft %d  \tpf %d", i, j);
+*/
 
-  ft_printf("%%");
-  ft_printf("\n");
-   ft_printf("%d is one\n", 1);
-   ft_printf("%lld", -9223372036854775807 - 1);
 
-/*
-    ft_printf("%5%");
-    ft_printf("\n");
-
-    ft_printf("%-5%");
-    ft_printf("\n");
-
- ft_printf("%.0%");
- ft_printf("\n");
-
-   ft_printf("%%", "test");
-   ft_printf("\n");
-
- ft_printf("%   %", "test");
- */return (0);
+return (0);
 }
