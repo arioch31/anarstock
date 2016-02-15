@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 19:28:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/15 00:12:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/15 01:36:11 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char		*buff_arg(char *res, t_param *p)
 		str = padd_left(str, p->withd);
 	}
 	return (str);
-
 }
 
 int			withd_modifier(t_param *p, int neg)
@@ -109,8 +108,10 @@ char		*buff_u_base(t_param *p, uintmax_t s)
 {
 	char			*res;
 
-	if (s == 0 && ft_strchr(p->padding, '#'))
+	if (s == 0 && !(p->type == 'p') && ft_strchr(p->padding, '#'))
 		*ft_strchr(p->padding, '#') = 'a';
+	if (p->type == 'p')
+		p->type = 'x';
 	if (p->type == 'u')
 		res = ft_umaxtoa_base(s, 10, 0);
 	else if (p->type == 'o')

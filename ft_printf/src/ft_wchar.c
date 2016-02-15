@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 20:36:02 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/10 01:59:48 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/15 01:57:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int			ft_writewc(wchar_t wc)
 	part[2] = (char)(tmp % 0x10000 / 0x100);
 	part[3] = (char)(tmp % 0x100);
 	if (part[0])
-		write(1, &part[1], 1);
+		write(1, &part[0], 1);
 	if (part[1])
-		write(1, &part[2], 1);
+		write(1, &part[1], 1);
 	if (part[2])
-		write(1, &part[3], 1);
+		write(1, &part[2], 1);
 	if (part[3])
-		write(1, &part[4], 1);
+		write(1, &part[3], 1);
 	i = !!part[1] + !!part[2] + !!part[3] + !!part[0];
 	return (i);
 }

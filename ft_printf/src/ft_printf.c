@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/14 23:23:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/15 00:26:09 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_values(t_param *p, va_list ap, t_list *lst)
 		else if (p->type == 'n')
 			conv_n(p, lst, ap);
 		else if (p->type == 'd')
-				p->ptr->content = conv_d(p, ap);
+			p->ptr->content = conv_d(p, ap);
 		else if (ft_strchr(INT_CONV, p->type))
 			p->ptr->content = conv_u(p, ap);
 		p = p->next;
@@ -52,7 +52,6 @@ int		lst_write(t_list *p)
 			ft_putstr("(null)");
 			cpt += 6;
 		}
-
 		else
 		{
 			write(1, p->content, p->content_size - 1);

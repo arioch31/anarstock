@@ -6,11 +6,11 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/11 07:16:02 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/15 04:53:58 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 void exit_error(void)
 {
@@ -29,7 +29,7 @@ t_list  *crea_pile(int nb, int *tab)
   while (i < nb)
   {
     elem = ft_lstnew(&tab[i], sizeof(int));
-    ft_lstadd(&start, elem);
+    ft_lstapp(&start, elem);
     i++;
   }
   return (start);
@@ -86,14 +86,30 @@ void print_tab(int *tab, size_t size)
 int main(int ac, char **av)
 {
   int *tab;
+  t_list  *liste_a;
+  t_list *liste_b;
 
+  liste_b = NULL;
   if (ac == 1)
     exit_error();
   else
   {
     tab = get_numbers(ac, av);
     print_tab(tab, (size_t)ac - 1);
-    aff_pile(crea_pile(ac - 1, tab));
+    liste_a = crea_pile(ac - 1, tab);
+    aff_pile(liste_a);
+    rot_pile(&liste_a);
+    aff_pile(liste_a);
+    revrot_pile(&liste_a);
+    aff_pile(liste_a);
+    swap_pile(&liste_a);
+    aff_pile(liste_a);
+    push_piler(&liste_a, &liste_b);
+    aff_pile(liste_a);
+    aff_pile(liste_b);
+    push_piler(&liste_b, &liste_a);
+    aff_pile(liste_a);
+    aff_pile(liste_b);
   }
   return (0);
 }
