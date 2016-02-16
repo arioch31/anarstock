@@ -93,6 +93,7 @@ void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
+t_list				*ft_lstcpy(t_list *lst);
 void				ft_print_tab(char **tab);
 
 #endif

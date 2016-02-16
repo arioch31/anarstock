@@ -12,104 +12,87 @@
 
 #include "push_swap.h"
 
-void exit_error(void)
+void del_list(void* content, size_t content_size)
 {
-  ft_putendl("Erreur\n");
-  exit(0);
+  free(content);
+  if (content_size)
+  content_size = 0;
 }
 
-t_list  *crea_pile(int nb, int *tab)
+void exit_error(t_list *origin, t_controleur *c)
 {
-  int i;
-  t_list  *start;
-  t_list  *elem;
-
-  start = NULL;
-  i = 0;
-  while (i < nb)
+  if (origin)
   {
-    elem = ft_lstnew(&tab[i], sizeof(int));
-    ft_lstapp(&start, elem);
-    i++;
+    ft_lstdel(&origin, &del_list);
   }
-  return (start);
+  if (c)
+  {
+      ft_lstdel(&(c->la), &del_list);
+      ft_lstdel(&(c->lb), &del_list);
+      free(c->op_j);
+      free(c);
+  }
+  exit(0);
 }
 
 void aff_pile(t_list *start)
 {
-  while (start)
+  if (start)
   {
+    if (start->next)
+    {
+      aff_pile(start->next);
+      ft_putchar(' ');
+    }
     ft_putnbr(*(int*)(start->content));
-    ft_putchar(' ');
-    start = start->next;
   }
-  ft_putchar('\n');
 }
 
-int *get_numbers(int ac, char **av)
+t_list *get_entry(int ac, char **av)
 {
-  int i;
-  int j;
-  int cpt;
-  int *tab;
+   int i;
+  unsigned int j;
   long int test;
+  char    charset[] = "0123456789+-";
+  t_list  *start;
 
-  i = 1;
-  tab = malloc(sizeof(int) * (ac - 1));
-  while (i < ac)
+  start = NULL;
+  i = 0;
+  while (++i < ac)
   {
       j = 0;
       while (j < ft_strlen(av[i]))
-          if (!ft_isdigit(av[i][j++]))
-            exit_error();
-      test = ft_atoli(av[i]);
-      if (test != (long int)(int)test)
-        exit_error();
-      cpt = 0;
-      while (cpt < i - 1)
-          if (tab[cpt++] == (int)test)
-            exit_error();
-      tab[i++ - 1] = (int)test;
+          if (!ft_strchr(charset, av[i][j++]))
+            exit_error(start, NULL);
+        test = ft_atoli(av[i]);
+      if ((unsigned long int)test != (unsigned long int)(int)test)
+        exit_error(start, NULL);
+     ft_lstapp(&start, ft_lstnew(&test, sizeof(int)));
   }
-  return (tab);
-}
-
-void print_tab(int *tab, size_t size)
-{
-  size_t  i;
-
-  i = 0;
-  while (i < size)
-    ft_putendl(ft_itoa(tab[i++]));
+  return(start);
 }
 
 int main(int ac, char **av)
 {
-  int *tab;
-  t_list  *liste_a;
-  t_list *liste_b;
+  t_list  *origin;
+  t_controleur *c;
 
-  liste_b = NULL;
   if (ac == 1)
-    exit_error();
+    exit_error(NULL,NULL);
   else
   {
-    tab = get_numbers(ac, av);
-    print_tab(tab, (size_t)ac - 1);
-    liste_a = crea_pile(ac - 1, tab);
-    aff_pile(liste_a);
-    rot_pile(&liste_a);
-    aff_pile(liste_a);
-    revrot_pile(&liste_a);
-    aff_pile(liste_a);
-    swap_pile(&liste_a);
-    aff_pile(liste_a);
-    push_piler(&liste_a, &liste_b);
-    aff_pile(liste_a);
-    aff_pile(liste_b);
-    push_piler(&liste_b, &liste_a);
-    aff_pile(liste_a);
-    aff_pile(liste_b);
+    origin = get_entry(ac,av);
+    c = init_c(origin);
+    aff_state(c);   
+   
+     if (ps_push(1, c))
+      aff_state(c);
+    if (ps_push(1, c))
+      aff_state(c);
+    ft_putendl("\ntest ok!\n");
+    exit_error(origin, c);
+
+    
   }
   return (0);
 }
