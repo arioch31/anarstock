@@ -49,10 +49,14 @@ int		ps_push(int cible, t_controleur *c)
 	if (cible == 1 && c->la)
 	{
 		push_piler(&(c->la), &(c->lb));
+		c->la_len--;
+		c->lb_len++;
 		return (ad_op(c, "pa"));
 	}
 	else if(cible == 2 && c->lb)
 	{
+		c->la_len++;
+		c->lb_len--;
 		push_piler(&(c->lb), &(c->la));
 		return (ad_op(c, "pb"));
 	}

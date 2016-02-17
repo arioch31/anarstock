@@ -94,6 +94,7 @@ t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
 t_list				*ft_lstcpy(t_list *lst);
+t_list 				*ft_lstgetnb(t_list *start, size_t index);
 void				ft_print_tab(char **tab);
 
 #endif

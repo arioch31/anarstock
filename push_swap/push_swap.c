@@ -12,42 +12,6 @@
 
 #include "push_swap.h"
 
-void del_list(void* content, size_t content_size)
-{
-  free(content);
-  if (content_size)
-  content_size = 0;
-}
-
-void exit_error(t_list *origin, t_controleur *c)
-{
-  if (origin)
-  {
-    ft_lstdel(&origin, &del_list);
-  }
-  if (c)
-  {
-      ft_lstdel(&(c->la), &del_list);
-      ft_lstdel(&(c->lb), &del_list);
-      free(c->op_j);
-      free(c);
-  }
-  exit(0);
-}
-
-void aff_pile(t_list *start)
-{
-  if (start)
-  {
-    if (start->next)
-    {
-      aff_pile(start->next);
-      ft_putchar(' ');
-    }
-    ft_putnbr(*(int*)(start->content));
-  }
-}
-
 t_list *get_entry(int ac, char **av)
 {
    int i;
@@ -76,6 +40,7 @@ int main(int ac, char **av)
 {
   t_list  *origin;
   t_controleur *c;
+  t_controleur *d;
 
   if (ac == 1)
     exit_error(NULL,NULL);
@@ -83,16 +48,20 @@ int main(int ac, char **av)
   {
     origin = get_entry(ac,av);
     c = init_c(origin);
-    aff_state(c);   
-   
-     if (ps_push(1, c))
-      aff_state(c);
-    if (ps_push(1, c))
-      aff_state(c);
-    ft_putendl("\ntest ok!\n");
-    exit_error(origin, c);
+    d = copie_c(c);
 
+    ps_swap(1, c); 
+    ps_revrot(1, c);  
+    ft_putstr("\n test: \t");
+    ft_putnbr(0);
+    ft_putnbr(solver(d));
     
+    
+    ft_putendl("\n=======================================");
+    aff_state(d);
+    d = brute(d,500);
+
+    aff_state(d);
   }
   return (0);
 }
