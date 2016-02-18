@@ -14,7 +14,7 @@
 
 t_list 	*ft_lstgetnb(t_list *start, size_t index)
 {
-	int i;
+	size_t i;
 
 	if (!index)
 		return (NULL);

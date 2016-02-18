@@ -28,9 +28,13 @@ int 	solver(t_controleur *c)
 		{
 			ps_rot(1, c);
 			ps_swap(1, c);
+	aff_pile(c->la);
+	ft_putchar('\t');
 		}
 		while (--cpt > 1)
 			ps_revrot(1,c);
+	aff_pile(c->la);
+	ft_putchar('\n');
 		return(solver(c));
 	}
 	ps_revrot(1, c);
@@ -48,6 +52,6 @@ t_controleur	*brute(t_controleur *parent, size_t it_max)
 //	if (!parent->lb && pile_triee(parent->la))
 //		return (parent);
 	if (tab[2](1, parent))
-		return (parent);
+		return (brute(parent);
 	return (NULL);
 }

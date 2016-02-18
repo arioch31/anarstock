@@ -31,6 +31,8 @@ t_list *get_entry(int ac, char **av)
         test = ft_atoli(av[i]);
       if ((unsigned long int)test != (unsigned long int)(int)test)
         exit_error(start, NULL);
+      if (get_valued(start, test))
+        exit_error(start, NULL);
      ft_lstapp(&start, ft_lstnew(&test, sizeof(int)));
   }
   return(start);
@@ -57,11 +59,28 @@ int main(int ac, char **av)
     ft_putnbr(solver(d));
     
     
-    ft_putendl("\n=======================================");
     aff_state(d);
     d = brute(d,500);
-
     aff_state(d);
+        ft_putendl("\n=======================================");
+    ft_putendl("=======================================");
+    ft_putendl("=======================================");
+    ft_putendl("=======================================");
+        ft_putstr("\n test: \t");
+
+    ft_putnbr(*(int*)d->la->content);
+    ft_putnbr(*(int*)c->la->content);
+    (*(int*)d->la->content)++;
+        ft_putstr("\n test: \t");
+
+    ft_putnbr(*(int*)d->la->content);
+    ft_putnbr(*(int*)c->la->content);
+    (*(int*)d->la->content)++;
+        ft_putstr("\n test: \t");
+
+    ft_putnbr(*(int*)d->la->content);
+    ft_putnbr(*(int*)c->la->content);
+
   }
   return (0);
 }

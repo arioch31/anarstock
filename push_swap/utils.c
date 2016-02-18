@@ -14,6 +14,17 @@ size_t 	rank(t_list *start, int value)
 	return (i);
 }
 
+t_list		*get_valued(t_list *start, int value)
+{
+	while(start)
+	{
+		if (*(int*)start->content == value)
+			return (start);	
+		start = start->next;
+	}
+	return (start);	
+}
+
 t_list 		*get_ranker(t_list *start, size_t index)
 {
 	t_list *ptr;

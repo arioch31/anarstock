@@ -71,6 +71,7 @@ int		ad_op(t_controleur *c, char *name);
 */
 
 size_t 	rank(t_list *start, int value);
+t_list		*get_valued(t_list *start, int value);
 t_list 		*get_ranker(t_list *start, size_t index);
 size_t 			get_length(t_list *start);
 size_t 			get_sublength(t_list *start, int borne, int sens);
