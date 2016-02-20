@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/03 14:25:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/15 01:38:12 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/20 20:02:23 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ void		conv_c(t_param *p, va_list ap)
 {
 	char *tmp;
 
+	tmp = NULL;
 	if (p->type == 'c')
 		tmp = add_char(NULL, (char)va_arg(ap, int));
 	if (p->type == 'C')
 		tmp = ft_wctostr(va_arg(ap, wchar_t));
 	if (p->type == '%')
-		tmp = buff_arg(add_char(NULL, '%'), p);
+		tmp = add_char(NULL, '%');
 	p->ptr->content = buff_arg(tmp, p);
-	if (p->withd)
+	if (p->withd > ft_strlen(tmp))
 		p->ptr->content_size = p->withd + 1;
+	else if (p->type == 'C' && *tmp)
+		p->ptr->content_size = ft_strlen(tmp) + 1;
 	else
 		p->ptr->content_size = 2;
 }

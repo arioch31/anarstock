@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 19:28:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/15 01:36:11 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/20 21:06:22 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,24 @@ char		*buff_arg(char *res, t_param *p)
 
 	if (!res)
 		return (NULL);
-	if (p->precision && (p->type == 's' || p->type == 'S'))
+	if (!*res && (p->type == 'c' || p->type == 'C'))
 	{
-			str = ft_strsub(res, 0, p->precision);
-			if (ft_strchr(p->padding, '-'))
-				str = padd_right(str, p->withd);
-			else
-				str = padd_left(str, p->withd);
+		str = ft_strnew(p->withd + 1);
+		str = ft_memset(str, ' ', p->withd);
+		if (!ft_strchr(p->padding, '-') && p->withd)
+			*(str + p->withd - 1) = '\0';
+		else
+			*str = '\0';
+		return (str);
 	}
-	else if (!*res && (p->type == 'c' || p->type == 'C'))
-	{
-			str = ft_strnew(p->withd + 1);
-			str = ft_memset(str, ' ', p->withd);
-			if (!ft_strchr(p->padding, '-') && p->withd)
-				*(str + p->withd - 1) = '\0';
-			else
-				*str = '\0';
-	}
+	else if (p->precision && (p->type == 's' || p->type == 'S'))
+		str = ft_strsub(res, 0, p->precision);
 	else
-	{
 		str = ft_strdup(res);
 	if (ft_strchr(p->padding, '-'))
 		str = padd_right(str, p->withd);
 	else
 		str = padd_left(str, p->withd);
-	}
 	return (str);
 }
 

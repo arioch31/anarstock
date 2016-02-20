@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 20:36:02 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/15 01:57:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/20 20:14:43 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ char		*ft_wctostr(wchar_t wc)
 
 	i = 0;
 	if (!wc)
-		return (NULL);
+		return (ft_strdup("\0"));
 	tmp = ft_wctolint(wc);
-	res = ft_strnew(4);
+	res = ft_strnew(5);
 	c = (char)(tmp / 0x1000000);
 	if (c)
 		res[i++] = c;
@@ -75,6 +75,7 @@ char		*ft_wctostr(wchar_t wc)
 	c = (char)(tmp % 0x100);
 	if (c)
 		res[i++] = c;
+	res[i] = '\0';
 	return (res);
 }
 

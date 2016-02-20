@@ -15,6 +15,7 @@ SRC_FILES =	ft_ispace.c		\
 			ft_striter.c	\
 			ft_strnequ.c	\
 			ft_atoi.c		\
+			ft_atoli.c		\
 			ft_lstdel.c		\
 			ft_memdel.c		\
 			ft_putstr_fd.c	\
@@ -59,7 +60,7 @@ SRC_FILES =	ft_ispace.c		\
 			ft_strtrim.c	\
 			ft_itoa.c		\
 			ft_ultoa.c		\
-			ft_umaxtoa.c		\
+			ft_umaxtoa.c	\
 			ft_memchr.c		\
 			ft_putnbr.c		\
 			ft_strdup.c		\
@@ -75,7 +76,9 @@ SRC_FILES =	ft_ispace.c		\
 			ft_lstinsert.c	\
 			ft_lstrsplit.c	\
 			ft_lstdelpropre.c\
-			ft_lstcat.c
+			ft_lstcat.c		\
+			ft_lstgetnb.c	\
+			ft_lstcpy.c
 
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 
