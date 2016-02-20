@@ -2,27 +2,34 @@
 
 void 	aff_state(t_controleur *c)
 {
+  if (!c)
+    ft_putendl("c vide");
+  else
+  {
    ft_putendl("\n============================");
 	ft_putendl("état des piles :");
   ft_putendl("base===================sommet");
 	aff_pile(c->la);
 	ft_putchar('\n');
 	aff_pile(c->lb);
-  ft_putendl("base===================sommet");
-	ft_putstr("\nnb op :\t");
-	ft_putnbr(c->nb_op);
-	ft_putendl("\njournal:");
+  ft_putendl("\nbase===================sommet");
+	ft_putendl("journal:");
 	ft_putendl(c->op_j);
+  ft_putstr("nb op :\t\t");
+  ft_putnbr(c->nb_op);
+  ft_putstr("\nlast op :\t");
+  ft_putendl(c->last_op);
   ft_putstr("length totale :\t");
   ft_putnbr(c->length);
   ft_putstr("\nlength la :\t");
   ft_putnbr(c->la_len);
   ft_putstr("\nlength lb :\t");
   ft_putnbr(c->lb_len);
-   ft_putstr("\nval mediane :\t");
+  ft_putstr("\nval mediane :\t");
   ft_putnbr(c->val_m);
-   ft_putstr("\nphase :\t");
+  ft_putstr("\nphase :\t");
   ft_putnbr(c->phase);
+  }
 }
 
 void aff_pile(t_list *start)
@@ -51,6 +58,7 @@ int pile_triee(t_list *p)
 
 void del_list(void* content, size_t content_size)
 {
+   if (!content_size)
   free(content);
   if (content_size)
   content_size = 0;

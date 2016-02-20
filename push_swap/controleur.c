@@ -1,12 +1,29 @@
 #include "push_swap.h"
 
 
+t_list			*new_pile(t_list *origin)
+{
+	t_list		*new_pile;
+	t_list		*ptr;
+
+	new_pile = NULL;
+	while (origin)
+	{		
+		ptr = malloc(sizeof(t_list));
+		ptr->content_size = origin->content_size;
+		ptr->content = origin->content;
+		ft_lstapp(&new_pile, ptr);
+		origin = origin->next;
+	}
+	return (new_pile);
+}
+
 t_controleur	*init_c(t_list	*start)
 {
 	t_controleur *c;
 
 	c = malloc(sizeof(t_controleur));
-	c->la = ft_lstcpy(start);
+	c->la = new_pile(start);
 	c->lb = NULL;
 	c->length = get_length(c->la);
 	c->la_len = c->length;
@@ -16,6 +33,7 @@ t_controleur	*init_c(t_list	*start)
 	c->phase = 0;
 	c->op_j = ft_strnew(0);
 	c->nb_op = 0;
+	c->last_op = ft_strnew(0);
 	return (c);
 }
 
@@ -25,14 +43,15 @@ t_controleur	*copie_c(t_controleur	*c)
 
 	d= init_c(NULL);
 	d->op_j = ft_strdup(c->op_j);
-	d->la = ft_lstcpy(c->la);
-	d->lb = ft_lstcpy(c->lb);
+	d->la = new_pile(c->la);
+	d->lb = new_pile(c->lb);
 	d->nb_op = c->nb_op;
 	d->length =	c->length ;
 	d->la_len = get_length(d->la);
 	d->lb_len = get_length(d->lb);
 	d->phase = c->phase;
 	d->val_m = c->val_m;
+	d->last_op = c->last_op;
 	return (d);
 }
 
@@ -55,6 +74,7 @@ int	ad_op(t_controleur *c, char *name)
 		c->op_j = ft_strjoin(c->op_j, ft_strjoin(" ", name));
 	else
 		c->op_j = ft_strdup(name);
+	c->last_op = ft_strdup(name);
 	c->nb_op++;
 	return (1);
 }

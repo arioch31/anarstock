@@ -22,12 +22,12 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	if (!lst)
 		return (NULL);
 	p = ft_lstcpy(lst);
-	newlist = p;_
-	while (p)
-	{
+	newlist = p;
+	if (f)
+		while (p)
+		{
 			p = f(p);
 			p = p->next;
 		}
-	}
 	return (newlist);
 }

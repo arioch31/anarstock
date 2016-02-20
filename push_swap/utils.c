@@ -47,8 +47,7 @@ size_t 			get_length(t_list *start)
 	}
 	return (i);
 }
-//penser a la_len - get_sublength(c->la)
-// sens : val_m > value =>     si val_m >  ->lb, si val_m <  ->la
+
 size_t 			get_sublength(t_list *start, int value, int sens)
 {
 	int i;

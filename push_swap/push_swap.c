@@ -50,37 +50,17 @@ int main(int ac, char **av)
   {
     origin = get_entry(ac,av);
     c = init_c(origin);
-    d = copie_c(c);
-
-    ps_swap(1, c); 
-    ps_revrot(1, c);  
-    ft_putstr("\n test: \t");
-    ft_putnbr(0);
-    ft_putnbr(solver(d));
     
+    ft_putnbr(solver(c));
+    d = init_c(origin);
+    aff_state(c);
+
+    ft_putendl("\n++++++++++++++++++++++++++++++++++");
+
+    if (brute(d, c->nb_op))
+    	aff_state(d);
     
-    aff_state(d);
-    d = brute(d,500);
-    aff_state(d);
-        ft_putendl("\n=======================================");
-    ft_putendl("=======================================");
-    ft_putendl("=======================================");
-    ft_putendl("=======================================");
-        ft_putstr("\n test: \t");
-
-    ft_putnbr(*(int*)d->la->content);
-    ft_putnbr(*(int*)c->la->content);
-    (*(int*)d->la->content)++;
-        ft_putstr("\n test: \t");
-
-    ft_putnbr(*(int*)d->la->content);
-    ft_putnbr(*(int*)c->la->content);
-    (*(int*)d->la->content)++;
-        ft_putstr("\n test: \t");
-
-    ft_putnbr(*(int*)d->la->content);
-    ft_putnbr(*(int*)c->la->content);
-
+   
   }
   return (0);
 }
