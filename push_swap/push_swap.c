@@ -6,11 +6,12 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/15 04:53:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/20 18:53:37 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 t_list *get_entry(int ac, char **av)
 {
@@ -50,17 +51,18 @@ int main(int ac, char **av)
   {
     origin = get_entry(ac,av);
     c = init_c(origin);
-    
+
     ft_putnbr(solver(c));
     d = init_c(origin);
     aff_state(c);
-
     ft_putendl("\n++++++++++++++++++++++++++++++++++");
 
-    if (brute(d, c->nb_op))
+/*    if (brute(d, c->nb_op))
     	aff_state(d);
-    
-   
+	ft_putendl("\n++++++++++++++++++++++++++++++++++");
+*/
+
+
   }
   return (0);
 }

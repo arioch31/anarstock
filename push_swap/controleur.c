@@ -1,5 +1,16 @@
-#include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controleur.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/20 18:33:54 by aeguzqui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "push_swap.h"
 
 t_list			*new_pile(t_list *origin)
 {
@@ -8,7 +19,7 @@ t_list			*new_pile(t_list *origin)
 
 	new_pile = NULL;
 	while (origin)
-	{		
+	{
 		ptr = malloc(sizeof(t_list));
 		ptr->content_size = origin->content_size;
 		ptr->content = origin->content;
@@ -18,7 +29,7 @@ t_list			*new_pile(t_list *origin)
 	return (new_pile);
 }
 
-t_controleur	*init_c(t_list	*start)
+t_controleur	*init_c(t_list *start)
 {
 	t_controleur *c;
 
@@ -37,16 +48,16 @@ t_controleur	*init_c(t_list	*start)
 	return (c);
 }
 
-t_controleur	*copie_c(t_controleur	*c)
+t_controleur	*copie_c(t_controleur *c)
 {
-	t_controleur 	*d;
+	t_controleur	*d;
 
-	d= init_c(NULL);
+	d = init_c(NULL);
 	d->op_j = ft_strdup(c->op_j);
 	d->la = new_pile(c->la);
 	d->lb = new_pile(c->lb);
 	d->nb_op = c->nb_op;
-	d->length =	c->length ;
+	d->length = c->length;
 	d->la_len = get_length(d->la);
 	d->lb_len = get_length(d->lb);
 	d->phase = c->phase;
@@ -55,18 +66,20 @@ t_controleur	*copie_c(t_controleur	*c)
 	return (d);
 }
 
-void 	destr_c(t_controleur *c)
+void			destr_c(t_controleur **c)
 {
 	if (c)
-  	{
-      ft_lstdel(&(c->la), &del_list);
-      ft_lstdel(&(c->lb), &del_list);
-      free(c->op_j);
-      free(c);
-  	}
+	{
+		ft_lstdel(&((*c)->la), &del_list);
+		ft_lstdel(&((*c)->lb), &del_list);
+		free((*c)->op_j);
+		free((*c)->last_op);
+		free(*c);
+		*c = NULL;
+	}
 }
 
-int	ad_op(t_controleur *c, char *name)
+int				ad_op(t_controleur *c, char *name)
 {
 	if (!name)
 		return (0);

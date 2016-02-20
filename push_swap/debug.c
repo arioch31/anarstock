@@ -69,6 +69,6 @@ void exit_error(t_list *origin, t_controleur *c)
   if (origin)
     ft_lstdel(&origin, &del_list);
   ft_putendl("erreur\n");
-  destr_c(c); 
+  destr_c(&c); 
   exit(0);
 }
