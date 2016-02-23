@@ -58,10 +58,10 @@ int pile_triee(t_list *p)
 
 void del_list(void* content, size_t content_size)
 {
-   if (!content_size)
-  free(content);
+  if (content)
+  	content = NULL;
   if (content_size)
-  content_size = 0;
+  	content_size = 0;
 }
 
 void exit_error(t_list *origin, t_controleur *c)
@@ -69,6 +69,7 @@ void exit_error(t_list *origin, t_controleur *c)
   if (origin)
     ft_lstdel(&origin, &del_list);
   ft_putendl("erreur\n");
-  destr_c(&c); 
+  if (c)
+  	destr_c(&c); 
   exit(0);
 }

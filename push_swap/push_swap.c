@@ -43,7 +43,7 @@ int main(int ac, char **av)
 {
   t_list  *origin;
   t_controleur *c;
-  t_controleur *d;
+//  t_controleur *d;
 
   if (ac == 1)
     exit_error(NULL,NULL);
@@ -52,17 +52,23 @@ int main(int ac, char **av)
     origin = get_entry(ac,av);
     c = init_c(origin);
 
-    ft_putnbr(solver(c));
-    d = init_c(origin);
+    ft_putnbr(solverv2(c));
+  //  d = init_c(origin);
     aff_state(c);
-    ft_putendl("\n++++++++++++++++++++++++++++++++++");
-
-/*    if (brute(d, c->nb_op))
+    ft_putendl("\n++++++++++++++++------++++++++++++++++++");
+  /* 
+    if ((d = brute(d, c->nb_op)))
     	aff_state(d);
+    else
+      ft_putendl("\nechec");
+    **/  
+   
+
 	ft_putendl("\n++++++++++++++++++++++++++++++++++");
-*/
+
 
 
   }
+
   return (0);
 }

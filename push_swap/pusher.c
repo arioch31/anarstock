@@ -26,18 +26,17 @@ int		ps_swap(int cible, t_controleur *c)
 {
 	if (*c->last_op == 's')
 		return (0);
-	if (cible == 1 && c->la)
+	if (cible == 1 && c->la_len > 1)
 	{
 		swap_pile(&(c->la));
 		return (ad_op(c, "sa"));
 	}
-	else if (cible == 2 && c->lb)
+	else if (cible == 2 && c->lb_len > 1)
 	{
 		swap_pile(&(c->lb));
 		return (ad_op(c, "sb"));
 	}
-	else if (cible == 3 && c->la && c->lb \
-		&& c->la->next && c->lb->next)
+	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1)
 	{
 		swap_pile(&(c->la));
 		swap_pile(&(c->lb));
@@ -48,14 +47,14 @@ int		ps_swap(int cible, t_controleur *c)
 
 int		ps_push(int cible, t_controleur *c)
 {
-	if (cible == 1 && c->la && !ft_strequ("pb", c->last_op))
+	if (cible == 1 && c->la_len && !ft_strequ("pb", c->last_op))
 	{
 		push_piler(&(c->la), &(c->lb));
 		c->la_len--;
 		c->lb_len++;
 		return (ad_op(c, "pa"));
 	}
-	else if (cible == 2 && c->lb && !ft_strequ("pa", c->last_op))
+	else if (cible == 2 && c->lb_len && !ft_strequ("pa", c->last_op))
 	{
 		c->la_len++;
 		c->lb_len--;
@@ -91,19 +90,18 @@ int		ps_rot(int cible, t_controleur *c)
 
 int		ps_revrot(int cible, t_controleur *c)
 {
-	if (cible == 1 && c->la && !ft_strequ("ra", c->last_op) \
-	&& !ft_strequ("rr", c->last_op))
+	if (cible == 1 && c->la_len > 1 && (ft_strlen(c->last_op) != 2 || *c->last_op != 'r'))
 	{
 		revrot_pile(&(c->la));
 		return (ad_op(c, "rra"));
 	}
-	else if (cible == 2 && c->lb && !ft_strequ("rb", c->last_op) \
+	else if (cible == 2 && c->lb_len > 1 && !ft_strequ("rb", c->last_op) \
 	&& !ft_strequ("rr", c->last_op))
 	{
 		revrot_pile(&(c->lb));
 		return (ad_op(c, "rrb"));
 	}
-	else if (cible == 3 && c->la && c->lb && c->la->next && c->lb->next \
+	else if (cible == 3 && c->la && c->la_len > 1 && c->lb_len > 1 \
 		&& !(ft_strlen(c->last_op) == 2 && *c->last_op == 'r'))
 	{
 		revrot_pile(&(c->la));

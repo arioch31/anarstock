@@ -62,7 +62,7 @@ t_controleur	*copie_c(t_controleur *c)
 	d->lb_len = get_length(d->lb);
 	d->phase = c->phase;
 	d->val_m = c->val_m;
-	d->last_op = c->last_op;
+	d->last_op = ft_strdup(c->last_op);
 	return (d);
 }
 
@@ -87,6 +87,8 @@ int				ad_op(t_controleur *c, char *name)
 		c->op_j = ft_strjoin(c->op_j, ft_strjoin(" ", name));
 	else
 		c->op_j = ft_strdup(name);
+	if (c->last_op)
+		free(c->last_op);
 	c->last_op = ft_strdup(name);
 	c->nb_op++;
 	return (1);
