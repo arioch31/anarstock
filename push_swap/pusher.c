@@ -24,8 +24,8 @@ void	push_piler(t_list **l1, t_list **l2)
 
 int		ps_swap(int cible, t_controleur *c)
 {
-	if (*c->last_op == 's')
-		return (0);
+//	if (*c->last_op == 's')
+//		return (0);
 	if (cible == 1 && c->la_len > 1)
 	{
 		swap_pile(&(c->la));

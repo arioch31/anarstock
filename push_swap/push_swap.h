@@ -86,14 +86,16 @@ void 	aff_pile(t_list *start);
 void 	aff_state(t_controleur *c);
 void 	del_list(void* content, size_t content_size);
 void 	exit_error(t_list *origin, t_controleur *c);
-int 	pile_triee(t_list *p);
+int 	pile_triee(t_list *p, int sens);
 /*
 **solver.c
 */
 
 int 	solver(t_controleur *c);
 int 	solverv2(t_controleur *c);
+int 	solverv3(t_controleur *c);
 
 t_controleur	*brute(t_controleur *parent, size_t it_max);
+t_controleur	*monobrute(t_controleur *parent, size_t it_max);
 
 #endif

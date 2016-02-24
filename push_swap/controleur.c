@@ -14,19 +14,20 @@
 
 t_list			*new_pile(t_list *origin)
 {
-	t_list		*new_pile;
+	t_list		*new_p;
 	t_list		*ptr;
 
-	new_pile = NULL;
+	new_p = NULL;
 	while (origin)
 	{
 		ptr = malloc(sizeof(t_list));
 		ptr->content_size = origin->content_size;
 		ptr->content = origin->content;
-		ft_lstapp(&new_pile, ptr);
+		ptr->next = NULL;
+		ft_lstapp(&new_p, ptr);
 		origin = origin->next;
 	}
-	return (new_pile);
+	return (new_p);
 }
 
 t_controleur	*init_c(t_list *start)

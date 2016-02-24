@@ -43,32 +43,61 @@ int main(int ac, char **av)
 {
   t_list  *origin;
   t_controleur *c;
-//  t_controleur *d;
+  t_controleur *d;
+  size_t        cpt;
 
-  if (ac == 1)
+  if (ac < 3)
     exit_error(NULL,NULL);
   else
   {
     origin = get_entry(ac,av);
     c = init_c(origin);
+    ft_putendl("initalisation OK!");
+    ft_putnbr(solver(c));
 
-    ft_putnbr(solverv2(c));
-  //  d = init_c(origin);
-    aff_state(c);
-    ft_putendl("\n++++++++++++++++------++++++++++++++++++");
-  /* 
-    if ((d = brute(d, c->nb_op)))
-    	aff_state(d);
+    ft_putendl("solver v1 OK!");
+    d = init_c(origin);
+    ft_putnbr(solverv2(d));
+    ft_putendl("solver v2 OK!");
+    if (c->nb_op < d->nb_op)
+    {
+        aff_state(c);
+        ft_putendl("solver v1 Opti!");
+    }
     else
-      ft_putendl("\nechec");
-    **/  
-   
+    {    
+      aff_state(d);
+      ft_putendl("solver v2 Opti!");
+    }
+    ft_putstr("results :\nv1\t");
+    ft_putnbr(c->nb_op);
+    ft_putstr("\nv2\t");
+    ft_putnbr(d->nb_op);
+    
 
-	ft_putendl("\n++++++++++++++++++++++++++++++++++");
 
+    ft_putendl("\n++++++++++++++++------++++++++++++++++++");
+//   if (c->nb_op < 50){
+   while ((c = monobrute(init_c(origin), c->nb_op)))
+      {
+              ft_putnbr(c->nb_op);
+              ft_putendl(c->op_j);
+        cpt = c->nb_op;
+      }
+        ft_putendl("test");      
+      if ((d = brute(init_c(origin), cpt)))
+      {
+        ft_putnbr(d->nb_op);
+        ft_putendl(d->op_j);
+      }
+      else
+       ft_putendl("echec brute");
 
-
-  }
-
+    }
+//    else
+//      ft_putendl("echec monobrute");
+  //}
+  
+  
   return (0);
 }

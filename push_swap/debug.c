@@ -29,6 +29,7 @@ void 	aff_state(t_controleur *c)
   ft_putnbr(c->val_m);
   ft_putstr("\nphase :\t");
   ft_putnbr(c->phase);
+  ft_putchar('\n');
   }
 }
 
@@ -45,14 +46,16 @@ void aff_pile(t_list *start)
   }
 }
 
-int pile_triee(t_list *p)
+int pile_triee(t_list *p, int sens)
 {
   if (!p)
     return (0);
   if (!p->next)
     return (1);
-  if (*(int*)p->content < *(int*)p->next->content)
-    return(pile_triee(p->next));
+  if (sens && *(int*)p->content < *(int*)p->next->content)
+    return(pile_triee(p->next, sens));
+  if (!sens && *(int*)p->content > *(int*)p->next->content)
+    return(pile_triee(p->next, sens));
   return (0);
 }
 

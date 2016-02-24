@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_lstapp(t_list **alst, t_list *new)
+void	ft_lstapp(t_list **alst, t_list *newelem)
 {
 	t_list *ptr;
 
@@ -21,8 +21,8 @@ void	ft_lstapp(t_list **alst, t_list *new)
 		ptr = *alst;
 		while (ptr->next)
 			ptr = ptr->next;
-		ptr->next = new;
+		ptr->next = newelem;
 	}
 	else
-		*alst = new;
+		*alst = newelem;
 }
