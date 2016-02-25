@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
+//#include <stdio.h>
 
 t_list *get_entry(int ac, char **av)
 {
@@ -44,7 +44,8 @@ int main(int ac, char **av)
   t_list  *origin;
   t_controleur *c;
   t_controleur *d;
-  size_t        cpt;
+//  size_t        cpt;
+  char          *ptr;
 
   if (ac < 3)
     exit_error(NULL,NULL);
@@ -73,11 +74,20 @@ int main(int ac, char **av)
     ft_putnbr(c->nb_op);
     ft_putstr("\nv2\t");
     ft_putnbr(d->nb_op);
-    
+    ft_putendl("\n++++++++++++++++------++++++++++++++++++");
 
+    ptr = d->code_f;
+    while (ptr != d->last_op)
+    {
+      ft_putstr(str_f[(int)*ptr]);
+      ft_putchar(' ');
+      ptr++;
+    } 
+      ft_putstr(str_f[(int)*ptr]);
 
     ft_putendl("\n++++++++++++++++------++++++++++++++++++");
-//   if (c->nb_op < 50){
+ /*  if (c->nb_op < 50)
+   {
    while ((c = monobrute(init_c(origin), c->nb_op)))
       {
               ft_putnbr(c->nb_op);
@@ -94,10 +104,10 @@ int main(int ac, char **av)
        ft_putendl("echec brute");
 
     }
-//    else
-//      ft_putendl("echec monobrute");
-  //}
-  
+    else
+      ft_putendl("echec monobrute");
+  */}
+    ft_putendl(str_f[PB]);
   
   return (0);
 }

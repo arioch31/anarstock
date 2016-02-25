@@ -23,6 +23,7 @@ int		solver(t_controleur *c)
 	if (c->la_len > 2 && (test = get_sublength(c->la->next, *(int*)c->la->content, 1)))
 	{
 		ps_swap(1, c);
+
 		while (++cpt < test)
 		{
 			ps_rot(1, c);
@@ -45,13 +46,23 @@ int		solverv2(t_controleur *c)
 	ft_putchar('\n');
 	aff_pile(c->lb);
 	ft_putchar('\n');
-	ft_putendl(c->op_j);
-*/	if (!c->lb && pile_triee(c->la, 1))
+
+	
+
+	ft_putendl("test");
+
+*/
+	if (!c->lb && pile_triee(c->la, 1))
 		return (1);
-	if (!(*(int*)c->la->content < c->val_m) && pile_triee(c->la, 1) && pile_triee(c->lb, 0))
+	if (pile_triee(c->la, 1) && pile_triee(c->lb, 0))
 	{
 		while (c->lb)
+		{
+			if (pile_triee(c->lb, 0))
+				ft_putnbr(c->lb_len);
+				aff_state(c);
 			ps_push(2, c);
+		}
 		return (solverv2(c));
 	}
 

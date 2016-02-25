@@ -14,6 +14,22 @@
 # define PUSH_SWAP_H
 # include "libft.h"
 
+enum code_f
+{
+	SA,
+	PA,
+	RA,
+	RB,
+	RR,
+	SS,
+	RRR,
+	RRB,
+	RRA,
+	PB,
+	SB
+};
+
+#define	str_f (const char*[11]){"sa", "pa", "ra", "rb", "rr", "ss", "rrr", "rrb", "rra", "pb", "sb" }
 
 typedef struct s_controleur
 {
@@ -23,10 +39,15 @@ typedef struct s_controleur
 	t_list		*lb;
 	size_t		lb_len;
 	int 		val_m;
-	char		*op_j;
+
 	size_t		nb_op;
-	char		*last_op;
+
+
 	int 		phase;
+
+	char 		*code_f;
+	char		*last_op;
+	size_t		size_codef;		
 }				t_controleur;
 
 typedef int (*t_fpile)(int, t_controleur*);
@@ -66,7 +87,7 @@ t_list			*new_pile(t_list *origin);
 t_controleur	*init_c(t_list	*start);
 t_controleur	*copie_c(t_controleur	*c);
 void 	destr_c(t_controleur **c);
-int		ad_op(t_controleur *c, char *name);
+int		ad_op(t_controleur *c, int code_f);
 
 /*
 **utils.c

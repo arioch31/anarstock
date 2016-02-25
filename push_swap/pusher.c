@@ -24,89 +24,88 @@ void	push_piler(t_list **l1, t_list **l2)
 
 int		ps_swap(int cible, t_controleur *c)
 {
-//	if (*c->last_op == 's')
-//		return (0);
-	if (cible == 1 && c->la_len > 1)
+	if (cible == 1 && c->la_len > 1  && (!c->last_op || !(*(c->last_op) == (char)SA)))//tous les S, SA, SB SS
 	{
 		swap_pile(&(c->la));
-		return (ad_op(c, "sa"));
+		return (ad_op(c, 0));
 	}
-	else if (cible == 2 && c->lb_len > 1)
+	else if (cible == 2 && c->lb_len > 1 && (!c->last_op || !(*(c->last_op) == (char)SB)))
 	{
 		swap_pile(&(c->lb));
-		return (ad_op(c, "sb"));
+		return (ad_op(c, 10));
 	}
-	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1)
+	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1 && (!c->last_op ||!(*c->last_op == SS)))
 	{
 		swap_pile(&(c->la));
 		swap_pile(&(c->lb));
-		return (ad_op(c, "ss"));
+		return (ad_op(c, 5));
 	}
 	return (0);
 }
 
 int		ps_push(int cible, t_controleur *c)
 {
-	if (cible == 1 && c->la_len && !ft_strequ("pb", c->last_op))
+	if (cible == 1 && c->la_len && (!c->last_op ||!(*c->last_op == PB)))
 	{
 		push_piler(&(c->la), &(c->lb));
 		c->la_len--;
 		c->lb_len++;
-		return (ad_op(c, "pa"));
+		return (ad_op(c, 1));
 	}
-	else if (cible == 2 && c->lb_len && !ft_strequ("pa", c->last_op))
+	else if (cible == 2 && c->lb_len &&(!c->last_op || !(*c->last_op == PA)))
 	{
 		c->la_len++;
 		c->lb_len--;
 		push_piler(&(c->lb), &(c->la));
-		return (ad_op(c, "pb"));
+		return (ad_op(c, 9));
 	}
 	return (0);
 }
 
 int		ps_rot(int cible, t_controleur *c)
 {
-	if (cible == 1 && c->la_len > 1 && !ft_strequ("rra", c->last_op) \
-	&& !ft_strequ("rrr", c->last_op))
+	if (cible == 1 && c->la_len > 1 && (!c->last_op ||(!(*c->last_op == RRA) \
+	 && !(*c->last_op == RRR))))
 	{
 		rot_pile(&(c->la));
-		return (ad_op(c, "ra"));
+		return (ad_op(c, 2));
 	}
-	else if (cible == 2 && c->lb_len > 1 && !ft_strequ("rrb", c->last_op) \
-	&& !ft_strequ("rrr", c->last_op))
+	else if (cible == 2 && c->lb_len > 1&& (!c->last_op || (!(*c->last_op == RRB) \
+	 && !(*c->last_op == RRR))))
 	{
 		rot_pile(&(c->lb));
-		return (ad_op(c, "rb"));
+		return (ad_op(c, 3));
 	}
-	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1 \
-		&& c->la->next && c->lb->next && !(ft_strlen(c->last_op) == 3))
+	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1\
+		&& ((!c->last_op || *c->last_op > RRA || *c->last_op < RRR)))
 	{
 		rot_pile(&(c->la));
 		rot_pile(&(c->lb));
-		return (ad_op(c, "rr"));
+		return (ad_op(c, 4));
 	}
 	return (0);
 }
 
 int		ps_revrot(int cible, t_controleur *c)
 {
-	if (cible == 1 && c->la_len > 1 && (ft_strlen(c->last_op) != 2 || *c->last_op != 'r'))
+	if (cible == 1 && c->la_len > 1 && (!c->last_op ||(!(*c->last_op == RA) \
+	 && !(*c->last_op == RR))))
 	{
 		revrot_pile(&(c->la));
-		return (ad_op(c, "rra"));
+		return (ad_op(c, 8));
 	}
-	else if (cible == 2 && c->lb_len > 1 && !ft_strequ("rb", c->last_op) \
-	&& !ft_strequ("rr", c->last_op))
+	else if (cible == 2 && c->lb_len > 1&& (!c->last_op || (!(*c->last_op == RB) \
+	 && !(*c->last_op == RR))))
 	{
 		revrot_pile(&(c->lb));
-		return (ad_op(c, "rrb"));
+		return (ad_op(c, 7));
 	}
-	else if (cible == 3 && c->la && c->la_len > 1 && c->lb_len > 1 \
-		&& !(ft_strlen(c->last_op) == 2 && *c->last_op == 'r'))
+	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1\
+		&& ((!c->last_op || *c->last_op < RA || *c->last_op > RR)))
 	{
 		revrot_pile(&(c->la));
 		revrot_pile(&(c->lb));
-		return (ad_op(c, "rrr"));
+		return (ad_op(c, 6));
 	}
 	return (0);
 }

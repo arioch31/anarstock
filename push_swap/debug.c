@@ -2,6 +2,7 @@
 
 void 	aff_state(t_controleur *c)
 {
+	char *ptr;
   if (!c)
     ft_putendl("c vide");
   else
@@ -14,11 +15,21 @@ void 	aff_state(t_controleur *c)
 	aff_pile(c->lb);
   ft_putendl("\nbase===================sommet");
 	ft_putendl("journal:");
-	ft_putendl(c->op_j);
-  ft_putstr("nb op :\t\t");
+	ptr = c->code_f;
+	if (c->last_op)
+	{
+    	while (ptr != c->last_op)
+    	{
+    	  ft_putstr(str_f[(int)*ptr]);
+    	  ft_putchar(' ');
+    	  ptr++;
+    	} 
+      ft_putstr(str_f[(int)*ptr]);
+  	}
+  ft_putstr("\nnb op :\t\t");
   ft_putnbr(c->nb_op);
   ft_putstr("\nlast op :\t");
-  ft_putendl(c->last_op);
+  ft_putendl(str_f[(int)*c->last_op]);
   ft_putstr("length totale :\t");
   ft_putnbr(c->length);
   ft_putstr("\nlength la :\t");
