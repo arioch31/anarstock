@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/02/25 18:39:30 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/25 18:43:54 by aeguzqui         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-size_t 	rank(t_list *start, int value)
+size_t		rank(t_list *start, int value)
 {
 	size_t i;
 
@@ -16,16 +28,16 @@ size_t 	rank(t_list *start, int value)
 
 t_list		*get_valued(t_list *start, int value)
 {
-	while(start)
+	while (start)
 	{
 		if (*(int*)start->content == value)
-			return (start);	
+			return (start);
 		start = start->next;
 	}
-	return (start);	
+	return (start);
 }
 
-t_list 		*get_ranker(t_list *start, size_t index)
+t_list		*get_ranker(t_list *start, size_t index)
 {
 	t_list *ptr;
 
@@ -35,7 +47,7 @@ t_list 		*get_ranker(t_list *start, size_t index)
 	return (ptr);
 }
 
-size_t 			get_length(t_list *start)
+size_t		get_length(t_list *start)
 {
 	size_t i;
 
@@ -48,14 +60,14 @@ size_t 			get_length(t_list *start)
 	return (i);
 }
 
-size_t 			get_sublength(t_list *start, int value, int sens)
+size_t		get_sublength(t_list *start, int value, int sens)
 {
 	int i;
 
 	i = 0;
 	while (start)
 	{
-		if ((value <  *(int*)start->content) ^ !sens)
+		if ((value < *(int*)start->content) ^ !sens)
 			return (i);
 		if (!start->next)
 			return (++i);
@@ -66,7 +78,6 @@ size_t 			get_sublength(t_list *start, int value, int sens)
 		}
 		else
 			return (++i);
-		
 	}
 	return (i);
 }
