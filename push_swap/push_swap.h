@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:05:44 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/26 03:37:03 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ int				solverv3(t_controleur *c);
 t_controleur	*brute(t_controleur *parent, size_t it_max);
 t_controleur	*monobrute(t_controleur *parent, size_t it_max);
 
-# define TAB_F (t_fpile[4]){ps_swap, ps_push, ps_rot, ps_revrot}
+# define TAB_F (t_fpile[4]){ps_push, ps_swap, ps_rot, ps_revrot}
 
 #endif
