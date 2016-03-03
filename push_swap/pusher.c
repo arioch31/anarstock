@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:47:51 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 18:35:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/03 18:03:32 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ int		ps_swap(int cible, t_controleur *c)
 	if (cible == 1 && c->la_len > 1 && (!c->last_op || !(*(c->last_op) == SA)))
 	{
 		swap_pile(&(c->la));
-		return (ad_op(c, 0));
+		return (ad_op(c, SA));
 	}
 	else if (cible == 2 && c->lb_len > 1 \
 		&& (!c->last_op || !(*(c->last_op) == SB)))
 	{
 		swap_pile(&(c->lb));
-		return (ad_op(c, 10));
+		return (ad_op(c, SB));
 	}
 	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1 \
 		&& (!c->last_op || !(*c->last_op == SS)))
 	{
 		swap_pile(&(c->la));
 		swap_pile(&(c->lb));
-		return (ad_op(c, 5));
+		return (ad_op(c, SS));
 	}
 	return (0);
 }

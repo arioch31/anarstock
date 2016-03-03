@@ -6,12 +6,13 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/26 03:47:09 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/03 17:34:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*
 int				rewind(t_controleur *c)
 {
 
@@ -41,14 +42,14 @@ t_controleur	*opti_brute(t_controleur *parent, size_t it_max)
 				{
 					if (!(fils = opti_brute(copie_c(parent), parent->nb_op)))
 						return (parent);
-					else 
+					else
 						return (fils);
 				}
 			}
 		}
 	}
 }
-
+*/
 
 t_controleur	*brute(t_controleur *parent, size_t it_max)
 {

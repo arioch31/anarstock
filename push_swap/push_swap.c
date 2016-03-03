@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:02:13 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/03 19:35:44 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,17 @@ void		aff_journal(t_controleur *c)
 {
 	char	*ptr;
 
-	ptr = c->code_f;
-	while (ptr != c->last_op)
+	if (c->nb_op > 0)
 	{
-		ft_putstr(STR_F[(int)*ptr]);
-		ft_putchar(' ');
-		ptr++;
+		ptr = c->code_f;
+		while (ptr != c->last_op)
+		{
+			ft_putstr(STR_F[(int)*ptr]);
+			ft_putchar(' ');
+			ptr++;
+		}
+		ft_putendl(STR_F[(int)*ptr]);
 	}
-	ft_putendl(STR_F[(int)*ptr]);
 }
 
 int			main(int ac, char **av)
@@ -62,30 +65,24 @@ int			main(int ac, char **av)
 		exit_error(NULL, NULL);
 	else
 	{
-		ft_putendl("initalisation:");
 		origin = get_entry(ac, av);
 		c = init_c(origin);
-		ft_putendl("initalisation OK!");
-		ft_putnbr(solver(c));
-		ft_putendl("solver v1 OK!");
-		ft_putnbr(c->nb_op);
-		ft_putendl(" operations");
-		d = init_c(origin);
-		ft_putnbr(solverv2(d));
+		ft_putendl("\ninitalisation OK!");
+		ft_putnbr(solverv2(c));
 		ft_putendl("solver v2 OK!");
-		ft_putnbr(d->nb_op);
-		ft_putendl(" operations");
-		ft_putstr("results :\nv1\t");
+		d = init_c(origin);
+		ft_putnbr(solverv3(d));
+		ft_putstr("solver v3 OK!\nresults :\nv2\t");
 		ft_putnbr(c->nb_op);
-		ft_putstr("\nv2\t");
+		ft_putstr("\nv3\t");
 		ft_putnbr(d->nb_op);
 		ft_putendl("\n++++++++++++++++------++++++++++++++++++");
-		if (c->nb_op < 50)
+		if (d->nb_op < 50)
 		{
-			while ((c = brute(init_c(origin), c->nb_op)))
+			while ((d = monobrute(init_c(origin), d->nb_op)))
 			{
-				ft_putnbr(c->nb_op);
-				aff_journal(c);
+				ft_putnbr(d->nb_op);
+				aff_journal(d);
 			}
 		}
 		else
