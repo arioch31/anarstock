@@ -62,7 +62,7 @@ void		aff_journal(t_controleur *c)
 int			main(int ac, char **av)
 {
 	t_list			*origin;
-//	t_controleur	*b;
+	t_controleur	*b;
 	t_controleur	*c;
 	t_controleur	*d;
 
@@ -74,15 +74,15 @@ int			main(int ac, char **av)
 		c = init_c(origin);
 		aff_pile(origin);
 		ft_putendl("\ninitalisation OK!");
-//		b = init_c(origin);
-//		ft_putnbr(solver(b));
+		b = init_c(origin);
+		ft_putnbr(solver(b));
 		ft_putendl(" solver v1 OK!");
 		ft_putnbr(solverv2(c));
 		ft_putendl(" solver v2 OK!");
 		d = init_c(origin);
 		ft_putnbr(solverv3(d));
 		ft_putstr(" solver v3 OK!\nresults :\nv1\t");
-//		ft_putnbr(b->nb_op);
+		ft_putnbr(b->nb_op);
 		ft_putstr("\nv2\t");
 		ft_putnbr(c->nb_op);
 		ft_putstr("\nv3\t");
@@ -90,7 +90,7 @@ int			main(int ac, char **av)
 		ft_putendl("\n++++++++++++++++------++++++++++++++++++");
 		if (d->nb_op < 300)
 			aff_state(d);
-		if (d->nb_op < 250)
+		if (d->nb_op < 100)
 		{
 			while ((d = monobrute(init_c(origin), d->nb_op)))
 			{

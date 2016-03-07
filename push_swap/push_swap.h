@@ -121,6 +121,22 @@ int				mover_v2(t_controleur *c);
 t_controleur	*brute(t_controleur *parent, size_t it_max);
 t_controleur	*monobrute(t_controleur *parent, size_t it_max);
 
-# define TAB_F (t_fpile[4]){ps_push, ps_swap, ps_rot, ps_revrot}
+/*
+**canceler.c
+*/
 
+void	c_pa(t_controleur *c);
+void	c_pb(t_controleur *c);
+void	c_sa(t_controleur *c);
+void	c_sb(t_controleur *c);
+void	c_ss(t_controleur *c);
+void	c_ra(t_controleur *c);
+void	c_rb(t_controleur *c);
+void	c_rr(t_controleur *c);
+void	c_rra(t_controleur *c);
+void	c_rrb(t_controleur *c);
+void	c_rrr(t_controleur *c);
+
+# define TAB_F (t_fpile[4]){ps_push, ps_swap, ps_rot, ps_revrot}
+# define CTAB_F (void fct(t_controleur)){c_sa, c_pa, c_ra, c_rb, c_rr, c_ss, c_rrr, c_rrb, c_rra, c_pb, c_sb}
 #endif

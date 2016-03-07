@@ -95,19 +95,27 @@ int		solverv3(t_controleur *c)
 		&& *(int*)c->la->content > *(int*)c->lb->content)
 	{
 		while (c->lb)
-			ps_push(2, c);
+		{	
+			push_piler(&(c->lb), &(c->la));
+			c->lb_len--;
+			c->la_len++;
+			ad_op(c, PB);
+		}
 		return (solverv3(c));
 	}
-	if (*(int*)c->la->content < c->val_m)
+	while (c->la_len > 1 && !pile_triee(c->la, 1))
 	{
-		ps_push(1, c);
-		return (solverv3(c));
+		if(rank(c->la, *(int*)c->la->content) == 1)
+		{
+			push_piler(&(c->la), &(c->lb));
+			c->la_len--;
+			c->lb_len++;
+			ad_op(c, PA);
+		}
+		else if (c->la_len - get_length(get_ranker(c->la, 1)) < c->la_len / 2)
+			ps_rot(1, c);
+		else
+			ps_revrot(1, c);
 	}
-	mover(c, 0);
-	mover(c, 1);
-	if (!pile_triee(c->la, 1))
-		ps_revrot(1, c);
-	if (c->lb_len > 1 && !pile_triee(c->lb, 0))
-		ps_revrot(2, c);
 	return (solverv3(c));
 }

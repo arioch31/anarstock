@@ -11,11 +11,50 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*
-int				rewind(t_controleur *c)
+char			cancel(t_controleur *c)
 {
+	char	op;
 
+	op = *c->last_op;
+	*c->last_op = 0;
+	c->last_op--;
+	CTAB_F[(int)op](c);
+	return (op);
+}
+
+void 			acter(t_controleur *c, int i)
+{
+	if (i == 0)
+		ps_swap(1, c);
+	if (i == 1)
+		ps_push(1, c);
+	if (i == 2)
+		ps_rot(1, c);
+	if (i == 3)
+		ps_rot(2, c);
+	if (i == 4)
+		ps_rot(3, c);
+	if (i == 5)
+		ps_swap(3, c);
+	if (i == 6)
+		ps_revrot(3, c)
+	if (i == 7)
+		ps_revrot(2, c)
+	if (i == 8)
+		ps_revrot(1, c)
+	if (i == 9)
+		ps_push(2, c);
+	if (i == 10)
+		ps_swap(2, c);
+}
+
+t_controleur	*rewind(t_controleur *c, int nb_op)
+{
+	while (nb_op--)
+	{
+		cancel(c);
+	}
+	return(c);
 }
 
 t_controleur	*opti_brute(t_controleur *parent, size_t it_max)
@@ -29,15 +68,14 @@ t_controleur	*opti_brute(t_controleur *parent, size_t it_max)
 	while (1)
 	{
 		i = -1;
-		while (++i < 4)//changer ca
+		while (++i < 11)
 		{
-			j = 1;
-			while (j < 4)//ca aussi
-			{
-				TAB_F[i](j++, parent);
-				if (parent->nb_op + parent->lb_len >= it_max)
-					return (NULL); //rewind(parent)?
+			acter(i, parent);
+			if (parent->nb_op + parent->lb_len >= it_max)
+				return (NULL); //rewind(parent)?
+				
 				//condition de sortie ok
+				
 				if (!parent->lb && pile_triee(parent->la, 1))
 				{
 					if (!(fils = opti_brute(copie_c(parent), parent->nb_op)))
@@ -45,11 +83,11 @@ t_controleur	*opti_brute(t_controleur *parent, size_t it_max)
 					else
 						return (fils);
 				}
-			}
+			
 		}
 	}
 }
-*/
+
 
 t_controleur	*brute(t_controleur *parent, size_t it_max)
 {
