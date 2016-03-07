@@ -111,6 +111,8 @@ int				pile_triee(t_list *p, int sens);
 int				solver(t_controleur *c);
 int				solverv2(t_controleur *c);
 int				solverv3(t_controleur *c);
+int				mover(t_controleur *c, int cible);
+void	mover_v2(t_controleur *c);
 
 /*
 **brute.c

@@ -103,8 +103,11 @@ int		solverv3(t_controleur *c)
 		ps_push(1, c);
 		return (solverv3(c));
 	}
+	/*
 	mover(c, 0);
 	mover(c, 1);
+	*/
+	mover_v2(c);
 	if (!pile_triee(c->la, 1))
 		ps_revrot(1, c);
 	if (!pile_triee(c->lb, 0))
@@ -112,40 +115,24 @@ int		solverv3(t_controleur *c)
 	return (solverv3(c));
 }
 
-/*
-void	mover_v3(t_controleur *c)
+
+void	mover_v2(t_controleur *c)
 {
 	size_t test;
 	size_t test2;
 	size_t cpt;
 
 	cpt = 0;
-	if (c->la_len > 1)
+	test = 0;
+	test2 = 0;
+	if (c->la_len > 2)
 		test = get_sublength(c->la->next, *(int*)c->la->content, 1);
-	if (c->lb_len > 1)
+	if (c->lb_len > 2)
 		test2 = get_sublength(c->lb->next, *(int*)c->lb->content, 0);
 	if (!test2)
-	{
-		ps_swap(1, c);
-		while (++cpt < test)
-		{
-			ps_rot(1, c);
-			ps_swap(1, c);
-		}
-		while (--cpt > 1)
-			ps_revrot(1, c);
-	}
+		mover(c,0);
 	else if (!test)
-	{
-		ps_swap(2, c);
-		while (++cpt < test2)
-		{
-			ps_rot(2, c);
-			ps_swap(2, c);
-		}
-		while (--cpt > 1)
-			ps_revrot(2, c);
-	}
+		mover(c,1);
 	else
 	{
 		ps_swap(3, c);
@@ -154,21 +141,25 @@ void	mover_v3(t_controleur *c)
 			ps_rot(3, c);
 			ps_swap(3, c);
 		}
-		while (++cpt < test)
-		{
-			ps_rot(1, c);
-			ps_swap(1, c);
-		}
-		while (++cpt < test2)
-		{
-			ps_rot(2, c);
-			ps_swap(2, c);
-		}
+		if (test > test2)
+			while (++cpt < test)
+			{
+				ps_rot(1, c);
+				ps_swap(1, c);
+			}
+		else if (test < test2)
+			while (++cpt < test2)
+			{
+				ps_rot(2, c);
+				ps_swap(2, c);
+			}
 		while (--test > 1 && --test2 > 1)
 			ps_revrot(3, c);
-		while (--test > 1)
+		if (test)					
+		while (--test > 0)
 			ps_revrot(1, c);
-		while (--test2 > 1)
+		if (test2)					
+		while (--test2 > 0)
 			ps_revrot(2, c);
 	}
-}*/
+}
