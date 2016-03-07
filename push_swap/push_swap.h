@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/26 03:37:03 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/07 17:13:11 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int				solver(t_controleur *c);
 int				solverv2(t_controleur *c);
 int				solverv3(t_controleur *c);
 int				mover(t_controleur *c, int cible);
-void	mover_v2(t_controleur *c);
+int				mover_v2(t_controleur *c);
 
 /*
 **brute.c

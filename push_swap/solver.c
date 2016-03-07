@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/03 19:31:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/07 18:31:09 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,63 +103,11 @@ int		solverv3(t_controleur *c)
 		ps_push(1, c);
 		return (solverv3(c));
 	}
-	/*
 	mover(c, 0);
 	mover(c, 1);
-	*/
-	mover_v2(c);
 	if (!pile_triee(c->la, 1))
 		ps_revrot(1, c);
-	if (!pile_triee(c->lb, 0))
+	if (c->lb_len > 1 && !pile_triee(c->lb, 0))
 		ps_revrot(2, c);
 	return (solverv3(c));
-}
-
-
-void	mover_v2(t_controleur *c)
-{
-	size_t test;
-	size_t test2;
-	size_t cpt;
-
-	cpt = 0;
-	test = 0;
-	test2 = 0;
-	if (c->la_len > 2)
-		test = get_sublength(c->la->next, *(int*)c->la->content, 1);
-	if (c->lb_len > 2)
-		test2 = get_sublength(c->lb->next, *(int*)c->lb->content, 0);
-	if (!test2)
-		mover(c,0);
-	else if (!test)
-		mover(c,1);
-	else
-	{
-		ps_swap(3, c);
-		while (++cpt < test && cpt < test2)
-		{
-			ps_rot(3, c);
-			ps_swap(3, c);
-		}
-		if (test > test2)
-			while (++cpt < test)
-			{
-				ps_rot(1, c);
-				ps_swap(1, c);
-			}
-		else if (test < test2)
-			while (++cpt < test2)
-			{
-				ps_rot(2, c);
-				ps_swap(2, c);
-			}
-		while (--test > 1 && --test2 > 1)
-			ps_revrot(3, c);
-		if (test)					
-		while (--test > 0)
-			ps_revrot(1, c);
-		if (test2)					
-		while (--test2 > 0)
-			ps_revrot(2, c);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 18:35:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/07 18:24:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ t_controleur	*copie_c(t_controleur *c)
 	d->val_m = c->val_m;
 	d->code_f = malloc(sizeof(char) * c->size_codef);
 	d->size_codef = c->size_codef;
-	d->code_f = ft_strncpy(d->code_f, c->code_f, c->size_codef);
+	ft_memcpy(d->code_f, c->code_f, c->size_codef);
 	if (c->last_op)
-		d->last_op = d->code_f + ft_strlen(c->code_f) - 1;
+		d->last_op = d->code_f + (c->last_op - c->code_f);
 	else
 		d->last_op = NULL;
 	return (d);

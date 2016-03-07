@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:47:51 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/03 18:03:32 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/07 18:37:49 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ int		ps_push(int cible, t_controleur *c)
 		push_piler(&(c->la), &(c->lb));
 		c->la_len--;
 		c->lb_len++;
-		return (ad_op(c, 1));
+		return (ad_op(c, PA));
 	}
 	else if (cible == 2 && c->lb_len && (!c->last_op || !(*c->last_op == PA)))
 	{
 		c->la_len++;
 		c->lb_len--;
 		push_piler(&(c->lb), &(c->la));
-		return (ad_op(c, 9));
+		return (ad_op(c, PB));
 	}
 	return (0);
 }
@@ -70,20 +70,20 @@ int		ps_rot(int cible, t_controleur *c)
 		&& !(*c->last_op == RRR))))
 	{
 		rot_pile(&(c->la));
-		return (ad_op(c, 2));
+		return (ad_op(c, RA));
 	}
 	else if (cible == 2 && c->lb_len > 1 \
 		&& (!c->last_op || (!(*c->last_op == RRB) && !(*c->last_op == RRR))))
 	{
 		rot_pile(&(c->lb));
-		return (ad_op(c, 3));
+		return (ad_op(c, RB));
 	}
 	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1\
 		&& ((!c->last_op || *c->last_op > RRA || *c->last_op < RRR)))
 	{
 		rot_pile(&(c->la));
 		rot_pile(&(c->lb));
-		return (ad_op(c, 4));
+		return (ad_op(c, RR));
 	}
 	return (0);
 }
@@ -94,20 +94,20 @@ int		ps_revrot(int cible, t_controleur *c)
 		&& !(*c->last_op == RR))))
 	{
 		revrot_pile(&(c->la));
-		return (ad_op(c, 8));
+		return (ad_op(c, RRA));
 	}
 	else if (cible == 2 && c->lb_len > 1 \
 		&& (!c->last_op || (!(*c->last_op == RB) && !(*c->last_op == RR))))
 	{
 		revrot_pile(&(c->lb));
-		return (ad_op(c, 7));
+		return (ad_op(c, RRB));
 	}
 	else if (cible == 3 && c->la_len > 1 && c->lb_len > 1\
 		&& ((!c->last_op || *c->last_op < RA || *c->last_op > RR)))
 	{
 		revrot_pile(&(c->la));
 		revrot_pile(&(c->lb));
-		return (ad_op(c, 6));
+		return (ad_op(c, RRR));
 	}
 	return (0);
 }

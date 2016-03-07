@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/03 17:34:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/07 18:28:45 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_controleur	*brute(t_controleur *parent, size_t it_max)
 				destr_c(&c);
 		}
 	}
+	destr_c(&parent);
 	return (NULL);
 }
 
@@ -95,8 +96,8 @@ t_controleur	*monobrute(t_controleur *parent, size_t it_max)
 	if (!parent->lb && pile_triee(parent->la, 1))
 		return (parent);
 	c = NULL;
-	i = 1;
-	while (i < 4)
+	i = 0;
+	while (++i < 4)
 	{
 		if (!c)
 			c = copie_c(parent);
@@ -104,7 +105,6 @@ t_controleur	*monobrute(t_controleur *parent, size_t it_max)
 			return (c);
 		else if (c)
 			destr_c(&c);
-		i++;
 	}
 	destr_c(&parent);
 	return (NULL);
