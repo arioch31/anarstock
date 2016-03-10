@@ -6,11 +6,23 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/07 19:23:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:22:35 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void		set_ranks(t_list *start)
+{
+	t_list	*ptr;
+
+	ptr = start;
+	while (ptr)
+	{
+		ptr->content_size = rank(start, *(int*)ptr->content);
+		ptr = ptr->next;
+	}
+}
 
 t_list		*get_entry(int ac, char **av)
 {
@@ -65,6 +77,7 @@ int			main(int ac, char **av)
 	t_controleur	*b;
 	t_controleur	*c;
 	t_controleur	*d;
+	t_list			*ptr;
 
 	if (ac < 3)
 		exit_error(NULL, NULL);
@@ -72,6 +85,14 @@ int			main(int ac, char **av)
 	{
 		origin = get_entry(ac, av);
 		c = init_c(origin);
+		ptr = c->la;
+		while (ptr)
+		{
+			ft_putnbr(ptr->content_size);
+			ft_putchar('\t');
+			ptr = ptr->next;
+		}
+		ft_putchar('\n');
 		aff_pile(origin);
 		ft_putendl("\ninitalisation OK!");
 		b = init_c(origin);

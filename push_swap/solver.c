@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/07 18:31:09 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:21:46 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		solverv3(t_controleur *c)
 		&& *(int*)c->la->content > *(int*)c->lb->content)
 	{
 		while (c->lb)
-		{	
+		{
 			push_piler(&(c->lb), &(c->la));
 			c->lb_len--;
 			c->la_len++;
@@ -105,13 +105,15 @@ int		solverv3(t_controleur *c)
 	}
 	while (c->la_len > 1 && !pile_triee(c->la, 1))
 	{
-		if(rank(c->la, *(int*)c->la->content) == 1)
+		if (rank(c->la, *(int*)c->la->content) == 1)
 		{
 			push_piler(&(c->la), &(c->lb));
 			c->la_len--;
 			c->lb_len++;
 			ad_op(c, PA);
 		}
+		else if (*(int*)c->la->content > *(int*)c->la->next->content)
+			ps_swap(1, c);
 		else if (c->la_len - get_length(get_ranker(c->la, 1)) < c->la_len / 2)
 			ps_rot(1, c);
 		else

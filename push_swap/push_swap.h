@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/07 17:13:11 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:18:40 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,14 @@ typedef struct	s_controleur
 }				t_controleur;
 
 typedef int	(*t_fpile)(int, t_controleur*);
-
+typedef void	(*t_cfpile)(t_controleur*);
 /*
 **push_swap.c
 */
 
+void				set_ranks(t_list *start);
 t_list			*get_entry(int ac, char **av);
-void			aff_journal(t_controleur *c);
+void				aff_journal(t_controleur *c);
 
 /*
 ** operations.c
@@ -138,5 +139,5 @@ void	c_rrb(t_controleur *c);
 void	c_rrr(t_controleur *c);
 
 # define TAB_F (t_fpile[4]){ps_push, ps_swap, ps_rot, ps_revrot}
-# define CTAB_F (void fct(t_controleur)){c_sa, c_pa, c_ra, c_rb, c_rr, c_ss, c_rrr, c_rrb, c_rra, c_pb, c_sb}
+# define CTAB_F (t_cfpile[11]){c_sa, c_pa, c_ra, c_rb, c_rr, c_ss, c_rrr, c_rrb, c_rra, c_pb, c_sb}
 #endif

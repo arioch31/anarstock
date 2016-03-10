@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 18:39:30 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/07 18:54:39 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:15:11 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_list		*get_ranker(t_list *start, size_t index)
 	t_list *ptr;
 
 	ptr = start;
-	while (ptr && rank(start, (*(int*)ptr->content)) != index)
+	while (ptr && ptr->content_size != index)
 		ptr = ptr->next;
 	return (ptr);
 }

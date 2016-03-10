@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/07 18:24:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/10 14:18:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_controleur	*init_c(t_list *start)
 
 	c = malloc(sizeof(t_controleur));
 	c->la = new_pile(start);
+	set_ranks(c->la);
 	c->lb = NULL;
 	c->length = get_length(c->la);
 	c->la_len = c->length;
