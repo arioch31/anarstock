@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/10 14:21:46 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/13 21:24:55 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int		solverv3(t_controleur *c)
 			c->lb_len++;
 			ad_op(c, PA);
 		}
-		else if (*(int*)c->la->content > *(int*)c->la->next->content)
-			ps_swap(1, c);
+//		else if (*(int*)c->la->content > *(int*)c->la->next->content)
+//			ps_swap(1, c);
 		else if (c->la_len - get_length(get_ranker(c->la, 1)) < c->la_len / 2)
 			ps_rot(1, c);
 		else

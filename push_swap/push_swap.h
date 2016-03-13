@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/10 14:18:40 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/13 21:34:22 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef void	(*t_cfpile)(t_controleur*);
 */
 
 void				set_ranks(t_list *start);
-t_list			*get_entry(int ac, char **av);
+t_list				*get_entry(int ac, char **av);
 void				aff_journal(t_controleur *c);
 
 /*
