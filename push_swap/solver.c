@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 00:39:01 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 02:52:21 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		solver(t_controleur *c)
 	size_t cpt;
 
 	if (!c->lb && pile_triee(c->la, 1))
-		return (1);
+		return (c->nb_op);
 	cpt = 0;
 	if (c->la_len > 2 \
 		&& (test = get_sublength(c->la->next, *(int*)c->la->content, 1)))

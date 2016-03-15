@@ -6,13 +6,13 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 00:03:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 05:53:19 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		set_ranks(t_list *start)
+void			set_ranks(t_list *start)
 {
 	t_list	*ptr;
 
@@ -24,7 +24,7 @@ void		set_ranks(t_list *start)
 	}
 }
 
-t_list		*get_entry(int ac, char **av)
+t_list			*get_entry(int ac, char **av)
 {
 	int				i;
 	unsigned int	j;
@@ -52,7 +52,7 @@ t_list		*get_entry(int ac, char **av)
 	return (start);
 }
 
-void		aff_journal(t_controleur *c)
+void			aff_journal(t_controleur *c)
 {
 	char	*ptr;
 
@@ -71,74 +71,66 @@ void		aff_journal(t_controleur *c)
 		ft_putendl("aucune operation requise");
 }
 
-int			main(int ac, char **av)
+t_controleur	*test_brute(t_list *origin)
+{
+	t_controleur	*d;
+	t_controleur	*e;
+	size_t				cpt;
+
+	if (get_length(origin) > 20)
+		return (NULL);
+	d = init_c(origin);
+	e = NULL;
+	if ((d = monobrute(init_c(origin), 15)))
+	{
+		e = d;
+		while ((d = monobrute(init_c(origin), d->nb_op)))
+			e = d;
+	}
+	else
+		ft_putendl("echec monobrute");
+	cpt = 11;
+	if (e && e->nb_op < cpt)
+		cpt = e->nb_op;
+	if ((d = brute(init_c(origin), cpt)))
+	{
+		while ((d = brute(init_c(origin), d->nb_op)))
+			if (e->nb_op > d->nb_op)
+				e = d;
+	}
+	else if (e)
+		ft_putendl("echec brute");
+	return (e);
+}
+
+int				main(int ac, char **av)
 {
 	t_list			*origin;
 	t_controleur	*b;
-	t_controleur	*c;
-	t_controleur	*d;
-	t_list			*ptr;
+//	t_controleur	*c;
+//	t_controleur	*d;
+	t_controleur	*e;
 
 	if (ac < 3)
 		exit_error(NULL, NULL);
 	else
 	{
 		origin = get_entry(ac, av);
-		c = init_c(origin);
-		ptr = c->la;
-		while (ptr)
-		{
-			ft_putnbr(ptr->content_size);
-			ft_putchar('\t');
-			ptr = ptr->next;
-		}
-		ft_putchar('\n');
 		aff_pile(origin);
+		ft_putchar('\n');
+//		c = init_c(origin);
 		ft_putendl("\ninitalisation OK!");
 		b = init_c(origin);
 		ft_putnbr(solverv4(b));
 		ft_putendl(" solver v4 OK!");
-		ft_putnbr(solverv2(c));
-		ft_putendl(" solver v2 OK!");
-		d = init_c(origin);
-		ft_putnbr(solverv3(d));
-		ft_putstr(" solver v3 OK!\nresults :\nv1\t");
-		ft_putnbr(b->nb_op);
-		ft_putstr("\nv2\t");
-		ft_putnbr(c->nb_op);
-		ft_putstr("\nv3\t");
-		ft_putnbr(d->nb_op);
-		ft_putendl("\n++++++++++++++++------++++++++++++++++++");
-/*
-		if (d->nb_op < 300)
-			aff_state(d);
-		if (d->nb_op < 100)
-		{
-			while ((d = monobrute(init_c(origin), d->nb_op)))
-			{
-				ft_putnbr(d->nb_op);
-				aff_journal(d);
-				aff_pile(d->la);
-				ft_putchar('\n');
-			}
-		}
-		else
-			ft_putendl("brute non testee, trop d'op");
-*/
-/*		if (get_length(origin) < 9)
-		{
-			if ((d = monobrute(init_c(origin), 2 * get_length(origin))))
-			{
-				while ((d = monobrute(init_c(origin), d->nb_op)))
-				aff_state(d);
-			}
-			else
-				ft_putendl("echec monobrute en moins de length x2");
-			if ((d = brute(init_c(origin), 2 * get_length(origin))))
-				aff_state(d);
-			else
-				ft_putendl("echec brute en moins de length x2");
-		}
-*/	}
+//		ft_putnbr(solver(c));
+//		ft_putendl(" solver v1 OK!");
+//		d = init_c(origin);
+//		ft_putnbr(solverv3(d));
+//		ft_putstr(" solver v3 OK!\n");
+		ft_putendl("++++++++++++++++------++++++++++++++++++");
+		if ((e = test_brute(origin)))
+			aff_state(e);
+	}
 	return (0);
 }

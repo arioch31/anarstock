@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 00:33:13 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 05:54:22 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct	s_controleur
 	size_t		nb_op;
 	size_t		rank_max_la;
 	size_t		rank_min_la;
-	int			phase;
 	char		*code_f;
 	char		*last_op;
 	size_t		size_codef;

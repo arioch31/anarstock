@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/14 22:15:51 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 04:14:45 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_controleur	*init_c(t_list *start)
 	c->lb_len = 0;
 	if (c->length)
 		c->val_m = *(int*)get_ranker(c->la, get_length(c->la) / 2 + 1)->content;
-	c->phase = 0;
 	c->nb_op = 0;
 	c->last_op = NULL;
 	c->size_codef = c->la_len * c->la_len;
@@ -64,7 +63,6 @@ t_controleur	*copie_c(t_controleur *c)
 	d->length = c->length;
 	d->la_len = get_length(d->la);
 	d->lb_len = get_length(d->lb);
-	d->phase = c->phase;
 	d->val_m = c->val_m;
 	d->code_f = malloc(sizeof(char) * c->size_codef);
 	d->size_codef = c->size_codef;
@@ -82,6 +80,18 @@ void			destr_c(t_controleur **c)
 	{
 		ft_lstdel(&((*c)->la), &del_list);
 		ft_lstdel(&((*c)->lb), &del_list);
+		(*c)->length = 0;
+		(*c)->la_len = 0;
+		(*c)->lb_len = 0;
+		(*c)->nb_op = 0;
+		(*c)->val_m = 0;
+		(*c)->rank_max_la = 0;
+		(*c)->rank_min_la = 0;
+		(*c)->size_codef = 0;
+		if ((*c)->code_f)
+			free((*c)->code_f);
+		if ((*c)->last_op)
+			(*c)->last_op = NULL;
 		free(*c);
 		*c = NULL;
 	}

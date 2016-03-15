@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/10 13:51:52 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 05:32:10 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ t_controleur	*brute(t_controleur *parent, size_t it_max)
 
 	if (parent->nb_op + parent->lb_len >= it_max)
 	{
+//		aff_journal(parent);
+//		ft_putendl("fin de branche");
 		destr_c(&parent);
 		return (NULL);
 	}
@@ -118,6 +120,8 @@ t_controleur	*brute(t_controleur *parent, size_t it_max)
 				destr_c(&c);
 		}
 	}
+//	ft_putnbr(parent->nb_op);
+//	ft_putendl("\tfin d'un noeud");
 	destr_c(&parent);
 	return (NULL);
 }
@@ -127,16 +131,19 @@ t_controleur	*monobrute(t_controleur *parent, size_t it_max)
 	t_controleur	*c;
 	int				i;
 
-	if (parent->nb_op + parent->lb_len >= it_max)
+	if (parent->nb_op >= it_max)
 	{
+//		aff_journal(parent);
+//		ft_putendl("");
+//		ft_putendl("fin de branche");
 		destr_c(&parent);
 		return (NULL);
 	}
-	if (!parent->lb && pile_triee(parent->la, 1))
+	if (pile_triee(parent->la, 1))
 		return (parent);
 	c = NULL;
-	i = 0;
-	while (++i < 4)
+	i = 4;
+	while (--i > 0)
 	{
 		if (!c)
 			c = copie_c(parent);
@@ -145,6 +152,8 @@ t_controleur	*monobrute(t_controleur *parent, size_t it_max)
 		else if (c)
 			destr_c(&c);
 	}
+//	ft_putnbr(parent->nb_op);
+//	ft_putendl("\tfin d'un noeud");
 	destr_c(&parent);
 	return (NULL);
 }
