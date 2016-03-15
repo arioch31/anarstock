@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/15 04:28:40 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/13 21:34:22 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 00:33:13 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_controleur
 	size_t		lb_len;
 	int			val_m;
 	size_t		nb_op;
+	size_t		rank_max_la;
+	size_t		rank_min_la;
 	int			phase;
 	char		*code_f;
 	char		*last_op;
@@ -51,9 +53,9 @@ typedef void	(*t_cfpile)(t_controleur*);
 **push_swap.c
 */
 
-void				set_ranks(t_list *start);
-t_list				*get_entry(int ac, char **av);
-void				aff_journal(t_controleur *c);
+void			set_ranks(t_list *start);
+t_list			*get_entry(int ac, char **av);
+void			aff_journal(t_controleur *c);
 
 /*
 ** operations.c
@@ -116,6 +118,14 @@ int				mover(t_controleur *c, int cible);
 int				mover_v2(t_controleur *c);
 
 /*
+**solver.c
+*/
+int				dist_tominmax(t_controleur *c);
+void			sendback(t_controleur *c);
+void			setfirstminormax(t_controleur *c);
+int				solverv4(t_controleur *c);
+
+/*
 **brute.c
 */
 
@@ -126,17 +136,17 @@ t_controleur	*monobrute(t_controleur *parent, size_t it_max);
 **canceler.c
 */
 
-void	c_pa(t_controleur *c);
-void	c_pb(t_controleur *c);
-void	c_sa(t_controleur *c);
-void	c_sb(t_controleur *c);
-void	c_ss(t_controleur *c);
-void	c_ra(t_controleur *c);
-void	c_rb(t_controleur *c);
-void	c_rr(t_controleur *c);
-void	c_rra(t_controleur *c);
-void	c_rrb(t_controleur *c);
-void	c_rrr(t_controleur *c);
+void			c_pa(t_controleur *c);
+void			c_pb(t_controleur *c);
+void			c_sa(t_controleur *c);
+void			c_sb(t_controleur *c);
+void			c_ss(t_controleur *c);
+void			c_ra(t_controleur *c);
+void			c_rb(t_controleur *c);
+void			c_rr(t_controleur *c);
+void			c_rra(t_controleur *c);
+void			c_rrb(t_controleur *c);
+void			c_rrr(t_controleur *c);
 
 # define TAB_F (t_fpile[4]){ps_push, ps_swap, ps_rot, ps_revrot}
 # define CTAB_F (t_cfpile[11]){c_sa, c_pa, c_ra, c_rb, c_rr, c_ss, c_rrr, c_rrb, c_rra, c_pb, c_sb}

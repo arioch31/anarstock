@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/10 14:22:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/15 00:03:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int			main(int ac, char **av)
 		aff_pile(origin);
 		ft_putendl("\ninitalisation OK!");
 		b = init_c(origin);
-		ft_putnbr(solver(b));
-		ft_putendl(" solver v1 OK!");
+		ft_putnbr(solverv4(b));
+		ft_putendl(" solver v4 OK!");
 		ft_putnbr(solverv2(c));
 		ft_putendl(" solver v2 OK!");
 		d = init_c(origin);
@@ -109,6 +109,7 @@ int			main(int ac, char **av)
 		ft_putstr("\nv3\t");
 		ft_putnbr(d->nb_op);
 		ft_putendl("\n++++++++++++++++------++++++++++++++++++");
+/*
 		if (d->nb_op < 300)
 			aff_state(d);
 		if (d->nb_op < 100)
@@ -123,6 +124,21 @@ int			main(int ac, char **av)
 		}
 		else
 			ft_putendl("brute non testee, trop d'op");
-	}
+*/
+/*		if (get_length(origin) < 9)
+		{
+			if ((d = monobrute(init_c(origin), 2 * get_length(origin))))
+			{
+				while ((d = monobrute(init_c(origin), d->nb_op)))
+				aff_state(d);
+			}
+			else
+				ft_putendl("echec monobrute en moins de length x2");
+			if ((d = brute(init_c(origin), 2 * get_length(origin))))
+				aff_state(d);
+			else
+				ft_putendl("echec brute en moins de length x2");
+		}
+*/	}
 	return (0);
 }

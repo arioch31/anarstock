@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/10 14:18:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/14 22:15:51 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_controleur	*init_c(t_list *start)
 	c->lb = NULL;
 	c->length = get_length(c->la);
 	c->la_len = c->length;
+	c->rank_max_la = c->length;
+	c->rank_min_la = 1;
 	c->lb_len = 0;
 	if (c->length)
 		c->val_m = *(int*)get_ranker(c->la, get_length(c->la) / 2 + 1)->content;

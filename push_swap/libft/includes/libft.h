@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:10:52 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/14 23:13:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# define VAL_ABS(x) (((x) < 0) ? -(x) : (x))
 
 typedef struct		s_list
 {
@@ -23,6 +24,7 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
 
 int					ft_atoi (char *str);
 long int			ft_atoli (char *str);
@@ -94,7 +96,7 @@ t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
 t_list				*ft_lstcpy(t_list *lst);
-t_list 				*ft_lstgetnb(t_list *start, size_t index);
+t_list				*ft_lstgetnb(t_list *start, size_t index);
 void				ft_print_tab(char **tab);
 
 #endif

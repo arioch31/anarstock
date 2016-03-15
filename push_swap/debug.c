@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 18:53:49 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/03 18:53:55 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/14 21:26:33 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	aff_state(t_controleur *c)
 {
 	if (!c)
-		ft_putendl("c vide");
+		ft_putendl("controleur vide");
 	else
 	{
 		ft_putendl("||base===================sommet===>>>");
