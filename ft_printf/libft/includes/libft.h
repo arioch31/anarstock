@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/20 21:25:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/02/09 22:57:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_atoi (char *str);
-long int			ft_atoli(char *str);
 void				ft_bzero (void *s, size_t n);
 int					ft_isalnum (int c);
 int					ft_isalpha (int c);
@@ -94,7 +93,5 @@ t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
 void				ft_print_tab(char **tab);
-t_list				*ft_lstcpy(t_list *lst);
-t_list				*ft_lstgetnb(t_list *start, size_t index);
 
 #endif

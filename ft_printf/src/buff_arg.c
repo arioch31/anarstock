@@ -29,7 +29,7 @@ char		*buff_arg(char *res, t_param *p)
 		return (str);
 	}
 	else if (p->precision && (p->type == 's' || p->type == 'S'))
-		str = ft_strsub(res, 0, p->precision);
+		str = ft_strsub(res, 0, p->precision - 1);
 	else
 		str = ft_strdup(res);
 	if (ft_strchr(p->padding, '-'))
@@ -55,7 +55,10 @@ int			withd_modifier(t_param *p, int neg)
 
 char		*buff_intstr(t_param *p, char *res, int neg)
 {
-	res = padd_zero(res, p->precision);
+	if (p->precision > 1)
+		res = padd_zero(res, p->precision - 1);
+	else if (p->precision == 1 && ft_strequ(res, "0"))
+		res = ft_strnew(0);
 	if (ft_strchr(p->padding, '0') \
 			&& p->withd > withd_modifier(p, neg) + ft_strlen(res))
 		res = padd_zero(res, p->withd - withd_modifier(p, neg));
@@ -65,18 +68,16 @@ char		*buff_intstr(t_param *p, char *res, int neg)
 		res = add_char(res, '+');
 	else if (p->type == 'd' && ft_strchr(p->padding, ' '))
 		res = add_char(res, ' ');
-	else if (ft_strchr(p->padding, '#'))
+	else if (ft_strchr(p->padding, '#') && !(p->type == 'o' && *res == '0') && \
+	(p->type == 'p' || ft_atoi(res) || (p->precision && p->type == 'o')))
 	{
-		if (p->type == 'x')
+		if (p->type == 'x' || p->type == 'p')
 			res = add_char(res, 'x');
 		else if (p->type == 'X')
 			res = add_char(res, 'X');
 		res = add_char(res, '0');
 	}
-	if (ft_strchr(p->padding, '-'))
-		res = padd_right(res, p->withd);
-	else
-		res = padd_left(res, p->withd);
+	res = buff_arg(res, p);
 	p->ptr->content_size = ft_strlen(res) + 1;
 	return (res);
 }
@@ -101,10 +102,6 @@ char		*buff_u_base(t_param *p, uintmax_t s)
 {
 	char			*res;
 
-	if (s == 0 && !(p->type == 'p') && ft_strchr(p->padding, '#'))
-		*ft_strchr(p->padding, '#') = 'a';
-	if (p->type == 'p')
-		p->type = 'x';
 	if (p->type == 'u')
 		res = ft_umaxtoa_base(s, 10, 0);
 	else if (p->type == 'o')

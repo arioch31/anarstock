@@ -50,6 +50,7 @@ int		get_sizes(t_param *p, char *str)
 	if (*str == '.')
 	{
 		p->precision = ft_atoi(++str);
+		p->precision++;
 		while (ft_strchr(NUMERICS, *str))
 			str++;
 	}
