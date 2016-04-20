@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/14 23:13:50 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/03/14 23:13:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
+# define VAL_ABS(x) (((x) < 0) ? -(x) : (x))
 
 typedef struct		s_list
 {
@@ -23,13 +25,16 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+
 int					ft_atoi (char *str);
+long int			ft_atoli (char *str);
 void				ft_bzero (void *s, size_t n);
 int					ft_isalnum (int c);
 int					ft_isalpha (int c);
 int					ft_isascii (int c);
 int					ft_isdigit (int c);
 int					ft_isprint (int c);
+int					ft_ispace (char c);
 void				*ft_memccpy (void *dest, const void *src, int c, size_t n);
 void				*ft_memchr (const void *str, int c, size_t n);
 int					ft_memcmp (const void *s1, const void *s2, size_t n);
@@ -49,7 +54,7 @@ char				*ft_strstr (const char *s1, const char *s2);
 char				*ft_strnstr (const char *s1, const char *s2, size_t n);
 int					ft_strcmp (const char *s1, const char *s2);
 int					ft_strncmp (const char *s1, const char *s2, size_t n);
-size_t				ft_strseekc(char *str, char c);
+size_t				ft_lenword(const char *str, char c);
 int					ft_tolower (int c);
 int					ft_toupper (int c);
 void				ft_putchar (char c);
@@ -73,7 +78,10 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strtrim(const char *str);
 char				**ft_strsplit(const char *str, char c);
+unsigned int		nb_words(const char *str, char c);
 char				*ft_itoa(int n);
+char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
+char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(const void *content, size_t content_size);
@@ -83,10 +91,14 @@ void				ft_lstadd(t_list **alst, t_list *nouveau);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstaff(t_list *lst);
+char				*ft_lstcat(t_list *start);
 void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
+t_list				*ft_lstcpy(t_list *lst);
+t_list				*ft_lstgetnb(t_list *start, size_t index);
+size_t				ft_strseekc(char *str, char c);
 void				ft_print_tab(char **tab);
 
 #endif

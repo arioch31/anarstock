@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 23:04:22 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:10:22 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/02/09 21:18:07 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/10 00:05:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int nb, int fd)
+char	*ft_lstcat(t_list *start)
 {
-	char	*str;
+	char	*tmp;
 
-	str = ft_itoa(nb);
-	ft_putstr_fd(str, fd);
-	free(str);
+	tmp = ft_strnew(0);
+	while (start)
+	{
+		tmp = ft_strjoin(tmp, (start->content ? start->content : "(null)"));
+		start = start->next;
+	}
+	return (tmp);
 }

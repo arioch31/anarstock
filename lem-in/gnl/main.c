@@ -10,18 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "get_next_line.h"
+#include "lem-in.h"
 
 int	main(int ac, char **av)
 {
 	char	*test;
+	t_ruche	*ruche;
 
-	if (ac == 1 && get_next_line(0, &test))
-		ft_putendl(test);
+	ruche = malloc(sizeof(t_ruche));
+	ruche->list_salles = NULL;
+	ruche->start = NULL;
+	ruche->end = NULL;
+
+
+	if (ac == 1 && verif_file(0, ruche))
+	{
+		ft_putnbr(ruche->nb_fourmis);
+		
+	}
 	else if (ac == 1)
 		ft_putendl("erreur");
 	else
 		ft_putendl("erreur2");
+	
 	return (0);
 }

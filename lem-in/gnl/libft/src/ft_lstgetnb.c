@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstgetnb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 23:04:22 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:10:22 by aeguzqui         ###   ########.fr       */
+/*   Created: 2015/11/29 01:00:32 by aeguzqui          #+#    #+#             */
+/*   Updated: 2015/12/07 15:54:54 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int nb, int fd)
+t_list 	*ft_lstgetnb(t_list *start, size_t index)
 {
-	char	*str;
+	size_t i;
 
-	str = ft_itoa(nb);
-	ft_putstr_fd(str, fd);
-	free(str);
+	if (!index)
+		return (NULL);
+	i = 1;
+	while (start && i < index)
+	{
+		i++;
+		start = start->next;
+	}
+	return (start);
 }

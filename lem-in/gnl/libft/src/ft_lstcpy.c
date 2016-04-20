@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+t_list	*ft_lstcpy(t_list *lst)
 {
 	t_list	*newlist;
 	t_list	*p;
@@ -21,13 +21,14 @@ t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 	newlist = NULL;
 	if (!lst)
 		return (NULL);
-	p = ft_lstcpy(lst);
-	newlist = p;
-	if (f)
+	if ((newlist = ft_lstnew(lst->content, lst->content_size)))
+	{
+		p = lst->next;
 		while (p)
 		{
-			p = f(p);
+			ft_lstapp(&newlist, ft_lstnew(p->content, p->content_size));
 			p = p->next;
 		}
+	}
 	return (newlist);
 }

@@ -8,12 +8,14 @@ INC_PATH = ./includes/
 
 OBJ_PATH = ./obj/
 
-SRC_FILES =	ft_lstapp.c		\
+SRC_FILES =	ft_ispace.c		\
+			ft_lstapp.c		\
 			ft_memcpy.c		\
 			ft_putstr.c		\
 			ft_striter.c	\
 			ft_strnequ.c	\
 			ft_atoi.c		\
+			ft_atoli.c		\
 			ft_lstdel.c		\
 			ft_memdel.c		\
 			ft_putstr_fd.c	\
@@ -43,7 +45,7 @@ SRC_FILES =	ft_lstapp.c		\
 			ft_strcmp.c		\
 			ft_strmap.c		\
 			ft_strstr.c		\
-			ft_strseekc.c	\
+			ft_lenword.c	\
 			ft_isdigit.c	\
 			ft_memalloc.c	\
 			ft_putendl.c	\
@@ -57,6 +59,8 @@ SRC_FILES =	ft_lstapp.c		\
 			ft_strncat.c	\
 			ft_strtrim.c	\
 			ft_itoa.c		\
+			ft_ultoa.c		\
+			ft_umaxtoa.c		\
 			ft_memchr.c		\
 			ft_putnbr.c		\
 			ft_strdup.c		\
@@ -71,8 +75,12 @@ SRC_FILES =	ft_lstapp.c		\
 			ft_lstaff.c		\
 			ft_lstinsert.c	\
 			ft_lstrsplit.c	\
-			ft_lstdelpropre.c
-			
+			ft_lstdelpropre.c\
+			ft_lstcat.c 	\
+			ft_lstcpy.c 	\
+			ft_lstgetnb.c	\
+			ft_strseekc.c
+
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_FILES))
@@ -87,7 +95,7 @@ $(NAME):
 	@mv $(SRC_FILES:.c=.o) ./obj
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	
+
 clean:
 	@rm -rf $(OBJ)
 fclean:	clean

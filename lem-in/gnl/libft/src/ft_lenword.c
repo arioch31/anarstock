@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lenword.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/28 23:04:22 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:10:22 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/01/14 20:29:14 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/01/23 16:29:08 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int nb, int fd)
+size_t	ft_lenword(const char *str, char c)
 {
-	char	*str;
+	unsigned int i;
 
-	str = ft_itoa(nb);
-	ft_putstr_fd(str, fd);
-	free(str);
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }

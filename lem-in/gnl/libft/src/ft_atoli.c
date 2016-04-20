@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_atoli.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 01:18:24 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/03 17:50:11 by aeguzqui         ###   ########.fr       */
+/*   Created: 2015/11/25 15:46:42 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/02/11 01:29:56 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+long int	ft_atoli(char *str)
 {
-	t_list	*newlist;
-	t_list	*p;
+	int 		i;
+	long int	res;
+	int			neg;
 
-	p = NULL;
-	newlist = NULL;
-	if (!lst)
-		return (NULL);
-	p = ft_lstcpy(lst);
-	newlist = p;
-	if (f)
-		while (p)
-		{
-			p = f(p);
-			p = p->next;
-		}
-	return (newlist);
+	neg = 0;
+	i = 0;
+	res = 0;
+	while (str[i] == 32 || str[i] == '\t' || str[i] == '\n' || str[i] == '\r'
+			|| str[i] == '\v' || str[i] == '\f')
+		i++;
+	if (str[i] == '-')
+	{
+		neg = 1;
+		i++;
+	}
+	if (str[i] == '+' && !neg)
+		i++;
+	while (ft_isdigit(str[i]))
+	{
+		res = 10 * res + str[i] - 48;
+		i++;
+	}
+	if (neg)
+		res = -res;
+	return (res);
 }
