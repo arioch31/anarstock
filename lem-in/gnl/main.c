@@ -12,6 +12,18 @@
 
 #include "lem-in.h"
 
+static char	*err_msg = NULL;
+
+int error_msg(char *msg)
+{
+	err_msg = ft_strjoin(err_msg, msg);
+	return (0);
+}
+void	*nul_errmsg(char *msg)
+{
+	err_msg = ft_strjoin(err_msg, msg);
+	return (NULL);
+}
 int	main(int ac, char **av)
 {
 	char	*test;
@@ -22,16 +34,20 @@ int	main(int ac, char **av)
 	ruche->start = NULL;
 	ruche->end = NULL;
 
-
+	
 	if (ac == 1 && verif_file(0, ruche))
 	{
-		ft_putnbr(ruche->nb_fourmis);
+		ft_putendl("succes!");
 		
 	}
 	else if (ac == 1)
-		ft_putendl("erreur");
+		ft_putendl("erreur fichier");
 	else
-		ft_putendl("erreur2");
-	
+		ft_putendl("erreur input");
+	if (err_msg)
+		ft_putendl(err_msg);
+	if (ruche)
+		aff_ruche(ruche);
+		
 	return (0);
 }

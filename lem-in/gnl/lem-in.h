@@ -41,7 +41,7 @@ typedef struct	s_ruche
 
 t_salle		*newsalle(char *line);
 int 		add_salle(t_ruche *ruche, char *line, int utile);
-char 		*set_salles(int fd, t_ruche *ruche);
+char 		*set_salles(int fd, t_ruche *ruche, char **line);
 t_salle 	*get_salle(char *name, t_ruche *ruche);
 int 		set_liaison(char *line, t_ruche *ruche);
 
@@ -56,11 +56,19 @@ int 		verif_file(int fd, t_ruche *ruche);
 int 		is_link(t_salle	*salle1, t_salle *salle2);
 
 
+/*
+**main.c 
+*/
 
+int 		error_msg(char *msg);
+void		*nul_errmsg(char *msg);
 
+/*
+**debug.c 
+*/
 
-
-
+void		aff_salle(t_list *list);
+void 		aff_ruche(t_ruche *ruche);
 
 
 
