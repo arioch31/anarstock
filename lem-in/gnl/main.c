@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/16 18:09:14 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/25 21:52:18 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,33 @@ int		main(int ac, char **av)
 	ruche->list_salles = NULL;
 	ruche->start = NULL;
 	ruche->end = NULL;
-	if (ac == 1 && verif_file(0, ruche))
+	if (!ft_strequ(av[0], "./lem-in"))
+	{
+		ft_putendl("erreur, exécutable mal nommé");
+		test = av[0];
+		ft_putendl(test);
+		return(0);
+	}
+	if (ac == 1 && verif_file(0, ruche) && !g_errmsg)
 	{
 		ft_putendl("succes!");
 	}
 	else if (ac == 1)
-		ft_putendl("erreur fichier");
+	{
+		ft_putendl("erreur fichier non valide!");
+	}
 	else
 		ft_putendl("erreur input");
 	if (g_errmsg)
+	{
+		ft_putendl("#########");
 		ft_putendl(g_errmsg);
+		ft_putendl("#########");
+	}
 	if (ruche)
+	{
+		verif_ruche(ruche);
 		aff_ruche(ruche);
+	}
 	return (0);
 }

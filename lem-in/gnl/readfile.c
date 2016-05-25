@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/16 19:16:07 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/25 21:28:47 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int		int_nozero(char *test)
 
 int		iscomment(char *test)
 {
-	int ret;
-
 	if (*test != '#')
 		return (0);
 	if (ft_strequ(test, "##start"))
@@ -42,14 +40,25 @@ int		id_line(int fd, char **line)
 {
 	int		ret;
 	int		utile;
+	int		ret2;
 
 	ret = 0;
 	utile = 0;
-	while ((get_next_line(fd, line)) > 0 && (ret = iscomment(*line)))
-		if (ret > 1)
-			utile += ret;
-	if (utile)
-		return (utile);
+	while ((ret = get_next_line(fd, line)) && ret > 0)
+	{
+		ft_putendl(*line);
+		if ((ret2 = iscomment(*line)) && ret2 > 1)
+			utile += ret2;
+		if (!ret2 && utile)
+			return (utile);
+		if (!ret2)
+			return (1);
+	}
+	if (ret < 1)
+	{
+		*line = ft_strnew(0);
+		return (0);
+	}
 	return (1);
 }
 
@@ -64,8 +73,8 @@ int		verif_file(int fd, t_ruche *ruche)
 	if (!(ruche->nb_fourmis = int_nozero(line)))
 		return (error_msg("erreur nb fourmis"));
 	if (!(set_salles(fd, ruche, &line)))
-		return (error_msg("erreur set_salles"));
-	while (set_liaison(line, ruche) && id_line(fd, &line) == 1 && line)//gnl?
+		return (error_msg("erreur format des salles"));
+	while (set_liaison(line, ruche) && (ret = id_line(fd, &line)))
 		;
 	return (1);
 }

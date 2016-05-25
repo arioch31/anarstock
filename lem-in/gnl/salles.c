@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/16 19:11:56 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/25 21:24:39 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_salle	*newsalle(char *line)
 	tab = ft_strsplit(line, ' ');
 	if (ft_strchr(tab[0], '-'))
 		return (nul_errmsg("'-' présent dans le nom d'une salle\n"));
+	if (*tab[0] == 'L')
+		return (nul_errmsg("le nom d'une salle commence par 'L'\n"));
 	new_salle = malloc(sizeof(t_salle));
 	new_salle->liens = NULL;
 	new_salle->name = ft_strdup(tab[0]);
@@ -123,12 +125,7 @@ int		set_liaison(char *line, t_ruche *ruche)
 	if (!*line)
 		return (error_msg("ligne vide liaison attendue"));
 	if (nb_words(line, '-') != 2)
-	{
-		ft_putchar('*');
-		ft_putstr(line);
-		ft_putendl("*");
 		return (error_msg("laison mal formatee"));
-	}
 	tab = ft_strsplit(line, '-');
 	if (!(salle1 = find_salle(tab[0], ruche)))
 		return (error_msg("salle inconnue"));
@@ -138,9 +135,8 @@ int		set_liaison(char *line, t_ruche *ruche)
 		return (error_msg("lien deja present"));
 	ft_lstadd(&(salle1->liens), ft_lstnew(&salle2, sizeof(t_salle*)));
 	ft_lstadd(&(salle2->liens), ft_lstnew(&salle1, sizeof(t_salle*)));
-	ft_putstr("ajout de liaison ");
-	ft_putstr(tab[0]);
-	ft_putchar('-');
-	ft_putendl(tab[1]);
+	free(tab[0]);
+	free(tab[1]);
+	free(tab);
 	return (1);
 }
