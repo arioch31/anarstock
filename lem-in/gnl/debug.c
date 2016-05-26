@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 17:06:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/16 19:01:44 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/26 02:41:25 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,15 @@ void	aff_ruche(t_ruche *ruche)
 {
 	ft_putnbr(ruche->nb_fourmis);
 	ft_putendl(" fourmis");
+	if (ruche->start)
+	{
+		ft_putstr("start : ");
+		ft_putendl(ruche->start->name);
+	}
+	if (ruche->end)
+	{
+		ft_putstr("end :");
+		ft_putendl(ruche->end->name);
+	}
 	ft_lstiter(ruche->list_salles, &aff_salle);
 }

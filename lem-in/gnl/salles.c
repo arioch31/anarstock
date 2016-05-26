@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/25 21:24:39 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/26 02:43:02 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		add_salle(t_ruche *ruche, char *line, int utile)
 		return (error_msg("salle deja presente\n"));
 	if (utile)
 		salle->utile = utile;
-	if ((utile - 1) % 2)
+	if (utile == 2 || utile == 5)
 		ruche->start = salle;
 	if (utile > 2)
 		ruche->end = salle;

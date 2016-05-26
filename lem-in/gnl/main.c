@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/25 21:52:18 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/26 02:01:22 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		main(int ac, char **av)
 {
 	char	*test;
 	t_ruche	*ruche;
+	int		ret;
 
 	ruche = malloc(sizeof(t_ruche));
 	ruche->list_salles = NULL;
@@ -58,10 +59,11 @@ int		main(int ac, char **av)
 		ft_putendl(g_errmsg);
 		ft_putendl("#########");
 	}
+	ret = 0;
 	if (ruche)
-	{
-		verif_ruche(ruche);
 		aff_ruche(ruche);
-	}
+
+	if ((ret = delim_ruche(ruche)))
+		ft_putnbr(ret);
 	return (0);
 }

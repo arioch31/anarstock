@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/25 21:53:18 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/26 01:38:07 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void			aff_ruche(t_ruche *ruche);
 /*
 **ruche.c
 */
-int				verif_ruche(t_ruche *ruche);
+
+int				delim_ruche(t_ruche *ruche);
 
 #endif
