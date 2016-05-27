@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 01:13:08 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 05:53:19 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/27 23:37:18 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ t_controleur	*test_brute(t_list *origin)
 {
 	t_controleur	*d;
 	t_controleur	*e;
-	size_t				cpt;
+	size_t			cpt;
 
-	if (get_length(origin) > 20)
+	if (get_length(origin) > 50)
 		return (NULL);
 	d = init_c(origin);
 	e = NULL;
@@ -87,19 +87,16 @@ t_controleur	*test_brute(t_list *origin)
 		while ((d = monobrute(init_c(origin), d->nb_op)))
 			e = d;
 	}
-	else
-		ft_putendl("echec monobrute");
-	cpt = 11;
+	cpt = 9;
 	if (e && e->nb_op < cpt)
 		cpt = e->nb_op;
 	if ((d = brute(init_c(origin), cpt)))
 	{
+		e = d;
 		while ((d = brute(init_c(origin), d->nb_op)))
 			if (e->nb_op > d->nb_op)
 				e = d;
 	}
-	else if (e)
-		ft_putendl("echec brute");
 	return (e);
 }
 
@@ -107,30 +104,26 @@ int				main(int ac, char **av)
 {
 	t_list			*origin;
 	t_controleur	*b;
-//	t_controleur	*c;
-//	t_controleur	*d;
-	t_controleur	*e;
 
-	if (ac < 3)
+	if (ac < 2)
 		exit_error(NULL, NULL);
 	else
 	{
 		origin = get_entry(ac, av);
-		aff_pile(origin);
-		ft_putchar('\n');
-//		c = init_c(origin);
-		ft_putendl("\ninitalisation OK!");
-		b = init_c(origin);
-		ft_putnbr(solverv4(b));
-		ft_putendl(" solver v4 OK!");
-//		ft_putnbr(solver(c));
-//		ft_putendl(" solver v1 OK!");
-//		d = init_c(origin);
-//		ft_putnbr(solverv3(d));
-//		ft_putstr(" solver v3 OK!\n");
-		ft_putendl("++++++++++++++++------++++++++++++++++++");
-		if ((e = test_brute(origin)))
-			aff_state(e);
+		if ((b = test_brute(origin)))
+			aff_journal(b);
+		else
+		{
+			b = init_c(origin);
+			solverv4(b);
+			if (b->nb_op < 1000)
+				aff_journal(b);
+			else
+			{
+				ft_putnbr(b->nb_op);
+				ft_putendl(" operations effectuees");
+			}
+		}
 	}
 	return (0);
 }

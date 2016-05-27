@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 00:24:44 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 01:06:47 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/27 23:36:54 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int		solverv4(t_controleur *c)
 			ps_push(1, c);
 			c->rank_min_la++;
 		}
-		if (*(int*)c->la->content > *(int*)c->la->next->content)
-			ps_swap(1, c);
 	}
 	sendback(c);
 	return (c->nb_op);

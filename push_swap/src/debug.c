@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 18:53:49 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/14 21:26:33 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/27 23:07:27 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	aff_state(t_controleur *c)
 		aff_journal(c);
 		ft_putstr("\nnb op :\t\t");
 		ft_putnbr(c->nb_op);
-		ft_putstr("\nlast op :\t");
-		ft_putendl(STR_F[(int)*c->last_op]);
-		ft_putstr("length totale :\t");
+		if (c->last_op)
+			ft_putstr(ft_strjoin("\nlast op :\t", STR_F[(int)*c->last_op]));
+		ft_putstr("\nlength totale :\t");
 		ft_putnbr(c->length);
 		ft_putstr("\nlength la :\t");
 		ft_putnbr(c->la_len);
@@ -79,7 +79,7 @@ void	exit_error(t_list *origin, t_controleur *c)
 {
 	if (origin)
 		ft_lstdel(&origin, &del_list);
-	ft_putendl("erreur\n");
+	ft_putendl("erreur");
 	if (c)
 		destr_c(&c);
 	exit(0);

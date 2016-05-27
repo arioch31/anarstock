@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/20 17:41:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/15 04:14:45 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/05/27 23:00:51 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ t_controleur	*copie_c(t_controleur *c)
 	return (d);
 }
 
-void			destr_c(t_controleur **c)
+void			*destr_c(t_controleur **c)
 {
-	if (c)
+	if (c && *c)
 	{
 		ft_lstdel(&((*c)->la), &del_list);
 		ft_lstdel(&((*c)->lb), &del_list);
@@ -95,6 +95,7 @@ void			destr_c(t_controleur **c)
 		free(*c);
 		*c = NULL;
 	}
+	return (NULL);
 }
 
 int				ad_op(t_controleur *c, int code_f)
