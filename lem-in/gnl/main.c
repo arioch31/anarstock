@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/26 02:01:22 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/07 00:42:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ void	*nul_errmsg(char *msg)
 {
 	g_errmsg = ft_strjoin(g_errmsg, msg);
 	return (NULL);
+}
+
+void	test_pathalacon(t_ruche *ruche)
+{
+	t_list	*ptr;
+	t_salle	*ptr_salle;
+
+	ptr = ruche->list_salles;
+	while (ptr)
+	{
+		ptr_salle = *(t_salle**)ptr->content;
+		if (is_used(ruche->short_path, ptr_salle))
+		{
+			ft_putstr(ptr_salle->name);
+			ft_putendl(" is used in the shortest path");
+		}
+		ptr = ptr->next;
+	}
 }
 
 int		main(int ac, char **av)
@@ -45,7 +63,7 @@ int		main(int ac, char **av)
 	}
 	if (ac == 1 && verif_file(0, ruche) && !g_errmsg)
 	{
-		ft_putendl("succes!");
+		ft_putendl("format fichier ok!");
 	}
 	else if (ac == 1)
 	{
@@ -61,9 +79,19 @@ int		main(int ac, char **av)
 	}
 	ret = 0;
 	if (ruche)
+	{
 		aff_ruche(ruche);
-
-	if ((ret = delim_ruche(ruche)))
-		ft_putnbr(ret);
+		if ((ret = delim_ruche(ruche)))
+			{
+				ft_putstr("ret delim ruche:");
+				ft_putnbr(ret);
+				ft_putchar('\n');
+				aff_path(ruche->short_path);
+				aff_ruche(ruche);
+				test_pathalacon(ruche);
+			}
+		else
+			ft_putendl("erreur, start et end ne sont pas lies");
+	}
 	return (0);
 }

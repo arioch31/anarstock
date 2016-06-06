@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 17:06:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/26 02:41:25 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/07 00:34:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ void	aff_liens(t_salle *salle)
 	}
 }
 
+void	aff_path(t_list *path)
+{
+	t_list	*ptr;
+	t_salle	*p;
+
+	ptr = path;
+	while (ptr)
+	{
+		p = *(t_salle**)ptr->content;
+		ft_putstr(p->name);
+		if (ptr->next)
+			ft_putstr(" => ");
+		ptr = ptr->next;
+	}
+	if (!path)
+		ft_putendl("erreur, path vide!");
+	else
+		ft_putchar('\n');
+}
+
 void	aff_salle(t_list *list)
 {
 	t_salle	*p;
@@ -43,6 +63,8 @@ void	aff_salle(t_list *list)
 	ft_putnbr(p->coo_y);
 	ft_putstr("\tutilité: ");
 	ft_putnbr(p->utile);
+	ft_putstr("\tdist_start: ");
+	ft_putnbr(p->dist_start);
 	ft_putchar('\n');
 	if (p->liens)
 		aff_liens(p);

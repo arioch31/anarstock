@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/05/26 02:43:02 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/06 21:32:46 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_salle	*newsalle(char *line)
 		return (nul_errmsg("pb coordonées\n"));
 	if (!(new_salle->coo_y = int_nozero(tab[2])) && !ft_strequ(tab[2], "0"))
 		return (nul_errmsg("pb coordonées\n"));
+	new_salle->dist_start = 0;
 	new_salle->utile = 1;
 	return (new_salle);
 }
@@ -133,8 +134,8 @@ int		set_liaison(char *line, t_ruche *ruche)
 		return (error_msg("salle inconnue"));
 	if (is_link(salle1, salle2))
 		return (error_msg("lien deja present"));
-	ft_lstadd(&(salle1->liens), ft_lstnew(&salle2, sizeof(t_salle*)));
-	ft_lstadd(&(salle2->liens), ft_lstnew(&salle1, sizeof(t_salle*)));
+	ft_lstapp(&(salle1->liens), ft_lstnew(&salle2, sizeof(t_salle*)));
+	ft_lstapp(&(salle2->liens), ft_lstnew(&salle1, sizeof(t_salle*)));
 	free(tab[0]);
 	free(tab[1]);
 	free(tab);
