@@ -77,9 +77,6 @@ void	addstep_short(t_ruche *ruche, t_salle *current)
 
 int		test_shortpath(t_ruche *ruche)
 {
-	t_list	*short_path;
-
-	short_path = NULL;
 	next_step(ruche, ruche->start);
 	if (ruche->end->dist_start)
 	{

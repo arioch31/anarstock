@@ -10,6 +10,7 @@ OBJ_PATH = ./obj/
 
 SRC_FILES =	ft_ispace.c		\
 			ft_lstapp.c		\
+			ft_lstlen.c 	\
 			ft_memcpy.c		\
 			ft_putstr.c		\
 			ft_striter.c	\

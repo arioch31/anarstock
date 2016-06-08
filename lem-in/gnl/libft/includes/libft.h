@@ -84,21 +84,27 @@ char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
 char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
+size_t				ft_strseekc(char *str, char c);
+void				ft_print_tab(char **tab);
+
+/*
+**
+*/
+
 t_list				*ft_lstnew(const void *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *nouveau);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void				ft_lstaff(t_list *lst);
-char				*ft_lstcat(t_list *start);
-void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
-t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
+void				ft_lstaff(t_list *lst);
+int					ft_lstlen(t_list *start);
+char				*ft_lstcat(t_list *start);
+t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
 t_list				*ft_lstcpy(t_list *lst);
 t_list				*ft_lstgetnb(t_list *start, size_t index);
-size_t				ft_strseekc(char *str, char c);
-void				ft_print_tab(char **tab);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 #endif
