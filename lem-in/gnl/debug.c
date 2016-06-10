@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 17:06:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 18:35:24 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/11 01:01:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ void	aff_path(t_list *path)
 	if (!path)
 		ft_putendl("erreur, path vide!");
 	else
+	{
+		ft_putstr("\tlongueur :");
+		ft_putnbr(ft_lstlen(path));
 		ft_putchar('\n');
+	}
 }
 
-void	affmap(t_list *map_paths)
+void	aff_map(t_list *map_paths)
 {
 	t_list	*ptr;
 	t_list	*path;
@@ -62,6 +66,8 @@ void	affmap(t_list *map_paths)
 		aff_path(path);
 		ptr = ptr->next;
 	}
+	ft_putnbr(map_paths->content_size);
+	ft_putstr(" paths\n");
 }
 
 void	aff_salle(t_list *list)

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/11 01:07:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_ruche
 	t_salle		*end;
 	t_list		*short_path;
 	t_list		*map_paths;
+	t_list		*lists_paths;
 }				t_ruche;
 
 /*
@@ -68,6 +69,7 @@ int				is_link(t_salle	*salle1, t_salle *salle2);
 
 int				error_msg(char *msg);
 void			*nul_errmsg(char *msg);
+void			test_mapping(t_ruche *ruche);
 
 /*
 **debug.c
@@ -75,7 +77,7 @@ void			*nul_errmsg(char *msg);
 
 void			aff_liens(t_salle *salle);
 void			aff_path(t_list *path);
-void			affmap(t_list *map_paths);
+void			aff_map(t_list *map_paths);
 void			aff_salle(t_list *list);
 void			aff_ruche(t_ruche *ruche);
 
@@ -91,8 +93,17 @@ t_ruche			*init_ruche(void);
 /*
 **pathfinder.c
 */
+void			add_paths(t_ruche *ruche, t_list *pathlist);
+void			select_paths(t_ruche *ruche);
+void			trim_paths(t_ruche *ruche);
+int				addstep_path(t_ruche *ruche, t_list *path, t_salle *current);
+
+/*
+**crossing.c
+*/
 
 int				is_used(t_list *path, t_salle *salle);
-int				addstep_path(t_ruche *ruche, t_list *path, t_salle *current);
+int				crossing(t_ruche *ruche, t_list *path1, t_list *path2);
+int				multicross(t_ruche *ruche, t_list *pathlist, t_list *path);
 
 #endif

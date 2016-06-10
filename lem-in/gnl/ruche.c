@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/25 21:45:38 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/10 22:43:06 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ t_ruche	*init_ruche(void)
 	ruche->start = NULL;
 	ruche->end = NULL;
 	ruche->map_paths = NULL;
+	ruche->lists_paths = NULL;
 	return (ruche);
 }

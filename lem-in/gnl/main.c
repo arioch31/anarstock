@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/11 01:06:58 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,15 @@ void	*nul_errmsg(char *msg)
 	return (NULL);
 }
 
-void	test_pathalacon(t_ruche *ruche)
+void	test_mapping(t_ruche *ruche)
 {
 	t_list	*ptr;
-	t_salle	*ptr_salle;
 
-	ptr = ruche->list_salles;
+	select_paths(ruche);
+	ptr = ruche->lists_paths;
 	while (ptr)
 	{
-		ptr_salle = *(t_salle**)ptr->content;
-		if (is_used(ruche->short_path, ptr_salle))
-		{
-			ft_putstr(ptr_salle->name);
-			ft_putendl(" is used in the shortest path");
-		}
+		aff_map(*(t_list**)ptr->content);
 		ptr = ptr->next;
 	}
 }
@@ -87,11 +82,12 @@ int		main(int ac, char **av)
 				{
 					aff_path(ruche->short_path);
 					aff_ruche(ruche);
-				//	test_pathalacon(ruche);
 					path = ft_lstnew(&ruche->start, sizeof(t_salle*));
 					addstep_path(ruche, path, ruche->start);
-					ft_putendl("sorti!");
-					affmap(ruche->map_paths);
+					aff_map(ruche->map_paths);
+					ft_putendl("==================\n");
+					test_mapping(ruche);
+					trim_paths(ruche);
 				}
 			}
 		else
