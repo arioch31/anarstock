@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 18:33:26 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_ruche
 	t_salle		*start;
 	t_salle		*end;
 	t_list		*short_path;
-	t_list		*list_paths;
+	t_list		*map_paths;
 }				t_ruche;
 
 /*
@@ -75,7 +75,7 @@ void			*nul_errmsg(char *msg);
 
 void			aff_liens(t_salle *salle);
 void			aff_path(t_list *path);
-void			affmap(t_list *list_paths);
+void			affmap(t_list *map_paths);
 void			aff_salle(t_list *list);
 void			aff_ruche(t_ruche *ruche);
 

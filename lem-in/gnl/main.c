@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 18:32:10 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		main(int ac, char **av)
 	}
 	if (ac == 1 && verif_file(0, ruche) && !g_errmsg)
 	{
-		ft_putendl("format fichier ok!");
+		ft_putendl("********************************\nformat fichier ok!");
 	}
 	else if (ac == 1)
 	{
@@ -78,7 +78,6 @@ int		main(int ac, char **av)
 	ret = 0;
 	if (ruche)
 	{
-		aff_ruche(ruche);
 		if ((ret = delim_ruche(ruche)))
 			{
 				ft_putstr("ret delim ruche:");
@@ -88,11 +87,11 @@ int		main(int ac, char **av)
 				{
 					aff_path(ruche->short_path);
 					aff_ruche(ruche);
-					test_pathalacon(ruche);
+				//	test_pathalacon(ruche);
 					path = ft_lstnew(&ruche->start, sizeof(t_salle*));
 					addstep_path(ruche, path, ruche->start);
 					ft_putendl("sorti!");
-					affmap(ruche->list_paths);
+					affmap(ruche->map_paths);
 				}
 			}
 		else

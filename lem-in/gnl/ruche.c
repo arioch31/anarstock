@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/25 21:45:38 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 18:31:32 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/10 19:30:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		trim_ruche(t_ruche *ruche)
 	t_salle	*salle;
 	int		ret;
 
-	ft_putendl("test");
 	ret = 0;
 	ptr = ruche->list_salles;
 	while (ptr)
@@ -113,6 +112,6 @@ t_ruche	*init_ruche(void)
 	ruche->list_salles = NULL;
 	ruche->start = NULL;
 	ruche->end = NULL;
-	ruche->list_paths = NULL;
+	ruche->map_paths = NULL;
 	return (ruche);
 }

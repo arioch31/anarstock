@@ -50,12 +50,12 @@ void	aff_path(t_list *path)
 		ft_putchar('\n');
 }
 
-void	affmap(t_list *list_paths)
+void	affmap(t_list *map_paths)
 {
 	t_list	*ptr;
 	t_list	*path;
 
-	ptr = list_paths;
+	ptr = map_paths;
 	while (ptr)
 	{
 		path = *(t_list**)(ptr->content);
