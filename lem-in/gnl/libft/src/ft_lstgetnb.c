@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstgetnb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 01:00:32 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/07 15:54:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/08 16:23:36 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list 	*ft_lstgetnb(t_list *start, size_t index)
+t_list	*ft_lstgetnb(t_list *start, size_t index)
 {
 	size_t i;
 

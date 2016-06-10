@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/07 00:42:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/10 18:32:10 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ int		main(int ac, char **av)
 	char	*test;
 	t_ruche	*ruche;
 	int		ret;
+	t_list	*path;
 
-	ruche = malloc(sizeof(t_ruche));
-	ruche->list_salles = NULL;
-	ruche->start = NULL;
-	ruche->end = NULL;
+	ruche = init_ruche();
 	if (!ft_strequ(av[0], "./lem-in"))
 	{
 		ft_putendl("erreur, exécutable mal nommé");
@@ -86,9 +84,16 @@ int		main(int ac, char **av)
 				ft_putstr("ret delim ruche:");
 				ft_putnbr(ret);
 				ft_putchar('\n');
-				aff_path(ruche->short_path);
-				aff_ruche(ruche);
-				test_pathalacon(ruche);
+				if (ret > 1)
+				{
+					aff_path(ruche->short_path);
+					aff_ruche(ruche);
+					test_pathalacon(ruche);
+					path = ft_lstnew(&ruche->start, sizeof(t_salle*));
+					addstep_path(ruche, path, ruche->start);
+					ft_putendl("sorti!");
+					affmap(ruche->list_paths);
+				}
 			}
 		else
 			ft_putendl("erreur, start et end ne sont pas lies");
