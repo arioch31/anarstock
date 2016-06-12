@@ -12,11 +12,7 @@
 
 #include "lemin.h"
 
-void	list_clear(void *content, size_t content_size)
-{
-	content = NULL;
-	content_size = 0;
-}
+
 
 int		set_liaison(char *line, t_ruche *ruche)
 {

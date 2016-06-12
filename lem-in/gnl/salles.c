@@ -34,7 +34,9 @@ t_salle	*newsalle(char *line)
 	if (!(new_salle->coo_y = int_nozero(tab[2])) && !ft_strequ(tab[2], "0"))
 		return (nul_errmsg("pb coordonées\n"));
 	new_salle->dist_start = 0;
+	new_salle->occupee = 0;
 	new_salle->utile = 1;
+	new_salle->fourmi = NULL;
 	return (new_salle);
 }
 
@@ -51,7 +53,10 @@ int		add_salle(t_ruche *ruche, char *line, int utile)
 	if (utile)
 		salle->utile = utile;
 	if (utile == 2 || utile == 5)
+	{
+		salle->occupee = 1;
 		ruche->start = salle;
+	}
 	if (utile > 2)
 		ruche->end = salle;
 	return (1);

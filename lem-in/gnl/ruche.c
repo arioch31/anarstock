@@ -112,7 +112,10 @@ t_ruche	*init_ruche(void)
 	ruche->list_salles = NULL;
 	ruche->start = NULL;
 	ruche->end = NULL;
-	ruche->map_paths = NULL;
-	ruche->lists_paths = NULL;
+	ruche->list_paths = NULL;
+	ruche->list_maps = NULL;
+	ruche->rest = 0;
+	ruche->fourmis = NULL;
+	ruche->dispo = NULL;
 	return (ruche);
 }

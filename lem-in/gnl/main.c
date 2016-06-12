@@ -30,8 +30,7 @@ void	test_mapping(t_ruche *ruche)
 {
 	t_list	*ptr;
 
-	select_paths(ruche);
-	ptr = ruche->lists_paths;
+	ptr = ruche->list_maps;
 	while (ptr)
 	{
 		aff_map(*(t_list**)ptr->content);
@@ -80,14 +79,17 @@ int		main(int ac, char **av)
 				ft_putchar('\n');
 				if (ret > 1)
 				{
-					aff_path(ruche->short_path);
-					aff_ruche(ruche);
 					path = ft_lstnew(&ruche->start, sizeof(t_salle*));
 					addstep_path(ruche, path, ruche->start);
-					aff_map(ruche->map_paths);
+					select_paths(ruche);
 					ft_putendl("==================\n");
-					test_mapping(ruche);
-					trim_paths(ruche);
+					path = trim_paths(ruche);
+					aff_map(path);
+					ft_putendl("==================");
+					ft_putnbr(ruche->nb_fourmis);
+					ft_putendl("==================");
+					ft_putnbr(action(ruche, path));
+					clear_ruche(ruche);
 				}
 			}
 		else

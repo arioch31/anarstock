@@ -12,6 +12,19 @@
 
 #include "lemin.h"
 
+void	aff_couvee(t_list *fourmis)
+{
+	t_fourmi *ptr;
+
+	while (fourmis)
+	{
+		ptr = *(t_fourmi**)fourmis->content;
+		ft_putnbr(ptr->name);
+		ft_putstr("ready!\n");
+		fourmis = fourmis->next;
+	}
+}
+
 void	aff_liens(t_salle *salle)
 {
 	t_list	*ptr;
@@ -48,61 +61,66 @@ void	aff_path(t_list *path)
 		ft_putendl("erreur, path vide!");
 	else
 	{
-		ft_putstr("\tlongueur :");
-		ft_putnbr(ft_lstlen(path));
+		ft_putstr("\tmoves :");
+		ft_putnbr(ft_lstlen(path) - 1);
 		ft_putchar('\n');
 	}
 }
 
-void	aff_map(t_list *map_paths)
+void	aff_map(t_list *list_paths)
 {
 	t_list	*ptr;
 	t_list	*path;
 
-	ptr = map_paths;
+	ptr = list_paths;
 	while (ptr)
 	{
 		path = *(t_list**)(ptr->content);
 		aff_path(path);
 		ptr = ptr->next;
 	}
-	ft_putnbr(map_paths->content_size);
+	ft_putnbr(list_paths->content_size);
 	ft_putstr(" paths\n");
 }
 
 void	aff_salle(t_list *list)
 {
 	t_salle	*p;
-
-	p = *(t_salle**)list->content;
-	ft_putstr("salle :");
-	ft_putstr(p->name);
-	ft_putstr("\t x= ");
-	ft_putnbr(p->coo_x);
-	ft_putstr("\t y= ");
-	ft_putnbr(p->coo_y);
-	ft_putstr("\tutilité: ");
-	ft_putnbr(p->utile);
-	ft_putstr("\tdist_start: ");
-	ft_putnbr(p->dist_start);
-	ft_putchar('\n');
-	if (p->liens)
-		aff_liens(p);
+	if (list)
+	{
+		p = *(t_salle**)list->content;
+		ft_putstr("salle :");
+		ft_putstr(p->name);
+		ft_putstr("\t x= ");
+		ft_putnbr(p->coo_x);
+		ft_putstr("\t y= ");
+		ft_putnbr(p->coo_y);
+		ft_putstr("\tutilité: ");
+		ft_putnbr(p->utile);
+		ft_putstr("\tdist_start: ");
+		ft_putnbr(p->dist_start);
+		ft_putchar('\n');
+		if (p->liens)
+			aff_liens(p);
+	}
 }
 
 void	aff_ruche(t_ruche *ruche)
 {
-	ft_putnbr(ruche->nb_fourmis);
-	ft_putendl(" fourmis");
-	if (ruche->start)
+	if (ruche)
 	{
-		ft_putstr("start : ");
-		ft_putendl(ruche->start->name);
+		ft_putnbr(ruche->nb_fourmis);
+		ft_putendl(" fourmis");
+		if (ruche->start)
+		{
+			ft_putstr("start : ");
+			ft_putendl(ruche->start->name);
+		}
+		if (ruche->end)
+		{
+			ft_putstr("end :");
+			ft_putendl(ruche->end->name);
+		}
+		ft_lstiter(ruche->list_salles, &aff_salle);
 	}
-	if (ruche->end)
-	{
-		ft_putstr("end :");
-		ft_putendl(ruche->end->name);
-	}
-	ft_lstiter(ruche->list_salles, &aff_salle);
 }
