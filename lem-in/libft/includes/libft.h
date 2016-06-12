@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/03/14 23:13:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 16:49:39 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
 
 int					ft_atoi (char *str);
 long int			ft_atoli (char *str);
@@ -88,7 +87,7 @@ size_t				ft_strseekc(char *str, char c);
 void				ft_print_tab(char **tab);
 
 /*
-**
+** fonctions liste
 */
 
 t_list				*ft_lstnew(const void *content, size_t content_size);

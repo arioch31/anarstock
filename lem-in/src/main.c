@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 01:06:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 18:32:37 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,62 +38,46 @@ void	test_mapping(t_ruche *ruche)
 	}
 }
 
-int		main(int ac, char **av)
+int		start_moving(t_ruche *ruche)
 {
-	char	*test;
-	t_ruche	*ruche;
 	int		ret;
+	int		ret2;
 	t_list	*path;
 
-	ruche = init_ruche();
-	if (!ft_strequ(av[0], "./lem-in"))
+	ret = 0;
+	if (ruche && (ret = delim_ruche(ruche)))
 	{
-		ft_putendl("erreur, exécutable mal nommé");
-		test = av[0];
-		ft_putendl(test);
-		return(0);
-	}
-	if (ac == 1 && verif_file(0, ruche) && !g_errmsg)
-	{
-		ft_putendl("********************************\nformat fichier ok!");
-	}
-	else if (ac == 1)
-	{
-		ft_putendl("erreur fichier non valide!");
+		path = ft_lstnew(&ruche->start, sizeof(t_salle*));
+		addstep_path(ruche, path, ruche->start);
+		select_paths(ruche);
+		path = trim_paths(ruche);
+		if (ret == 1)
+			path = ruche->list_paths;
+		ft_putendl("");
+		ret2 = action(ruche, path);
+		aff_map(path);
+		ft_putnbr(ruche->nb_fourmis);
+		ft_putendl(" fourmis");
+		ft_putnbr(ret2);
+		ft_putendl(" tours");
 	}
 	else
-		ft_putendl("erreur input");
+		return (error_msg("erreur, start et end ne sont pas lies"));
+	return (1);
+}
+
+int		main(int ac, char **av)
+{
+	t_ruche	*ruche;
+
+	ruche = init_ruche();
+	if (ac == 1 && verif_file(0, ruche) && !g_errmsg)
+		start_moving(ruche);
+	else if (ac == 1)
+		ft_putendl("erreur fichier non valide!");
+	else
+		ft_putendl(ft_strjoin("erreur input :", av[1]));
 	if (g_errmsg)
-	{
-		ft_putendl("#########");
 		ft_putendl(g_errmsg);
-		ft_putendl("#########");
-	}
-	ret = 0;
-	if (ruche)
-	{
-		if ((ret = delim_ruche(ruche)))
-			{
-				ft_putstr("ret delim ruche:");
-				ft_putnbr(ret);
-				ft_putchar('\n');
-				if (ret > 1)
-				{
-					path = ft_lstnew(&ruche->start, sizeof(t_salle*));
-					addstep_path(ruche, path, ruche->start);
-					select_paths(ruche);
-					ft_putendl("==================\n");
-					path = trim_paths(ruche);
-					aff_map(path);
-					ft_putendl("==================");
-					ft_putnbr(ruche->nb_fourmis);
-					ft_putendl("==================");
-					ft_putnbr(action(ruche, path));
-					clear_ruche(ruche);
-				}
-			}
-		else
-			ft_putendl("erreur, start et end ne sont pas lies");
-	}
 	return (0);
 }

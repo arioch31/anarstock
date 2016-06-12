@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/05 23:58:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 01:07:34 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 16:22:37 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 # define _LEMIN_H
 # include "get_next_line.h"
 
-
 typedef	struct	s_fourmi
 {
 	int			name;
 	t_list		*path;
-	int 		finished;
-
+	int			finished;
 }				t_fourmi;
 
 typedef	struct	s_salle
@@ -52,8 +50,12 @@ typedef struct	s_ruche
 /*
 **fourmi.c
 */
-int		action(t_ruche *ruche, t_list *map);
 
+int				ponte_fourmis(t_ruche *ruche, int nb);
+int				mouv(t_ruche *ruche, t_salle *p1, t_salle *p2);
+int				recc_mouv(t_ruche *ruche, t_list *path);
+void			turn(t_ruche *ruche, t_list *map);
+int				action(t_ruche *ruche, t_list *map);
 
 /*
 **salles.c
@@ -92,6 +94,8 @@ void			test_mapping(t_ruche *ruche);
 /*
 **debug.c
 */
+
+void			print_mouv(t_salle *salle, int name);
 void			aff_couvee(t_list *fourmis);
 void			aff_liens(t_salle *salle);
 void			aff_path(t_list *path);

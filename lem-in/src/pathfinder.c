@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/06 22:46:06 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 01:06:34 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 17:50:43 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		value_map(t_ruche *ruche, t_list *map)
 {
 	t_list	*ptr;
 	t_list	*ptr_path;
-	int 	ret;
+	int		ret;
 
 	ret = 0;
 	ptr = map;
@@ -62,7 +62,7 @@ int		value_map(t_ruche *ruche, t_list *map)
 	}
 	if (ruche->nb_fourmis <= (int)map->content_size)
 		return (ret);
-	return(ruche->nb_fourmis / map->content_size + ret);
+	return (ruche->nb_fourmis / map->content_size + ret);
 }
 
 t_list	*trim_paths(t_ruche *ruche)
@@ -83,8 +83,6 @@ t_list	*trim_paths(t_ruche *ruche)
 		}
 		ptr = ptr->next;
 	}
-	ft_putnbr(value);
-	ft_putendl(" value");
 	return (ptr_map);
 }
 

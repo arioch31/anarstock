@@ -6,76 +6,41 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:46:52 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 00:47:21 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 17:24:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
 
-int		is_used(t_list *path, t_salle *salle)
+t_list	*map_in_list(t_list *map, t_list *listmap)
 {
 	t_list	*ptr;
-	t_salle	*ptr_salle;
 
-	ptr = path;
+	ptr = listmap;
 	while (ptr)
 	{
-		ptr_salle = *(t_salle**)ptr->content;
-		if (ptr_salle == salle)
+		if (map_equ(map, *(t_list**)ptr->content))
+			return (*(t_list**)(ptr->content));
+		ptr = ptr->next;
+	}
+	return (NULL);
+}
+
+int		path_in_map(t_list *path, t_list *listpath)
+{
+	t_list	*ptr;
+
+	ptr = listpath;
+	while (ptr)
+	{
+		if (path_equ(path, *(t_list**)ptr->content))
 			return (1);
 		ptr = ptr->next;
 	}
 	return (0);
 }
 
-int		path_equ(t_list *path1, t_list *path2) //a tester
-{
-	t_list	*ptr1;
-	t_list	*ptr2;
-
-	ptr1 = path1;
-	ptr2 = path2;
-	while (ptr1 && ptr2)
-	{
-		if (*(t_salle**)ptr2->content != *(t_salle**)ptr2->content)
-			return (0);
-		ptr1 = ptr1->next;
-		ptr2 = ptr2->next;
-		if (!ptr1 - !ptr2)
-			return (0);
-	}
-	return (1);
-}
-
-t_list	*map_in_list(t_list *map, t_list *listmap)
-{
-	t_list	*ptr;
-
- 	ptr = listmap;
- 	while (ptr)
- 	{
-		if (map_equ(map, *(t_list**)ptr->content))
- 			return (*(t_list**)(ptr->content));
- 		ptr = ptr->next;
- 	}
- 	return (NULL);
-}
-
-int	path_in_map(t_list *path, t_list *listpath)
-{
-	t_list	*ptr;
-
- 	ptr = listpath;
- 	while (ptr)
- 	{
- 		if (path_equ(path, *(t_list**)ptr->content))
- 			return (1);
- 		ptr = ptr->next;
- 	}
- 	return (0);
-}
-
-int		map_equ(t_list *pathlist1, t_list *pathlist2) //a tester
+int		map_equ(t_list *pathlist1, t_list *pathlist2)
 {
 	t_list	*ptr1;
 	t_list	*ptr2;
@@ -92,7 +57,7 @@ int		map_equ(t_list *pathlist1, t_list *pathlist2) //a tester
 	{
 		if (!path_in_map(*(t_list**)ptr2->content, pathlist1))
 			return (0);
-				ptr2 = ptr2->next;
+		ptr2 = ptr2->next;
 	}
 	return (1);
 }

@@ -6,13 +6,11 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/10 16:46:23 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/10 17:00:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 16:53:09 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-
 
 int		set_liaison(char *line, t_ruche *ruche)
 {

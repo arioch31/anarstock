@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaner.c                                         :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/11 00:46:52 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 00:47:21 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 16:50:56 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	clear_salles(t_list *list)
 			free(ptr_salle);
 			ptr = ptr->next;
 			if (list)
-				{
-					free(list);
-					list = NULL;
-					list = ptr;
-				}
+			{
+				free(list);
+				list = NULL;
+				list = ptr;
+			}
 		}
 	}
 }
@@ -52,11 +52,9 @@ void	clear_map(t_list *map)
 	{
 		while (ptr)
 		{
-
 			ft_lstdel((t_list**)&(ptr->content), list_clear);
 			ptr = ptr->next;
 		}
-
 	}
 }
 
@@ -64,7 +62,7 @@ void	clear_listmap(t_list *list_maps)
 {
 	t_list *ptr;
 
-		ptr = list_maps;
+	ptr = list_maps;
 	{
 		while (ptr)
 		{

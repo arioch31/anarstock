@@ -6,24 +6,11 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/30 17:06:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/11 01:01:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/12 18:28:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-void	aff_couvee(t_list *fourmis)
-{
-	t_fourmi *ptr;
-
-	while (fourmis)
-	{
-		ptr = *(t_fourmi**)fourmis->content;
-		ft_putnbr(ptr->name);
-		ft_putstr("ready!\n");
-		fourmis = fourmis->next;
-	}
-}
 
 void	aff_liens(t_salle *salle)
 {
@@ -72,6 +59,7 @@ void	aff_map(t_list *list_paths)
 	t_list	*ptr;
 	t_list	*path;
 
+	ft_putchar('\n');
 	ptr = list_paths;
 	while (ptr)
 	{
@@ -86,6 +74,7 @@ void	aff_map(t_list *list_paths)
 void	aff_salle(t_list *list)
 {
 	t_salle	*p;
+
 	if (list)
 	{
 		p = *(t_salle**)list->content;
