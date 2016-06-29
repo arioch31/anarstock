@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/28 22:58:25 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/29 00:00:32 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,14 @@ void	aff_grid(t_list *list)
 	ptr = list;
 	while (ptr)
 	{
-		ft_putendl("test ext");
-		ptr2 = (t_list*)ptr->content;
-		/*
+		ptr2 = *(t_list**)ptr->content;
 		while (ptr2)
 		{
-			ft_putendl("test int");
 			ft_putstr((char*)ptr2->content);
-			ft_putendl("test int2");
-			ft_putchar(' ');
+			ft_putchar('\t');
 			ptr2 = ptr2->next;
 		}
 		ft_putchar('\n');
-*/
-	ft_lstaff(ptr2);
 		ptr = ptr->next;
 	}
 }
@@ -44,7 +38,7 @@ int		main(int ac, char **av)
 	int		fd;
 	int		nb_rows;
 	char	*line;
-	t_list	*map;
+	t_list	**map;
 	t_list	*list;
 
 	line = NULL;
@@ -54,16 +48,14 @@ int		main(int ac, char **av)
 		return (0);
 	while ((get_next_line(fd, &line)))
 	{
-		ft_putendl(line);
+		map = malloc(sizeof(t_list*));
 		if (!nb_rows)
 			nb_rows = nb_words(line, ' ');
 		if (nb_rows != nb_words(line, ' '))
 			return (0);
-		map = ft_lstrsplit(line, ' ');
-		ft_lstaff(map);
-		ft_lstapp(&list, ft_lstnew(map, sizeof(t_list*)));
+		*map = ft_lstrsplit(line, ' ');
+		ft_lstapp(&list, ft_lstnew(map, sizeof(t_list**)));
 	}
-	ft_putendl("test");
 	aff_grid(list);
 	return (0);
 }
