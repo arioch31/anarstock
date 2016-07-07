@@ -1,0 +1,5 @@
+<- Vertex ----------------------------------------------------------------------
+vertex contient 3 coordonnees spatiales (x, y et z), un truc bidule homogene incomprehensible sans etre agrégé en maths,
+et une couleur telle que definie par la classe "color"
+la classe vertex ne sert a rien pour le moment...
+---------------------------------------------------------------------- Vertex ->
