@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/06/12 16:49:39 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/08 06:41:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void				ft_putstr (const char *str);
 void				ft_putstr_fd (const char *str, int fd);
 void				ft_putendl(const char *str);
 void				ft_putendl_fd(const char *str, int fd);
+void				ft_putdouble(double nb, int precision);
+void				ft_putfloat(float nb, int precision);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *str);

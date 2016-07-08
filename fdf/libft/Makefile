@@ -20,6 +20,8 @@ SRC_FILES =	ft_ispace.c		\
 			ft_lstdel.c		\
 			ft_memdel.c		\
 			ft_putstr_fd.c	\
+			ft_putfloat.c	\
+			ft_putdouble.c	\
 			ft_striteri.c	\
 			ft_strnew.c		\
 			ft_bzero.c		\

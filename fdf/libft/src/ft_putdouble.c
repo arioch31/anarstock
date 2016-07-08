@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_putdouble.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/08 00:19:10 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/07/08 06:39:53 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/07/08 06:40:44 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _FDF_H
-# define _FDF_H
-# include "get_next_line.h"
+#include "libft.h"
 
-#endif
+void	ft_putdouble(double nb, int precision)
+{
+	int		expo;
+	int		cpt;
+
+	expo = 1;
+	cpt = 0;
+	while (cpt++ < precision)
+		expo *= 10;
+	ft_putnbr((int)nb);
+	ft_putchar('.');
+	if (precision)
+		ft_putnbr((int)(nb * expo) % expo);
+}

@@ -144,14 +144,14 @@ class Matrix
   }
   public function transformVertex(Vertex $v)
   {
-    $x = $this->_matrix['x']['x'] * $v->get_x() +$this->_matrix['x']['y'] * $v->get_y();
-    $x += $this->_matrix['x']['z'] * $v->get_z() +$this->_matrix['x']['w'] * $v->get_w();
-    $y = $this->_matrix['y']['x'] * $v->get_x() +$this->_matrix['y']['y'] * $v->get_y();
-    $y += $this->_matrix['y']['z'] * $v->get_z() +$this->_matrix['y']['w'] * $v->get_w();
-    $z = $this->_matrix['z']['x'] * $v->get_x() +$this->_matrix['z']['y'] * $v->get_y();
-    $z += $this->_matrix['z']['z'] * $v->get_z() +$this->_matrix['z']['w'] * $v->get_w();
-    $w = $this->_matrix['w']['x'] * $v->get_x() +$this->_matrix['w']['y'] * $v->get_y();
-    $w += $this->_matrix['w']['z'] * $v->get_z() +$this->_matrix['w']['w'] * $v->get_w();
+    $x = $this->_matrix['x']['x'] * $v->get_x() + $this->_matrix['x']['y'] * $v->get_y();
+    $x += $this->_matrix['x']['z'] * $v->get_z() + $this->_matrix['x']['w'] * $v->get_w();
+    $y = $this->_matrix['y']['x'] * $v->get_x() + $this->_matrix['y']['y'] * $v->get_y();
+    $y += $this->_matrix['y']['z'] * $v->get_z() + $this->_matrix['y']['w'] * $v->get_w();
+    $z = $this->_matrix['z']['x'] * $v->get_x() + $this->_matrix['z']['y'] * $v->get_y();
+    $z += $this->_matrix['z']['z'] * $v->get_z() + $this->_matrix['z']['w'] * $v->get_w();
+    $w = $this->_matrix['w']['x'] * $v->get_x() + $this->_matrix['w']['y'] * $v->get_y();
+    $w += $this->_matrix['w']['z'] * $v->get_z() + $this->_matrix['w']['w'] * $v->get_w();
     $res = new Vertex(array('x' =>$x, 'y' => $y, 'z'=>$z, 'w'=>$w));
     return($res);
   }
