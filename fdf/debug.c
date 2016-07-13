@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 04:31:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/08 06:51:19 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/13 01:20:56 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_vector(t_vector *v)
 	ft_putchar('\n');
 }
 
-void	print_matrix(t_matrix *m)
+void	print_matrix(double *m)
 {
 	int			i;
 	int			j;
@@ -48,7 +48,7 @@ void	print_matrix(t_matrix *m)
 		j = -1;
 		while (++j < 4)
 		{
-			ft_putdouble(*m[i][j], 4);
+			ft_putdouble(m[i * 4 + j], 4);
 			ft_putchar('\t');
 		}
 		ft_putendl("");

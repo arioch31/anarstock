@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/08 06:39:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/13 04:23:17 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_point
 	double		x;
 	double		y;
 	double		z;
+	double		w;
 }				t_point;
 
 typedef struct	s_vector
@@ -29,8 +30,6 @@ typedef struct	s_vector
 	double		z;
 	double		w;
 }				t_vector;
-
-typedef double	t_matrix[4][4];
 
 /*
 ** vertex.c
@@ -62,11 +61,19 @@ double			cos_vector(t_vector *v1, t_vector *v2);
 ** matrix.c
 */
 
-t_matrix		*new_matrix(void);
-t_matrix		*copy_matrix(t_matrix *m1);
-t_matrix		*mult_matrix(t_matrix *m1, t_matrix *m2);
-void			translate_matrix(t_matrix *m, t_vector *v);
-t_matrix		*rot_matrix(double angle, char axis);
+double			*new_matrix(void);
+double			*copy_matrix(double *m1);
+double			*mult_matrix(double *m1, double *m2);
+void			translate_matrix(double *m, t_vector *v);
+double			*rot_matrix(double angle, char axis);
+
+/*
+** matrix2.c
+*/
+
+double			*proj_matrix(double angl, double ratio, double nar, double far);
+void			scale_matrix(double *mat, double scale);
+t_point			*matrix_point(double *mat, t_point *p);
 
 /*
 ** debug.c
@@ -74,6 +81,6 @@ t_matrix		*rot_matrix(double angle, char axis);
 
 void			print_point(t_point *p);
 void			print_vector(t_vector *v);
-void			print_matrix(t_matrix *m);
+void			print_matrix(double *m);
 
 #endif
