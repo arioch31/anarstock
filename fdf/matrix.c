@@ -65,7 +65,7 @@ double	*mult_matrix(double *m1, double *m2)
 	return (m3);
 }
 
-void	translate_matrix(double *m, t_vector *v)
+void	translate_matrix(double *m, t_3dvec *v)
 {
 	m[3] += v->x;
 	m[7] += v->y;

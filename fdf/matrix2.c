@@ -39,7 +39,7 @@ void	scale_matrix(double *mat, double scale)
 	}
 }
 
-t_point	*matrix_point(double *mat, t_point *p)
+t_3dpt	*matrix_point(double *mat, t_3dpt *p)
 {
 	double		x;
 	double		y;

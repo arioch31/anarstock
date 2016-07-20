@@ -12,7 +12,7 @@
 
 #include "ft_3d.h"
 
-void	print_point(t_point *p)
+void	print_3dpt(t_3dpt *p)
 {
 	ft_putstr("point:\t x= ");
 	ft_putdouble(p->x, 4);
@@ -23,7 +23,7 @@ void	print_point(t_point *p)
 	ft_putchar('\n');
 }
 
-void	print_vector(t_vector *v)
+void	print_3dvec(t_3dvec *v)
 {
 	ft_putstr("vecteur:\t x= ");
 	ft_putdouble(v->x, 4);

@@ -6,13 +6,10 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 00:06:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/13 04:45:06 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/20 03:22:43 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include <stdlib.h>
-#include <unistd.h>
 #include "ft_3d.h"
 
 void	exiter(void)
@@ -44,33 +41,33 @@ int		main(void)
 {
 	void		*ptr;
 	void		*screen;
-	t_point		*p1;
-	t_point		*p2;
-	t_point		*orig;
-	t_vector	*v1;
-	t_vector	*v2;
+	t_3dpt		*p1;
+	t_3dpt		*p2;
+	t_3dpt		*orig;
+	t_3dvec	*v1;
+	t_3dvec	*v2;
 	double	*m0;
 	double	*m1;
 	double	*m2;
 
 	p1 = new_point(8.0, 8.0, 8.0);
-	print_point(p1);
+	print_3dpt(p1);
 	p2 = new_point(18.0, 18.0, 18.0);
-	print_point(p2);
+	print_3dpt(p2);
 	orig = new_point(0.00, 0.0, 0.0);
 	v1 = new_vector(p2, p1);
 	v2 = new_vector(p2, orig);
-	print_vector(v1);
-	print_vector(v2);
+	print_3dvec(v1);
+	print_3dvec(v2);
 
 	ft_putendl("v1 normé:");
-	print_vector(norm_vector(v1));
+	print_3dvec(norm_vector(v1));
 
 	ft_putendl("v1 * 4:");
-	print_vector(mult_vector(v1, 4.0));
+	print_3dvec(mult_3dvec(v1, 4.0));
 
 	ft_putendl("v1 - v2:");
-	print_vector(sub_vector(v1, v2));
+	print_3dvec(sub_vector(v1, v2));
 
 	ft_putstr(" new ");
 	m0 = new_matrix();
@@ -85,15 +82,15 @@ int		main(void)
 	print_matrix(m1);
 
 	ft_putstr("\np1 ");
-	print_point(p1);
+	print_3dpt(p1);
 
 	p1 = matrix_point(m0, p1);
 	ft_putstr(" p1 * ident ");
-	print_point(p1);
+	print_3dpt(p1);
 
 	p2 = matrix_point(m1, p1);
 	ft_putstr(" p1 * m1 ");
-	print_point(p2);
+	print_3dpt(p2);
 
 
 	m2 = proj_matrix(60.0, (640.0 / 480), 1.0, 100.0);
