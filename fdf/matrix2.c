@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/13 01:47:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/13 04:43:19 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/25 01:39:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ t_3dpt	*matrix_point(double *mat, t_3dpt *p)
 	y = mat[4] * p->x + mat[5] * p->y + mat[6] * p->z + mat[7] * p->w;
 	z = mat[8] * p->x + mat[9] * p->y + mat[10] * p->z + mat[11] * p->w;
 	w = mat[12] * p->x + mat[13] * p->y + mat[14] * p->z + mat[15] * p->w;
-	return (new_point(x, y, z));
+	return (new_3dpoint(x, y, z));
 }

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/20 05:15:02 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/25 01:43:28 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct	s_window
 {
 	void		*screen;
 	void		*mlx;
-	size_t		large;
-	size_t		height;
+	int			large;
+	int			height;
 }				t_window;
 
 typedef struct	s_3dpoint
@@ -53,6 +53,7 @@ typedef struct	s_2dpoint
 
 t_3dpt			*new_3dpoint(double x, double y, double z);
 t_3dvec			*new_vector(t_3dpt *p1, t_3dpt *p2);
+t_2dpt			*new_2dpt(int x, int y, int color);
 
 /*
 ** vector.c
@@ -98,5 +99,14 @@ t_3dpt			*matrix_point(double *mat, t_3dpt *p);
 void			print_3dpt(t_3dpt *p);
 void			print_3dvec(t_3dvec *v);
 void			print_matrix(double *m);
+
+/*
+** draw.c
+*/
+
+int				visible(t_2dpt *pt, t_window *w);
+int				draw_point(t_2dpt *pt, t_window *w);
+void			get_next_pt(t_2dpt *p1, t_2dpt *p2, t_2dpt *pt, t_window *w);
+void			draw_line(t_2dpt *p1, t_2dpt *p2, t_window *w);
 
 #endif
