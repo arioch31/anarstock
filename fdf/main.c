@@ -6,23 +6,35 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/08/09 22:25:37 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/10/27 00:59:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "get_next_line.h"
 #include "fdf.h"
 
 int		main(int ac, char **av)
 {
 	int		fd;
+	int 	*tab;
+	int		i;
 	t_grid	*grille;
 
 	if (ac != 2 || !(fd = open(av[1], O_RDONLY)))
 		return (0);
 	grille = new_grid(fd);
 	aff_grid(grille);
+	ft_putchar('\n');
+
+	i = 0;
+	while (i < grille->rows * grille->lines)
+	{
+		ft_putnbr(grille->tab[i]);
+		i++;
+		if (i % grille->rows)
+			ft_putchar('\t');
+		else
+			ft_putchar('\n');
+	}
 	return (0);
 }
 

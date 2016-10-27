@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:15:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/20 05:16:48 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/10/27 02:11:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_3dpt		*new_3dpoint(double x, double y, double z)
 	ptr->x = x;
 	ptr->y = y;
 	ptr->z = z;
+	ptr->liens = NULL;
 	return (ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/07/25 01:43:28 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/10/27 02:11:04 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_3dpoint
 	double		y;
 	double		z;
 	double		w;
+	t_list		*liens;
 }				t_3dpt;
 
 typedef struct	s_3dvec

@@ -8,8 +8,7 @@ INC_PATH = ./includes/
 
 INC_LIB_PATH = ./libft/includes
 
-SRC_FILES =	cleaner.c fourmi.c get_next_line.c main.c crossing.c ruche.c \
-			debug.c debug2.c pathfinder.c readfile.c salles.c utils.c
+SRC_FILES =	
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_FILES))
 
