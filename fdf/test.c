@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 00:06:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/08/11 05:41:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/07 21:08:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@ int		key_dispatch(int keycode, void *param)
 	return (0);
 }
 
-void	draw_test(t_window *w, t_grid *grille)
+void	draw_test(t_window *w, t_grid *gr)
 {
-	t_3dpt		*p3t1;
-	t_2dpt		*pt1;
-	t_3dpt		*p3t2;
-	t_2dpt		*pt2;
+	int i;
 
-	p3t1 = new_3dpoint(8.0, 0.0, 0.0);
-	pt1 = new_2dpt((int)p3t1->x, (int)p3t1->y, 0x0000FF00);
-	p3t2 = new_3dpoint(108.0, 800.0, 0.0);
-	pt2 = new_2dpt((int)p3t2->x, (int)p3t2->y, 0x0000FF00);
-	draw_point(pt1, w);
-	draw_line(pt1, pt2, w);
+	i = 0;
+	while (i < gr->rows * gr->lines)
+	{
+		draw_point(gr->l_2dpts[i], w);
+		if (i % gr->rows)
+			draw_line(gr->l_2dpts[i - 1], gr->l_2dpts[i], w);
+		if (i > gr->rows)
+			draw_line(gr->l_2dpts[i - gr->rows], gr->l_2dpts[i], w);
+		i++;
+	}
 }
 
 int		test(t_grid *grille)
@@ -65,21 +66,8 @@ int		test(t_grid *grille)
 	w->screen = screen;
 	w->large = W_LARGE;
 	w->height = W_HEIGHT;
-	draw_test(w);
+	draw_test(w, grille);
 	mlx_key_hook(w->screen, &key_dispatch, w->mlx);
 	mlx_loop(w->mlx);
-	return (0);
-}
-
-int		main(int ac, char **av)
-{
-	int		fd;
-	t_grid	*grille;
-
-	if (ac != 2 || !(fd = open(av[1], O_RDONLY)))
-		return (0);
-	grille = new_grid(fd);
-	aff_grid(grille);
-	test(grille);
 	return (0);
 }

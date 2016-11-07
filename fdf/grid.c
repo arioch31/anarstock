@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/10/27 02:39:56 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/07 21:58:44 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,34 @@ int		*trad_grid(t_grid *grille)
 	return (tab);
 }
 
-void	init_3dpts(t_grid *gr)
+void	init_2dpts(t_grid *gr)
 {
 	int		i;
 	t_3dpt	*pt;
 
 	i = 0;
-	pt = NULL;
-	ft_putstr("test\n");
+	gr->l_2dpts = malloc(gr->rows * gr->lines * sizeof(t_2dpt*));
 	while (i < gr->rows * gr->lines)
 	{
-		pt = new_3dpoint(i % gr->rows, i / gr->rows, gr->tab[i]);
-		if (i % gr->rows)
-			ft_lstapp(&pt->liens, ft_lstgetnb(gr->list_3dpts, i - 1));
-		if (i >= gr->rows)
-			ft_lstapp(&pt->liens, ft_lstgetnb(gr->list_3dpts, i - gr->rows));
-		ft_lstapp(&gr->list_3dpts, ft_lstnew(pt, sizeof(t_3dpt*)));
+		pt = gr->l_3dpts[i];
+		gr->l_2dpts[i] = new_2dpt((int)(pt->x + pt->z / 2) * 50, (int)(pt->y + pt->z / 2) * 50, 0x0000FF00);
 		i++;
 	}
-	ft_putstr("test ok!\n");
+}
+
+void	init_3dpts(t_grid *gr)
+{
+	int		i;
+	t_3dpt	**tab;
+
+	i = 0;
+	tab = malloc(gr->rows * gr->lines * sizeof(t_3dpt*));
+	while (i < gr->rows * gr->lines)
+	{
+		tab[i] = new_3dpoint(i % gr->rows, i / gr->rows, gr->tab[i]);
+		i++;
+	}
+	gr->l_3dpts = tab;
 }
 
 t_grid	*new_grid(int fd)
@@ -106,12 +115,7 @@ t_grid	*new_grid(int fd)
 	t_grid	*grille;
 
 	grille = malloc(sizeof(t_grid));
-	line = NULL;
-	grille->grid = NULL;
-	grille->rows = 0;
-	grille->lines = 0;
-	grille->tab = NULL;
-	grille->list_3dpts = NULL;
+	ft_bzero(grille, sizeof(t_grid));
 	while ((get_next_line(fd, &line)))
 	{
 		map = malloc(sizeof(t_list*));
@@ -121,10 +125,11 @@ t_grid	*new_grid(int fd)
 			return (NULL);
 		*map = ft_lstrsplit(line, ' ');
 		magicrasse(*map);
-		ft_lstapp(&(grille->grid), ft_lstnew(map, sizeof(t_list**)));
+		ft_lstapp(&(grille->grid), ft_lstnew(map, sizeof(t_list*)));
 		grille->lines++;
 	}
 	grille->tab = trad_grid(grille);
 	init_3dpts(grille);
+	init_2dpts(grille);
 	return (grille);
 }

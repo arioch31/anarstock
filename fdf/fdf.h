@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/10/27 02:12:22 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/07 20:40:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct	s_grid
 	int			z_min;
 	int			z_max;
 	int			*tab;
-	t_list		*list_3dpts;
+	t_3dpt		**l_3dpts;
+	t_2dpt		**l_2dpts;
 }				t_grid;
 
 typedef struct	s_obj

@@ -6,11 +6,12 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/10/27 00:59:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/07 21:11:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+int		test(t_grid *grille);
 
 int		main(int ac, char **av)
 {
@@ -24,17 +25,13 @@ int		main(int ac, char **av)
 	grille = new_grid(fd);
 	aff_grid(grille);
 	ft_putchar('\n');
-
 	i = 0;
 	while (i < grille->rows * grille->lines)
 	{
-		ft_putnbr(grille->tab[i]);
+		print_3dpt(grille->l_3dpts[i]);
 		i++;
-		if (i % grille->rows)
-			ft_putchar('\t');
-		else
-			ft_putchar('\n');
 	}
+	test(grille);
 	return (0);
 }
 
