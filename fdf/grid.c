@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/11/07 21:58:44 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/10 01:33:10 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	init_2dpts(t_grid *gr)
 	while (i < gr->rows * gr->lines)
 	{
 		pt = gr->l_3dpts[i];
-		gr->l_2dpts[i] = new_2dpt((int)(pt->x + pt->z / 2) * 50, (int)(pt->y + pt->z / 2) * 50, 0x0000FF00);
+		gr->l_2dpts[i] = new_2dpt(0, 0, 0x00000000);
 		i++;
 	}
 }

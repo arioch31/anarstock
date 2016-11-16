@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 04:31:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/10/29 23:47:01 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/10 01:33:13 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ void	print_3dpt(t_3dpt *p)
 	ft_putstr("\t z= ");
 	ft_putdouble(p->z, 4);
 	ft_putchar('\n');
-	if (p->liens)
-	{
-		ft_putnbr(ft_lstlen(p->liens));
-		ft_putendl(" liens");
-	}
 }
 
 void	print_3dvec(t_3dvec *v)

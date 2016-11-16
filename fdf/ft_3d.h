@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/10/27 02:11:04 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/11/16 07:37:28 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,12 @@
 # include <math.h>
 # include "mlx.h"
 
-typedef struct	s_window
-{
-	void		*screen;
-	void		*mlx;
-	int			large;
-	int			height;
-}				t_window;
-
 typedef struct	s_3dpoint
 {
 	double		x;
 	double		y;
 	double		z;
 	double		w;
-	t_list		*liens;
 }				t_3dpt;
 
 typedef struct	s_3dvec
@@ -47,6 +38,25 @@ typedef struct	s_2dpoint
 	int			y;
 	int			color;
 }				t_2dpt;
+
+typedef struct	s_window
+{
+	void		*screen;
+	void		*mlx;
+	int			large;
+	int			height;
+	double		*mat_cam;
+	double		*mat_proj;
+	t_2dpt		**img;
+}				t_window;
+
+int				key_dispatch(int keycode, void *param);
+
+/*
+** color.c
+*/
+char			degrade_color(int pt, int len, char t1, char t2);
+int				degrade(int pt, int len, int color1, int color2);
 
 /*
 ** vertex.c
