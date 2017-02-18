@@ -6,11 +6,12 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/11/10 01:33:10 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/18 05:37:08 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 void	magicrasse(t_list *elem)
 {
@@ -29,8 +30,9 @@ void	aff_grid(t_grid *grille)
 {
 	t_list	*ptr;
 	t_list	*ptr2;
+	t_3dpt	*point;
 
-	ptr = grille->grid;
+	ptr = grille->data;
 	while (ptr)
 	{
 		ptr2 = *(t_list**)ptr->content;
@@ -38,10 +40,14 @@ void	aff_grid(t_grid *grille)
 		{
 			if (ptr2->content_size == sizeof(int))
 				ft_putnbr(*(int*)ptr2->content);
-			else
+			else if (ptr2->content_size == sizeof(t_3dpt))
 			{
-				ft_putstr((char*)ptr2->content);
-				ft_putchar('!');
+				point = (t_3dpt*)ptr2->content;
+				ft_putnbr((int)point->x);
+				ft_putchar(',');
+				ft_putnbr((int)point->y);
+				ft_putchar(',');
+				ft_putnbr((int)point->z);
 			}
 			ft_putchar('\t');
 			ptr2 = ptr2->next;
@@ -51,61 +57,36 @@ void	aff_grid(t_grid *grille)
 	}
 }
 
-int		*trad_grid(t_grid *grille)
+void	magicrasse2(t_list *ptr, int i, int rows)
 {
-	t_list	*ptr;
-	t_list	*ptr2;
-	int		*tab;
-	int		i;
+	t_3dpt	*truc;
 
-	tab = malloc(sizeof(int) * grille->rows * grille->lines);
-	i = 0;
-	ptr = grille->grid;
-	while (ptr)
-	{
-		ptr2 = *(t_list**)ptr->content;
-		while (ptr2)
-		{
-			if (ptr2->content_size == sizeof(int))
-				tab[i] = *(int*)ptr2->content;
-			else
-				ft_putstr("erreur\t");
-			i++;
-			ptr2 = ptr2->next;
-		}
-		ptr = ptr->next;
-	}
-	return (tab);
-}
-
-void	init_2dpts(t_grid *gr)
-{
-	int		i;
-	t_3dpt	*pt;
-
-	i = 0;
-	gr->l_2dpts = malloc(gr->rows * gr->lines * sizeof(t_2dpt*));
-	while (i < gr->rows * gr->lines)
-	{
-		pt = gr->l_3dpts[i];
-		gr->l_2dpts[i] = new_2dpt(0, 0, 0x00000000);
-		i++;
-	}
+	truc = new_3dpoint(i % rows, i / rows, *(int*)ptr->content);
+	free(ptr->content);
+	ptr->content = (void*)truc;
+	ptr->content_size = sizeof(t_3dpt);
 }
 
 void	init_3dpts(t_grid *gr)
 {
 	int		i;
 	t_3dpt	**tab;
+	t_list	*p1;
+	t_list	*p2;
 
 	i = 0;
-	tab = malloc(gr->rows * gr->lines * sizeof(t_3dpt*));
-	while (i < gr->rows * gr->lines)
+	p1 = gr->data;
+	p2 = (t_list*)p1->content;
+	aff_grid(gr);
+	while (i < gr->rows * gr->lines && p1)
 	{
-		tab[i] = new_3dpoint(i % gr->rows, i / gr->rows, gr->tab[i]);
+		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
+		&& ((p2 = ft_lstgetnb(*(t_list**)p1->content, i % gr->rows + 1))))
+			magicrasse2(p2, i, gr->rows);
+		else
+			gr->rect = false;
 		i++;
 	}
-	gr->l_3dpts = tab;
 }
 
 t_grid	*new_grid(int fd)
@@ -116,20 +97,17 @@ t_grid	*new_grid(int fd)
 
 	grille = malloc(sizeof(t_grid));
 	ft_bzero(grille, sizeof(t_grid));
+	grille->rect = true;
 	while ((get_next_line(fd, &line)))
 	{
 		map = malloc(sizeof(t_list*));
-		if (!grille->rows)
-			grille->rows = nb_words(line, ' ');
-		if (grille->rows != nb_words(line, ' '))
-			return (NULL);
 		*map = ft_lstrsplit(line, ' ');
+		if (!grille->rows || grille->rows < ft_lstlen(*map))
+			grille->rows = ft_lstlen(*map);
 		magicrasse(*map);
-		ft_lstapp(&(grille->grid), ft_lstnew(map, sizeof(t_list*)));
+		ft_lstapp(&(grille->data), ft_lstnew(map, sizeof(t_list*)));
 		grille->lines++;
 	}
-	grille->tab = trad_grid(grille);
 	init_3dpts(grille);
-	init_2dpts(grille);
 	return (grille);
 }
