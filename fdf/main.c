@@ -6,13 +6,40 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/11/14 23:09:10 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/18 05:35:52 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		test(t_grid *grille);
+//
+// int		test(t_grid *gr)
+// {
+// 	void		*ptr;
+// 	void		*screen;
+// 	t_window	*w;
+// 	t_3dpt		*camera;
+//
+// 	ptr = mlx_init();
+// 	w = malloc(sizeof(t_window));
+// 	screen = mlx_new_window(ptr, W_LARGE, W_HEIGHT, "windobe");
+// 	w->mlx = ptr;
+// 	w->screen = screen;
+// 	w->large = W_LARGE;
+// 	w->height = W_HEIGHT;
+// 	ft_putendl("test ");
+// 	camera = new_3dpoint(0, 0, 0);
+// 	w->mat_cam = new_matrix();
+// 	translate_matrix(w->mat_cam, new_vector(camera, NULL));
+// 	w->mat_proj = proj_matrix(60.0, (640.0 / 480), 1.0, 100.0);
+// 	print_matrix(w->mat_cam);
+// 	print_matrix(w->mat_proj);
+// 	upd_grid(w, gr);
+// 	draw_grid(w, gr);
+// 	mlx_key_hook(w->screen, &key_dispatch, w->mlx);
+// 	mlx_loop(w->mlx);
+// 	return (0);
+// }
 
 int		main(int ac, char **av)
 {
@@ -26,13 +53,5 @@ int		main(int ac, char **av)
 		return (0);
 	grille = new_grid(fd);
 	aff_grid(grille);
-	ft_putchar('\n');
-	i = 0;
-	while (i < grille->rows * grille->lines)
-	{
-		print_3dpt(grille->l_3dpts[i]);
-		i++;
-	}
-	test(grille);
 	return (0);
 }

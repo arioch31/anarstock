@@ -1,4 +1,4 @@
-NAME = lem-in
+NAME = libftprintf.a
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -8,7 +8,11 @@ INC_PATH = ./includes/
 
 INC_LIB_PATH = ./libft/includes
 
-SRC_FILES =	
+OBJ_PATH = ./libft/obj/
+
+SRC_FILES =	checker.c converter.c ft_printf.c ft_wchar.c padder.c param.c utils.c buff_arg.c
+
+OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_FILES))
 
@@ -22,16 +26,17 @@ lib_make:
 	make -C libft/
 lib_re:
 	make -C libft/ re
-lib_clean:
-	make -C libft/ clean
 lib_fclean:
 	make -C libft/ fclean
-
 $(NAME):
-	gcc  $(FLAGS) -o $(NAME) $(SRC) $(INC) $(INC_LIB) -Llibft/ -lft
-
-clean: lib_clean
+	gcc -c $(FLAGS) $(SRC) $(INC) $(INC_LIB)
+	mkdir -p libft/obj
+	mv $(SRC_FILES:.c=.o) ./libft/obj
+	cp libft/libft.a $(NAME)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
+clean:
 	rm -rf $(OBJ)
-fclean:	lib_fclean
+fclean:	clean lib_fclean
 	rm -rf $(NAME)
 re:	fclean all
