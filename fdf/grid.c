@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/18 05:37:08 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/20 23:32:41 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	init_3dpts(t_grid *gr)
 		&& ((p2 = ft_lstgetnb(*(t_list**)p1->content, i % gr->rows + 1))))
 			magicrasse2(p2, i, gr->rows);
 		else
-			gr->rect = false;
+			gr->rect = 0;
 		i++;
 	}
 }
@@ -97,7 +97,7 @@ t_grid	*new_grid(int fd)
 
 	grille = malloc(sizeof(t_grid));
 	ft_bzero(grille, sizeof(t_grid));
-	grille->rect = true;
+	grille->rect = 1;
 	while ((get_next_line(fd, &line)))
 	{
 		map = malloc(sizeof(t_list*));
@@ -109,5 +109,6 @@ t_grid	*new_grid(int fd)
 		grille->lines++;
 	}
 	init_3dpts(grille);
+	close(fd);
 	return (grille);
 }

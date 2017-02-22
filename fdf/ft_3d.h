@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/11/16 07:37:28 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/22 20:27:17 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,25 @@ typedef struct	s_2dpoint
 	int			color;
 }				t_2dpt;
 
+typedef struct	s_img
+{
+	void		*addr;
+	char		*start;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
+}				t_img;
+
 typedef struct	s_window
 {
+	t_2dpt		*center;
 	void		*screen;
 	void		*mlx;
 	int			large;
 	int			height;
 	double		*mat_cam;
 	double		*mat_proj;
-	t_2dpt		**img;
+	t_img		*img;
 }				t_window;
 
 int				key_dispatch(int keycode, void *param);
