@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/18 05:36:26 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 00:12:00 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ typedef struct	s_obj
 void			aff_grid(t_grid *grille);
 int				*trad_grid(t_grid *grille);
 t_grid			*new_grid(int fd);
+int				refresh(void *w_ptr);
 
 #endif

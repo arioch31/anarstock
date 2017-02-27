@@ -6,11 +6,12 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/20 03:00:23 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/22 23:56:43 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 02:11:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_3d.h"
+#include "fdf.h"
 #include <stdio.h>
 
 int		visible(t_2dpt *pt, t_window *w)
@@ -40,68 +41,64 @@ int		draw_point(t_2dpt *pt, t_window *w)
 	return (0);
 }
 
-void	get_next_pt(t_2dpt *p1, t_2dpt *p2, t_2dpt *pt, t_window *w) //CACACACACACACCACACACACACACACACACACACACACAACAC
+void	get_next_pt(t_2dpt *p1, t_2dpt *p2, t_2dpt *pt, t_window *w)
 {
 	double	a;
 	int		dev;
 	int		dx;
 	int		dy;
-	double	flg;
-
-	ft_putendl("test in");
 
 	dx = p2->x - p1->x;
 	dy = p2->y - p1->y;
-	if (dx && dy && ((a = (double)dy / (double)dx)))
+	if (dx && dy && ((a = fabs((double)dy / (double)dx))))
 	{
-		if ((flg = fabs(a)) && flg > 1)
-			dev = dy / 2;
+		if (a > 1)
+			dev = abs(dy / 2);
 		else
 			dev = dx / 2;
 	}
-	while (!(pt->x == p2->x && pt->y == p2->y))
-	{
-		ft_putendl("test boucle in");
-
-		draw_point(pt, w);
-		if (!dx)
+	if (!dx)
+		while (pt->y != p2->y)
 		{
-			ft_putendl("test boucle in 1");
-
+			draw_point(pt, w);
 			pt->y += (dy > 0 ? 1 : -1);
 		}
-		else if (!dy)
+	else if (!dy)
+		while (pt->x != p2->x)
 		{
-			ft_putendl("test boucle in2");
+			draw_point(pt, w);
 			pt->x++;
 		}
-		else if (flg < 1)
+	else
+		while (!(pt->x == p2->x && pt->y == p2->y))
 		{
-			ft_putendl("test boucle in3");
-
-			pt->x++;
-			dev += dy;
-			if (dev >= dx)
+			draw_point(pt, w);
+			if (a == 1)
 			{
-				dev -= dx;
+				pt->x++;
 				pt->y += (dy > 0 ? 1 : -1);
 			}
-		}
-		else
-		{
-			printf("(%d,%d)=>(%d,%d)\n", p1->x, p1->y, p2->x, p2->y);
-			printf("test boucle in (%d,%d) %d\n", pt->x, pt->y, dev);
-			pt->y += (dy > 0 ? 1 : -1);
-			dev += dx;
-			if (abs(dev) >= abs(dy))
+			else if (a < 1)
 			{
-				dev -= dy;
 				pt->x++;
+				dev += abs(dy);
+				if (dev >= dx)
+				{
+					dev -= dx;
+					pt->y += (dy > 0 ? 1 : -1);
+				}
 			}
-			getchar();
+			else
+			{
+				pt->y += (dy > 0 ? 1 : -1);
+				dev += dx;
+				if (dev >= abs(dy))
+				{
+					dev -= abs(dy);
+					pt->x++;
+				}
+			}
 		}
-	}
-	ft_putendl("test out");
 }
 
 void	draw_line(t_2dpt *p1, t_2dpt *p2, t_window *w)

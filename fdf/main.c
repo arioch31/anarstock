@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/22 23:43:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 02:27:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,15 @@ int		test_bis(t_window *w, int i)
 	t_2dpt *p1;
 	t_2dpt *p2;
 	t_2dpt *p3;
+
 	(void)i;
-	
-	p1 = new_2dpt(900, 0, 0x00FF0101);
+	p1 = new_2dpt(i * 10, 0, 0x00FF0101);
 	p2 = new_2dpt(w->large / 2, w->height / 2, 0X00FFFFFF);
 	draw_point(p2, w);
-	printf("(%d,%d)=>(%d,%d)\n", p1->x, p1->y, p2->x, p2->y);
 	draw_line(p1, p2, w);
-	ft_putendl("test end");
-	p3 = new_2dpt(w->large / 2, w->height - 1, 0X00AAAAAA);
+	p3 = new_2dpt(w->large / 3 * 2, 0, 0X00AAAAAA);
 	draw_line(p3, p2, w);
 	draw_line(p3, p1, w);
-
 	free(p1);
 	free(p2);
 	free(p3);
@@ -127,6 +124,7 @@ int		main(int ac, char **av)
 		return (0);
 	grille = new_grid(fd);
 	aff_grid(grille);
-	test(grille);
+	getchar();
+	//test(grille);
 	return (0);
 }
