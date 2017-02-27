@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:31:55 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/27 04:05:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 04:59:04 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ int		get_next_line(int const fd, char **line)
 
 	if (fd < 0 || line == NULL || fd > ULIMIT_FD)
 		return (-1);
-	if (str[fd])
+	if ((res = !!(str[fd])))
 	{
-		res = 1;
 		if (ft_strchr(str[fd], END))
 			cut_str(str[fd], line, &str[fd]);
 		else if (ft_read(fd, &input) > 0)
@@ -30,13 +29,11 @@ int		get_next_line(int const fd, char **line)
 			cut_str(ft_strjoin(str[fd], input), line, &str[fd]);
 			free(input);
 		}
-		else if (*str[fd])
+		else if ((res = !!(*str[fd])))
 		{
 			*line = ft_strdup(str[fd]);
 			free(str[fd]);
 		}
-		else
-			return (0);
 	}
 	else if ((res = ft_read(fd, &input)) && res > 0)
 		cut_str(input, line, &str[fd]);

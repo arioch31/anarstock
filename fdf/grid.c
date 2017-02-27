@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/27 04:39:39 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 05:55:58 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	magicrasse(t_list *elem)
 
 	trou = malloc(sizeof(int));
 	*trou = ft_atoi((char*)elem->content);
-	free((char*)elem->content);
+	free(elem->content);
 	elem->content = (void*)trou;
 	elem->content_size = sizeof(int);
 	if (elem->next)
@@ -78,11 +78,12 @@ void	init_3dpts(t_grid *gr)
 
 	i = 0;
 	p1 = gr->data;
-	p2 = (t_list*)p1->content;
+	p2 = *(t_list**)p1->content;
 	while (i < gr->rows * gr->lines && p1)
 	{
 		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
-		&& ((p2 = ft_lstgetnb(*(t_list**)p1->content, i % gr->rows + 1))))
+		&& ((p2 = *(t_list**)p1->content))
+		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
 			magicrasse2(p2, i, gr->rows);
 		else
 			gr->rect = 0;
@@ -110,11 +111,7 @@ t_grid	*new_grid(int fd)
 		magicrasse(*map);
 		ft_lstapp(&(grille->data), ft_lstnew(map, sizeof(t_list*)));
 		grille->lines++;
-		printf("test 0\n");
-		getchar();
 	}
-	printf("test 1\n");
-	getchar();
 	init_3dpts(grille);
 	close(fd);
 	return (grille);
