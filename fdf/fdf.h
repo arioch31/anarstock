@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/06 23:21:33 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/07 00:25:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct	s_grid
 
 typedef struct	s_link
 {
-	t_list		*point1;
-	t_list		*point2;
+	t_list		*p1;
+	t_list		*p2;
 }				t_link;
 
 typedef struct	s_obj
@@ -49,6 +49,7 @@ void			init_3dpts(t_grid *gr);
 void			init_2dgrid(t_grid *grille);
 
 int				refresh(void *w_ptr);
+t_list	*as_link(t_list *start, size_t index);
 t_2dpt	*as_2dpt(t_list *start, size_t index);
 t_3dpt	*as_3dpt(t_list *start, size_t index);
 void	draw_grid(t_grid *gr);

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/06 23:28:15 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/07 00:46:50 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,24 +103,21 @@ void	aff_grid(t_list *data)
 	}
 }
 
-t_2dpt	*proj_pt(t_3dpt* pt)
+t_2dpt	*proj_pt(t_3dpt *pt)
 {
 	t_2dpt *ret;
 
-	ret = new_2dpt(pt->x, pt->y);
+	ret = new_2dpt(pt->x, pt->y, -1);
 	free(pt);
-	return(ret);
+	return (ret);
 }
 
-t_2dpt	*get_2dpt(t_grid* gr, t_list *p)
+t_2dpt	*get_2dpt(t_grid *gr, t_list *p)
 {
 	if (p->content_size == sizeof(t_2dpt))
 		return (as_2dpt(p, 1));
-	if (p->content_size == sizeof(t_3dpt))
-	{
-
-	return(as_2dpt(p, 1));
-	}
+//	if (p->content_size == sizeof(t_3dpt))
+//		return(as_2dpt(p, 1));
 	return (NULL);
 }
 
@@ -175,26 +172,65 @@ t_grid	*new_grid(int fd)
 	close(fd);
 	return (grille);
 }
-t_obj	*test_obj(t_grid *gr)
+
+t_link	*new_link(t_list *p1, t_list *p2)
+{
+	t_link *ret;
+
+	ret = malloc(sizeof(t_link));
+	ret->p1 = p1;
+	ret->p2 = p2;
+	return (ret);
+}
+
+void	order_links(t_grid *gr, t_obj *ob)
 {
 	int		i;
+	t_list	*ptr1;
+	t_list	*ptr2;
+
+	i = 0;
+	if (gr->rect)
+		while (i < gr->rows * gr->lines)
+		{
+			ptr1 = ft_lstgetnb(ob->point, i + 1);
+			if (i + 1 % gr->rows)
+			{
+				ptr2 = ft_lstgetnb(ob->point, i + 2);
+				ft_lstapp(&(ob->links), ft_lstnew(new_link(ptr1, ptr2), sizeof(t_link*)));
+			}
+			if (i < (gr->rows - 1) * gr->lines)
+			{
+				ptr2 = ft_lstgetnb(ob->point, i + 1 + gr->rows);
+				ft_lstapp(&ob->links, ft_lstnew(new_link(ptr1, ptr2), sizeof(t_link*)));
+			}
+			i++;
+		}
+	else
+		printf("not rectangle so GTFO\n");
+}
+
+t_obj	*create_obj(t_grid *gr)
+{
 	t_list	*p1;
 	t_list	*p2;
 	t_obj	*ob;
 
-	i = 0;
 	ob = malloc(sizeof(t_obj));
 	ft_bzero(ob, sizeof(t_obj));
 	p1 = gr->data;
 	p2 = *(t_list**)p1->content;
-	while (i < gr->rows * gr->lines)
+	while (p1 && p2)
 	{
-		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
-		&& ((p2 = *(t_list**)p1->content))
-		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
+		ft_lstapp(&ob->point, ft_lstnew(p2->content, p2->content_size));
+		p2 = p2->next;
+		if (!p2)
 		{
-
+			p1 = p1->next;
+			if (p1)
+				p2 = *(t_list**)p1->content;
 		}
-		i++;
 	}
+	order_links(gr, ob);
+	return (ob);
 }
