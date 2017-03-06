@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/28 03:22:06 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/06 23:28:15 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,77 +30,21 @@ void	magicrasse2(t_list *ptr, int i, int rows)
 {
 	t_2dpt	*truc;
 
-//	truc = new_3dpoint(i % rows, i / rows, *(int*)ptr->content);
-	truc = new_2dpt((i % rows + *(int*)ptr->content / 3) * 50,
-	 (i  / rows - *(int*)ptr->content / 3) * 50, 0X00FF00FF);
+	truc = new_2dpt((i % rows + *(int*)ptr->content / 2) * 50,
+	(i / rows + *(int*)ptr->content / 2) * 50, 0XFFFF00 *(1 + *(int*)ptr->content));
 	free(ptr->content);
 	ptr->content = (void*)truc;
 	ptr->content_size = sizeof(t_2dpt);
 }
 
-void	aff_grid(t_grid *grille)
+void	magicrasse3(t_list *ptr, int i, int rows)
 {
-	t_list	*ptr;
-	t_list	*ptr2;
-	t_2dpt	*pt_2d;
-	t_3dpt	*point;
+	t_3dpt	*truc;
 
-	ptr = grille->data;
-	while (ptr)
-	{
-		ptr2 = *(t_list**)ptr->content;
-		while (ptr2)
-		{
-			if (ptr2->content_size == sizeof(int))
-				ft_putnbr(*(int*)ptr2->content);
-			else if (ptr2->content_size == sizeof(t_3dpt))
-			{
-				point = (t_3dpt*)ptr2->content;
-				ft_putnbr((int)point->x);
-				ft_putchar(',');
-				ft_putnbr((int)point->y);
-				ft_putchar(',');
-				ft_putnbr((int)point->z);
-			}
-			else if (ptr2->content_size == sizeof(t_2dpt))
-				{
-				pt_2d = (t_2dpt*)ptr2->content;
-					ft_putnbr(pt_2d->x);
-					ft_putchar(',');
-					ft_putnbr(pt_2d->y);
-				}
-			else
-				ft_putstr("pb elem");
-			ft_putchar('\t');
-			ptr2 = ptr2->next;
-		}
-		ft_putchar('\n');
-		ptr = ptr->next;
-	}
-}
-
-void	draw_2dpts(t_grid *gr)
-{
-	int		i;
-	t_list	*p1;
-	t_list	*p2;
-	t_list	*p3;
-
-	i = 0;
-	p1 = gr->data;
-	p2 = *(t_list**)p1->content;
-	while ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
-		&& ((p2 = *(t_list**)p1->content))
-		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
-		{
-			if ((p3 = p2->next))
-				draw_line(as_2dpt(p3, 1), as_2dpt(p2, 1), gr->w);
-			if (((p3 = p1->next))
-			&& ((p3 = *(t_list**)p3->content))
-			&& ((p3 = ft_lstgetnb(p3, i % gr->rows + 1))))
-				draw_line(as_2dpt((p3), 1), as_2dpt(p2, 1), gr->w);
-			i++;
-		}
+	truc = new_3dpoint(i % rows, i / rows, *(int*)ptr->content);
+	free(ptr->content);
+	ptr->content = (void*)truc;
+	ptr->content_size = sizeof(t_3dpt);
 }
 
 void	init_3dpts(t_grid *gr)
@@ -122,6 +66,87 @@ void	init_3dpts(t_grid *gr)
 		}
 		else
 			gr->rect = 0;
+		i++;
+	}
+}
+
+void	aff_grid(t_list *data)
+{
+	t_list	*ptr;
+	t_list	*ptr2;
+	t_2dpt	*pt_2d;
+
+	ptr = data;
+	while (ptr)
+	{
+		ptr2 = *(t_list**)ptr->content;
+		while (ptr2)
+		{
+			if (ptr2->content_size == sizeof(int))
+				ft_putnbr(*(int*)ptr2->content);
+			else if (ptr2->content_size == sizeof(t_3dpt))
+				print_3dpt((t_3dpt*)ptr2->content);
+			else if (ptr2->content_size == sizeof(t_2dpt))
+			{
+				pt_2d = (t_2dpt*)ptr2->content;
+				ft_putnbr(pt_2d->x);
+				ft_putchar(',');
+				ft_putnbr(pt_2d->y);
+			}
+			else
+				ft_putstr("pb elem");
+			ft_putchar('\t');
+			ptr2 = ptr2->next;
+		}
+		ft_putchar('\n');
+		ptr = ptr->next;
+	}
+}
+
+t_2dpt	*proj_pt(t_3dpt* pt)
+{
+	t_2dpt *ret;
+
+	ret = new_2dpt(pt->x, pt->y);
+	free(pt);
+	return(ret);
+}
+
+t_2dpt	*get_2dpt(t_grid* gr, t_list *p)
+{
+	if (p->content_size == sizeof(t_2dpt))
+		return (as_2dpt(p, 1));
+	if (p->content_size == sizeof(t_3dpt))
+	{
+
+	return(as_2dpt(p, 1));
+	}
+	return (NULL);
+}
+
+void	draw_grid(t_grid *gr)
+{
+	int		i;
+	t_list	*p1;
+	t_list	*p2;
+	t_list	*p3;
+
+	i = 0;
+	p1 = gr->data;
+	p2 = *(t_list**)p1->content;
+	while (i < gr->rows * gr->lines)
+	{
+		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
+		&& ((p2 = *(t_list**)p1->content))
+		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
+		{
+			if ((p3 = p2->next))
+				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w);
+			if (((p3 = p1->next))
+			&& ((p3 = *(t_list**)p3->content))
+			&& ((p3 = ft_lstgetnb(p3, i % gr->rows + 1))))
+				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w);
+		}
 		i++;
 	}
 }
@@ -149,4 +174,27 @@ t_grid	*new_grid(int fd)
 	}
 	close(fd);
 	return (grille);
+}
+t_obj	*test_obj(t_grid *gr)
+{
+	int		i;
+	t_list	*p1;
+	t_list	*p2;
+	t_obj	*ob;
+
+	i = 0;
+	ob = malloc(sizeof(t_obj));
+	ft_bzero(ob, sizeof(t_obj));
+	p1 = gr->data;
+	p2 = *(t_list**)p1->content;
+	while (i < gr->rows * gr->lines)
+	{
+		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
+		&& ((p2 = *(t_list**)p1->content))
+		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
+		{
+
+		}
+		i++;
+	}
 }
