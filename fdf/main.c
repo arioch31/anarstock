@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/06 23:00:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/07 02:40:27 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int		main(int ac, char **av)
 	int		fd;
 	int		*tab;
 	int		i;
+	t_obj	*obj;
 	t_grid	*gr;
 	double	*mat_proj;
 
@@ -104,9 +105,15 @@ int		main(int ac, char **av)
 	gr = new_grid(fd);
 	aff_grid(gr->data);
 	init_3dpts(gr);
-	ft_putendl("init_3dptswljghhksjghsjgh!");
+	ft_putendl("init_2dpt!");
+	aff_grid(gr->data);
+	ft_putendl("init obj!");
+	obj = create_obj(gr);
+	ft_putendl("obj created!");
+	debug(obj);
+	ft_putendl("end debug obj!");
 	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
 	print_matrix(gr->camera);
-	test(gr);
+//	test(gr);
 	return (0);
 }

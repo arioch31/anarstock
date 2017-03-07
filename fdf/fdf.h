@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/07 00:25:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/07 02:38:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int				*trad_grid(t_grid *grille);
 t_grid			*new_grid(int fd);
 void			init_3dpts(t_grid *gr);
 void			init_2dgrid(t_grid *grille);
+t_obj	*create_obj(t_grid *gr);
 
 int				refresh(void *w_ptr);
 t_list	*as_link(t_list *start, size_t index);
@@ -54,4 +55,6 @@ t_2dpt	*as_2dpt(t_list *start, size_t index);
 t_3dpt	*as_3dpt(t_list *start, size_t index);
 void	draw_grid(t_grid *gr);
 
+t_obj	*create_obj(t_grid *gr);
+void	debug(t_obj *ob);
 #endif

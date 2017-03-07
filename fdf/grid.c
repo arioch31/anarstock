@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/07 00:46:50 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/07 02:36:34 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	magicrasse(t_list *elem)
 void	magicrasse2(t_list *ptr, int i, int rows)
 {
 	t_2dpt	*truc;
+	int		z;
 
-	truc = new_2dpt((i % rows + *(int*)ptr->content / 2) * 50,
-	(i / rows + *(int*)ptr->content / 2) * 50, 0XFFFF00 *(1 + *(int*)ptr->content));
+	z = *(int*)ptr->content;
+	truc = new_2dpt((i % rows + z / 2) * 50, (i / rows + z / 2) * 50,
+	0XFFFF00 * (1 + z));
 	free(ptr->content);
 	ptr->content = (void*)truc;
 	ptr->content_size = sizeof(t_2dpt);
@@ -171,66 +173,4 @@ t_grid	*new_grid(int fd)
 	}
 	close(fd);
 	return (grille);
-}
-
-t_link	*new_link(t_list *p1, t_list *p2)
-{
-	t_link *ret;
-
-	ret = malloc(sizeof(t_link));
-	ret->p1 = p1;
-	ret->p2 = p2;
-	return (ret);
-}
-
-void	order_links(t_grid *gr, t_obj *ob)
-{
-	int		i;
-	t_list	*ptr1;
-	t_list	*ptr2;
-
-	i = 0;
-	if (gr->rect)
-		while (i < gr->rows * gr->lines)
-		{
-			ptr1 = ft_lstgetnb(ob->point, i + 1);
-			if (i + 1 % gr->rows)
-			{
-				ptr2 = ft_lstgetnb(ob->point, i + 2);
-				ft_lstapp(&(ob->links), ft_lstnew(new_link(ptr1, ptr2), sizeof(t_link*)));
-			}
-			if (i < (gr->rows - 1) * gr->lines)
-			{
-				ptr2 = ft_lstgetnb(ob->point, i + 1 + gr->rows);
-				ft_lstapp(&ob->links, ft_lstnew(new_link(ptr1, ptr2), sizeof(t_link*)));
-			}
-			i++;
-		}
-	else
-		printf("not rectangle so GTFO\n");
-}
-
-t_obj	*create_obj(t_grid *gr)
-{
-	t_list	*p1;
-	t_list	*p2;
-	t_obj	*ob;
-
-	ob = malloc(sizeof(t_obj));
-	ft_bzero(ob, sizeof(t_obj));
-	p1 = gr->data;
-	p2 = *(t_list**)p1->content;
-	while (p1 && p2)
-	{
-		ft_lstapp(&ob->point, ft_lstnew(p2->content, p2->content_size));
-		p2 = p2->next;
-		if (!p2)
-		{
-			p1 = p1->next;
-			if (p1)
-				p2 = *(t_list**)p1->content;
-		}
-	}
-	order_links(gr, ob);
-	return (ob);
 }
