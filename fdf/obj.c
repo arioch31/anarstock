@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 01:49:39 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 03:25:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 04:07:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,13 @@
 
 void	clear_link(void *ptr, size_t size)
 {
-	t_list *ptr2;
 	t_link *lnk;
 
 	(void)size;
-	ft_putendl("\nstarting links debug:");
-	ptr2 = (t_list*)ptr;
 	lnk = *(t_link**)ptr;
-	ft_putendl("casts OK!");
-	print_2dpt((t_2dpt*)lnk->p1->content);
-	ft_putstr(" => ");
-	print_2dpt((t_2dpt*)lnk->p2->content);
 	lnk->p1 = NULL;
 	lnk->p2 = NULL;
-	ft_putendl("nulls OK!");
 	free(lnk);
-	ft_putendl("free OK!");
 }
 
 void	free_obj(t_obj *ob)
@@ -37,7 +28,7 @@ void	free_obj(t_obj *ob)
 	if (ob)
 	{
 		ft_lstdel(&ob->links, &clear_link);
-		ft_lstdel(&ob->point, NULL);
+		ft_lstdel(&ob->point, NULL); //delete_pt a coder (3d?)
 		free(ob);
 	}
 }

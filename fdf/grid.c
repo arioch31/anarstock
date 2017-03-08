@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 00:57:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 04:04:55 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,7 @@ void	aff_grid(t_list *data)
 		ptr2 = *(t_list**)ptr->content;
 		while (ptr2)
 		{
-			if (ptr2->content_size == sizeof(int))
-				ft_putnbr(*(int*)ptr2->content);
-			else if (ptr2->content_size == sizeof(t_3dpt))
-				print_3dpt((t_3dpt*)ptr2->content);
-			else if (ptr2->content_size == sizeof(t_2dpt))
-			{
-				pt_2d = (t_2dpt*)ptr2->content;
-				ft_putnbr(pt_2d->x);
-				ft_putchar(',');
-				ft_putnbr(pt_2d->y);
-			}
-			else
-				ft_putstr("pb elem");
+			print_point(ptr2);
 			ft_putchar('\t');
 			ptr2 = ptr2->next;
 		}

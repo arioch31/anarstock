@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 02:16:52 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 04:00:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ int				fill_obj(t_grid *gr, t_obj *ob);
 void			debug_obj(t_obj *ob);
 void			print_2dpt(t_2dpt *pt);
 void			debug_link(t_list *ptr);
+void			print_point(t_list *ptr);
 
 #endif

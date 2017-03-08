@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 04:31:56 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 02:32:24 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 04:04:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,25 @@ void	debug_link(t_list *ptr)
 
 void	print_3dpt(t_3dpt *p)
 {
-	ft_putstr("point:\t x= ");
+	ft_putchar('(');
 	ft_putdouble(p->x, 4);
-	ft_putstr("\t y= ");
+	ft_putchar(',');
 	ft_putdouble(p->y, 4);
-	ft_putstr("\t z= ");
+	ft_putchar(',');
 	ft_putdouble(p->z, 4);
-	ft_putchar('\n');
+	ft_putchar(')');
+}
+
+void	print_point(t_list *ptr)
+{
+	if (ptr->content_size == sizeof(t_2dpt))
+		print_2dpt(ptr->content);
+	else if (ptr->content_size == sizeof(t_3dpt))
+		print_3dpt(ptr->content);
+	else if (ptr->content_size == sizeof(int))
+		ft_putnbr(*(int*)ptr->content);
+	else
+		ft_putendl("erreur -not a point- !");
 }
 
 void	print_3dvec(t_3dvec *v)

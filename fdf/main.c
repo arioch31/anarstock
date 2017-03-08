@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 02:49:07 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 04:07:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ int		key_dispatch(int keycode, void *param)
 		exiter();
 	else if (keycode == 69)
 		clear_img(param);
-//	else if (keycode == 78)
-//	{
-//		testtttttt(param);
-//	}
 	else
 	{
 		refresh(param);
@@ -110,12 +106,8 @@ int		main(int ac, char **av)
 	ft_putendl("init obj!");
 	obj = create_obj();
 	fill_obj(gr, obj);
-	ft_putendl("obj created!");
 	debug_obj(obj);
-	ft_putendl("end debug obj!");
 	free_obj(obj);
-	ft_putendl("obj free!");
-	while (1);
 //	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
 //	print_matrix(gr->camera);
 //	test(gr);
