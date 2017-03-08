@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/08 00:16:27 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/07 02:37:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 03:23:21 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ typedef struct	s_window
 	double		*mat_proj;
 	t_img		*img;
 }				t_window;
+
+typedef struct	s_link
+{
+	t_list		*p1;
+	t_list		*p2;
+}				t_link;
+
+typedef struct	s_obj
+{
+	t_list		*point;
+	t_list		*links;
+}				t_obj;
+
+t_obj			*create_obj(void);
+void			add_pt(t_obj *ob, t_list *pt_ptr);
+void			new_link(t_obj *ob, t_list *p1, t_list *p2);
+void			clear_link(void *ptr, size_t size);
+void			free_obj(t_obj *ob);
 
 int				key_dispatch(int keycode, void *param);
 
@@ -116,10 +134,11 @@ t_3dpt			*matrix_point(double *mat, t_3dpt *p);
 /*
 ** debug.c
 */
-
+void			print_2dpt(t_2dpt *pt);
 void			print_3dpt(t_3dpt *p);
 void			print_3dvec(t_3dvec *v);
 void			print_matrix(double *m);
+void			debug_link(t_list *ptr);
 
 /*
 ** draw.c

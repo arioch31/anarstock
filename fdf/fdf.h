@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/07 02:38:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 02:16:52 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,21 @@ typedef struct	s_grid
 	double		*camera;
 }				t_grid;
 
-typedef struct	s_link
-{
-	t_list		*p1;
-	t_list		*p2;
-}				t_link;
-
-typedef struct	s_obj
-{
-	t_list		*point;
-	t_list		*links;
-}				t_obj;
-
-void	aff_grid(t_list *data);
+void			aff_grid(t_list *data);
 int				*trad_grid(t_grid *grille);
 t_grid			*new_grid(int fd);
 void			init_3dpts(t_grid *gr);
 void			init_2dgrid(t_grid *grille);
-t_obj	*create_obj(t_grid *gr);
 
 int				refresh(void *w_ptr);
-t_list	*as_link(t_list *start, size_t index);
-t_2dpt	*as_2dpt(t_list *start, size_t index);
-t_3dpt	*as_3dpt(t_list *start, size_t index);
-void	draw_grid(t_grid *gr);
+t_list			*as_link(t_list *start, size_t index);
+t_2dpt			*as_2dpt(t_list *start, size_t index);
+t_3dpt			*as_3dpt(t_list *start, size_t index);
+void			draw_grid(t_grid *gr);
 
-t_obj	*create_obj(t_grid *gr);
-void	debug(t_obj *ob);
+int				fill_obj(t_grid *gr, t_obj *ob);
+void			debug_obj(t_obj *ob);
+void			print_2dpt(t_2dpt *pt);
+void			debug_link(t_list *ptr);
+
 #endif

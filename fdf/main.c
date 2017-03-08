@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/07 02:40:27 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/08 02:49:07 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,16 @@ int		main(int ac, char **av)
 	ft_putendl("init_2dpt!");
 	aff_grid(gr->data);
 	ft_putendl("init obj!");
-	obj = create_obj(gr);
+	obj = create_obj();
+	fill_obj(gr, obj);
 	ft_putendl("obj created!");
-	debug(obj);
+	debug_obj(obj);
 	ft_putendl("end debug obj!");
-	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
-	print_matrix(gr->camera);
+	free_obj(obj);
+	ft_putendl("obj free!");
+	while (1);
+//	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
+//	print_matrix(gr->camera);
 //	test(gr);
 	return (0);
 }
