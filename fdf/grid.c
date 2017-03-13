@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 04:04:55 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/13 22:45:29 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	init_3dpts(t_grid *gr)
 		if ((p1 = ft_lstgetnb(gr->data, i / gr->rows + 1))
 		&& ((p2 = *(t_list**)p1->content))
 		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
-		{
-			magicrasse2(p2, i, gr->rows);
-		}
+			magicrasse3(p2, i, gr->rows);
 		else
 			gr->rect = 0;
 		i++;
@@ -104,10 +102,18 @@ t_2dpt	*proj_pt(t_3dpt *pt)
 
 t_2dpt	*get_2dpt(t_grid *gr, t_list *p)
 {
+	t_2dpt	*p2d;
+	t_3dpt	*p3d;
+
 	if (p->content_size == sizeof(t_2dpt))
 		return (as_2dpt(p, 1));
-//	if (p->content_size == sizeof(t_3dpt))
-//		return(as_2dpt(p, 1));
+	if (p->content_size == sizeof(t_3dpt))
+	{
+		p3d = as_3dpt(p, 1);
+		p3d = matrix_point(gr->camera, p3d);
+		p2d = new_2dpt(p3d->x, p3d->y, 0XFFFFFF00);
+		return (p2d);
+	}
 	return (NULL);
 }
 

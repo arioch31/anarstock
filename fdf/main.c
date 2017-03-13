@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 04:07:48 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/13 22:47:56 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,22 @@ void	exiter(void)
 
 void	zoom_plus(void *p)
 {
+	t_grid	*gr;
+
+	gr = (t_grid*)p;
+	scale_matrix(gr->camera, 1.1);
 	refresh(p);
 	ft_putendl("zoom+ ok!");
+}
+
+void	zoom_minus(void *p)
+{
+	t_grid	*gr;
+
+	gr = (t_grid*)p;
+	scale_matrix(gr->camera, 0.9);
+	refresh(p);
+	ft_putendl("zoom- ok!");
 }
 
 int		key_dispatch(int keycode, void *param)
@@ -68,7 +82,9 @@ int		key_dispatch(int keycode, void *param)
 	if (keycode == 53)
 		exiter();
 	else if (keycode == 69)
-		clear_img(param);
+		zoom_plus(param);
+	else if (keycode == 78)
+		zoom_minus(param);
 	else
 	{
 		refresh(param);
@@ -108,8 +124,9 @@ int		main(int ac, char **av)
 	fill_obj(gr, obj);
 	debug_obj(obj);
 	free_obj(obj);
+	gr->camera = new_matrix();
 //	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
 //	print_matrix(gr->camera);
-//	test(gr);
+	test(gr);
 	return (0);
 }
