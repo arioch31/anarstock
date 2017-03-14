@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/13 22:45:29 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/14 03:59:35 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,14 @@ t_2dpt	*get_2dpt(t_grid *gr, t_list *p)
 	if (p->content_size == sizeof(t_3dpt))
 	{
 		p3d = as_3dpt(p, 1);
-		p3d = matrix_point(gr->camera, p3d);
-		p2d = new_2dpt(p3d->x, p3d->y, 0XFFFFFF00);
+		p3d = matrix_point(gr->mat_aff, p3d);
+		p2d = new_2dpt(p3d->x, p3d->y, 0X00FF0000);
 		return (p2d);
 	}
 	return (NULL);
 }
 
-void	draw_grid(t_grid *gr)
+void	draw_grid(t_grid *gr) //draw obj?
 {
 	int		i;
 	t_list	*p1;
@@ -134,11 +134,11 @@ void	draw_grid(t_grid *gr)
 		&& ((p2 = ft_lstgetnb(p2, i % gr->rows + 1))))
 		{
 			if ((p3 = p2->next))
-				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w);
+				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w); ////LEAKKKK
 			if (((p3 = p1->next))
 			&& ((p3 = *(t_list**)p3->content))
 			&& ((p3 = ft_lstgetnb(p3, i % gr->rows + 1))))
-				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w);
+				draw_line(get_2dpt(gr, p3), get_2dpt(gr, p2), gr->w);////LEAKKKK return de get a free
 		}
 		i++;
 	}

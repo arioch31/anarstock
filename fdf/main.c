@@ -6,25 +6,30 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:32:05 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/13 22:47:56 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/14 03:59:25 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
 
-int		refresh(void *ptr)
+int			refresh(void *ptr)
 {
+	t_grid		*gr;
 	t_window	*w;
 
-	w = ((t_grid*)ptr)->w;
+	gr = (t_grid*)ptr;
+	w = gr->w;
+	free(gr->mat_aff);
+	gr->mat_aff = mult_matrix(gr->camera, gr->proj);
 	bzero(w->img->start, w->img->bits_per_pixel * W_LARGE * W_HEIGHT / 8);
 	draw_grid(ptr);
+	//draw obj(s)(list_obj) ?
 	mlx_put_image_to_window(w->mlx, w->screen, w->img->addr, 0, 0);
 	return (1);
 }
 
-int		clear_img(void *ptr)
+int			clear_img(void *ptr)
 {
 	t_window	*w;
 
@@ -34,14 +39,14 @@ int		clear_img(void *ptr)
 	return (1);
 }
 
-t_window	*new_window(void)
+t_window	*new_window(char *name)
 {
 	t_window	*w;
 
 	w = malloc(sizeof(t_window));
 	w->img = malloc(sizeof(t_img));
 	w->mlx = mlx_init();
-	w->screen = mlx_new_window(w->mlx, W_LARGE, W_HEIGHT, "windobe");
+	w->screen = mlx_new_window(w->mlx, W_LARGE, W_HEIGHT, name);
 	w->large = W_LARGE;
 	w->height = W_HEIGHT;
 	w->center = new_2dpt(W_LARGE / 2, W_HEIGHT / 2, 0xFF0000);
@@ -51,82 +56,33 @@ t_window	*new_window(void)
 	return (w);
 }
 
-void	exiter(void)
+int			test(t_grid *gr)
 {
-	ft_putendl("escape ok!");
-	exit(0);
-}
-
-void	zoom_plus(void *p)
-{
-	t_grid	*gr;
-
-	gr = (t_grid*)p;
-	scale_matrix(gr->camera, 1.1);
-	refresh(p);
-	ft_putendl("zoom+ ok!");
-}
-
-void	zoom_minus(void *p)
-{
-	t_grid	*gr;
-
-	gr = (t_grid*)p;
-	scale_matrix(gr->camera, 0.9);
-	refresh(p);
-	ft_putendl("zoom- ok!");
-}
-
-int		key_dispatch(int keycode, void *param)
-{
-	if (keycode == 53)
-		exiter();
-	else if (keycode == 69)
-		zoom_plus(param);
-	else if (keycode == 78)
-		zoom_minus(param);
-	else
-	{
-		refresh(param);
-		ft_putnbr(keycode);
-		ft_putchar('\n');
-	}
-	return (0);
-}
-
-int		test(t_grid *gr)
-{
-	gr->w = new_window();
+	gr->w = new_window("test");
 	mlx_expose_hook(gr->w->screen, &refresh, gr);
 	mlx_key_hook(gr->w->screen, &key_dispatch, gr);
 	mlx_loop(gr->w->mlx);
 	return (0);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	int		fd;
-	int		*tab;
-	int		i;
 	t_obj	*obj;
 	t_grid	*gr;
-	double	*mat_proj;
 
 	if (ac != 2 || !(fd = open(av[1], O_RDONLY)))
 		return (0);
 	gr = new_grid(fd);
 	aff_grid(gr->data);
 	init_3dpts(gr);
-	ft_putendl("init_2dpt!");
-	aff_grid(gr->data);
-	ft_putendl("init obj!");
 	obj = create_obj();
 	fill_obj(gr, obj);
-	debug_obj(obj);
 	free_obj(obj);
 	gr->camera = new_matrix();
-//	gr->camera = proj_matrix(60, 16.0 / 9, 1, 100);
-//	print_matrix(gr->camera);
+	//translate_matrix(gr->camera,new_vector(camera_pos, NULL)); //??free vctor
+	gr->proj = proj_matrix(60, 16.0 / 9, 1, 100);
+	gr->mat_aff = mult_matrix(gr->camera, gr->proj);
 	test(gr);
 	return (0);
 }

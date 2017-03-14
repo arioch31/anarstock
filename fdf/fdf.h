@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/28 20:48:35 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/08 04:00:48 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/14 00:12:59 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct	s_grid
 	int			z_max;
 	int			rect;
 	double		*camera;
+	double		*proj;
+	double		*mat_aff;
 }				t_grid;
 
 void			aff_grid(t_list *data);
