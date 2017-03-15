@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/25 19:10:52 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/07/08 06:41:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# define VAL_ABS(x) (((x) < 0) ? -(x) : (x))
 
 typedef struct		s_list
 {
@@ -61,6 +62,8 @@ void				ft_putstr (const char *str);
 void				ft_putstr_fd (const char *str, int fd);
 void				ft_putendl(const char *str);
 void				ft_putendl_fd(const char *str, int fd);
+void				ft_putdouble(double nb, int precision);
+void				ft_putfloat(float nb, int precision);
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *str);
@@ -76,25 +79,33 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strtrim(const char *str);
 char				**ft_strsplit(const char *str, char c);
+unsigned int		nb_words(const char *str, char c);
 char				*ft_itoa(int n);
 char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
 char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
+size_t				ft_strseekc(char *str, char c);
+void				ft_print_tab(char **tab);
+
+/*
+** fonctions liste
+*/
+
 t_list				*ft_lstnew(const void *content, size_t content_size);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *nouveau);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void				ft_lstaff(t_list *lst);
-char				*ft_lstcat(t_list *start);
-void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
-t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
+void				ft_lstaff(t_list *lst);
+int					ft_lstlen(t_list *start);
+char				*ft_lstcat(t_list *start);
+t_list				*ft_lstrsplit(const char *str, char c);
 void				ft_lstinsert(t_list **alst, t_list *nouveau);
 t_list				*ft_lstcpy(t_list *lst);
-t_list 				*ft_lstgetnb(t_list *start, size_t index);
-void				ft_print_tab(char **tab);
+t_list				*ft_lstgetnb(t_list *start, size_t index);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 #endif

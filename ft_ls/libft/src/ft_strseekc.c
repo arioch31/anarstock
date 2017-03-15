@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstgetnb.c                                      :+:      :+:    :+:   */
+/*   ft_strseekc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 01:00:32 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/28 01:41:53 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/01/14 20:29:14 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/01/14 23:14:29 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstgetnb(t_list *start, size_t index)
+size_t	ft_strseekc(char *str, char c)
 {
-	size_t	i;
-	t_list	*ptr;
+	unsigned int i;
 
-	if (!index)
-		return (NULL);
-	i = 1;
-	ptr = start;
-	while (ptr && i++ < index)
-		ptr = ptr->next;
-	return (ptr);
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }

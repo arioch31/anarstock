@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstrsplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/28 20:14:33 by aeguzqui          #+#    #+#             */
-/*   Updated: 2015/12/10 14:31:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/02/27 04:30:17 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ t_list				*ft_lstrsplit(const char *str, char c)
 		if (str[i])
 		{
 			n = len_word(&str[i], c);
-			elem = ft_lstnew(ft_strsub(str, i, n), n);
+			elem = ft_lstnew(NULL, n + 1);
+			elem->content = ft_strsub(str, i, n);
 			ft_lstapp(&lst, elem);
-			i += len_word(&str[i], c);
+			i += n;
 		}
 	}
 	return (lst);

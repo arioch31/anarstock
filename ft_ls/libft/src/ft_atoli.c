@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoli.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 15:46:42 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/02/11 01:29:56 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2016/06/08 16:24:09 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long int	ft_atoli(char *str)
 {
-	int 		i;
+	int			i;
 	long int	res;
 	int			neg;
 

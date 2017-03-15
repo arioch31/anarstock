@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/20 03:00:23 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/15 01:48:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/15 01:59:49 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "fdf.h"
 #include <stdio.h>
 
-int		on_screen(t_2dpt *pt, t_window *w)
+int		out_screen(t_2dpt *pt, t_window *w)
 {
 	int	x;
 	int	y;
@@ -39,7 +39,7 @@ int		draw_point(t_2dpt *pt, t_window *w)
 	int		locat;
 	char	*ptr;
 
-	if (on_screen(pt, w) == 0)
+	if (out_screen(pt, w))
 	{
 		locat = w->img->size_line * (pt->y + w->center->y)
 		+ (pt->x + w->center->x - 1) * w->img->bits_per_pixel / 8;
@@ -117,8 +117,8 @@ void	draw_line(t_2dpt *p1, t_2dpt *p2, t_window *w)
 {
 	t_2dpt	*pt;
 
-	if (!on_screen(p1, w) || !on_screen(p1, w)
-	|| !(on_screen(p1, w) && on_screen(p2, w)))
+	if (!out_screen(p1, w) || !out_screen(p1, w)
+	|| !(out_screen(p1, w) && out_screen(p2, w)))
 	{
 		if (p2->x < p1->x)
 		{

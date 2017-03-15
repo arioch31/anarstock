@@ -1,0 +1,48 @@
+struct stat {
+dev_t    st_dev;    /* device inode resides on */
+ino_t    st_ino;    /* inode's number */
+
+mode_t   st_mode;   /* inode protection mode */ =>droits
+nlink_t  st_nlink;  /* number of hard links to the file */ 2e colonne
+
+uid_t    st_uid;    /* user-id of owner */
+gid_t    st_gid;    /* group-id of owner */
+
+
+dev_t    st_rdev;   /* device type, for special file inode */
+
+struct timespec st_atimespec;  /* time of last access */
+struct timespec st_mtimespec;  /* time of last data modification */
+struct timespec st_ctimespec;  /* time of last file status change */
+
+
+off_t    st_size;   /* file size, in bytes */
+=>direct as %lld
+
+quad_t   st_blocks; /* blocks allocated for file */
+u_long   st_blksize;/* optimal file sys I/O ops blocksize */
+u_long   st_flags;  /* user defined flags for file */
+u_long   st_gen;    /* file generation number */
+}
+
+
+mode_t
+S_ISREG => fichier ordinaire
+S_ISFIFO => fichier FIFO
+S_ISCHR => fichier spécial de type caractère
+S_ISBLK => fichier spécial de type bloc
+S_ISDIR => répertoire
+socket link, symbolic link?
+
+FLAGS
+S_IRUSR S_IWUSR S_IXUSR
+S_IRGRP S_IWGRP S_IXGRP
+S_IROTH S_IWOTH S_IXOTH
+
+
+timespec gmtime() -> struct tm :
+
+int tm_hour 	heure (0 - 23)
+int tm_mday 	jour du mois (1 - 31)
+int tm_min 	minutes (0 - 59)
+int tm_mon 	mois (0 - 11, 0 correspond à janvier)

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static unsigned int	nb_words(const char *str, char c)
+unsigned int		nb_words(const char *str, char c)
 {
 	unsigned int i;
 	unsigned int nb;

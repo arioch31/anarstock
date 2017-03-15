@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstgetnb.c                                      :+:      :+:    :+:   */
+/*   ft_putfloat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 01:00:32 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/28 01:41:53 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/07/08 04:40:37 by aeguzqui          #+#    #+#             */
+/*   Updated: 2016/07/08 04:48:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstgetnb(t_list *start, size_t index)
+void	ft_putfloat(float nb, int precision)
 {
-	size_t	i;
-	t_list	*ptr;
+	int		expo;
+	int		cpt;
 
-	if (!index)
-		return (NULL);
-	i = 1;
-	ptr = start;
-	while (ptr && i++ < index)
-		ptr = ptr->next;
-	return (ptr);
+	expo = 1;
+	cpt = 0;
+	while (cpt++ < precision)
+		expo *= 10;
+	ft_putnbr((int)nb);
+	ft_putchar('.');
+	if (precision)
+		ft_putnbr((int)(nb * expo) % expo);
 }
