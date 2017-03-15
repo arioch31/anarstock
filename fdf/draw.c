@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/20 03:00:23 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/27 02:11:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/15 01:48:54 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,24 @@
 #include "fdf.h"
 #include <stdio.h>
 
-int		visible(t_2dpt *pt, t_window *w)
+int		on_screen(t_2dpt *pt, t_window *w)
 {
-	if (pt->x < 0 || pt->y < 0)
-		return (0);
-	if (pt->x < w->large && pt->y < w->height)
-		return (1);
-	return (0);
+	int	x;
+	int	y;
+	int ret;
+
+	x = pt->x + w->center->x;
+	y = pt->y + w->center->y;
+	ret = 0;
+	if (x < 0)
+		ret += 8;
+	if (y < 0)
+		ret += 1;
+	if (x > w->large)
+		ret += 4;
+	if (y > w->height)
+		ret += 2;
+	return (ret);
 }
 
 int		draw_point(t_2dpt *pt, t_window *w)
@@ -28,9 +39,10 @@ int		draw_point(t_2dpt *pt, t_window *w)
 	int		locat;
 	char	*ptr;
 
-	if (visible(pt, w))
+	if (on_screen(pt, w) == 0)
 	{
-		locat = w->img->size_line * pt->y + pt->x * w->img->bits_per_pixel / 8;
+		locat = w->img->size_line * (pt->y + w->center->y)
+		+ (pt->x + w->center->x - 1) * w->img->bits_per_pixel / 8;
 		ptr = w->img->start + locat;
 		*ptr = (char)(pt->color / 0x00100000);
 		*(++ptr) = (char)((pt->color % 0x00100000) / 0x001000);
@@ -105,16 +117,20 @@ void	draw_line(t_2dpt *p1, t_2dpt *p2, t_window *w)
 {
 	t_2dpt	*pt;
 
-	if (p2->x < p1->x)
+	if (!on_screen(p1, w) || !on_screen(p1, w)
+	|| !(on_screen(p1, w) && on_screen(p2, w)))
 	{
-		pt = new_2dpt(p2->x, p2->y, p1->color);
-		get_next_pt(p2, p1, pt, w);
-		free(pt);
-	}
-	else
-	{
-		pt = new_2dpt(p1->x, p1->y, p1->color);
-		get_next_pt(p1, p2, pt, w);
-		free(pt);
+		if (p2->x < p1->x)
+		{
+			pt = new_2dpt(p2->x, p2->y, p1->color);
+			get_next_pt(p2, p1, pt, w);
+			free(pt);
+		}
+		else
+		{
+			pt = new_2dpt(p1->x, p1->y, p1->color);
+			get_next_pt(p1, p2, pt, w);
+			free(pt);
+		}
 	}
 }

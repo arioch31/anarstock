@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 23:47:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/14 00:36:16 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/14 04:16:04 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	zoom_minus(void *p)
 void	move_up(void *p)
 {
 	t_grid	*gr;
-	t_3dvec	up = {0, 1, 0};
+	t_3dvec	up = {0, 1, 0, 0};
 
 	gr = (t_grid*)p;
 	translate_matrix(gr->camera, &up);
@@ -49,7 +49,7 @@ void	move_up(void *p)
 void	move_down(void *p)
 {
 	t_grid	*gr;
-	t_3dvec	down = {0, -1, 0};
+	t_3dvec	down = {0, -1, 0, 0};
 
 	gr = (t_grid*)p;
 	translate_matrix(gr->camera, &down);
@@ -59,7 +59,7 @@ void	move_down(void *p)
 void	move_left(void *p)
 {
 	t_grid	*gr;
-	t_3dvec	left = {1, 0, 0};
+	t_3dvec	left = {1, 0, 0, 0};
 
 	gr = (t_grid*)p;
 	translate_matrix(gr->camera, &left);
@@ -69,7 +69,7 @@ void	move_left(void *p)
 void	move_right(void *p)
 {
 	t_grid	*gr;
-	t_3dvec	right = {-1, 0, 0};
+	t_3dvec	right = {-1, 0, 0, 0};
 
 	gr = (t_grid*)p;
 	translate_matrix(gr->camera, &right);

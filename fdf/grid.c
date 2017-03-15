@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/10 01:03:43 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/14 03:59:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/14 04:51:45 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	magicrasse3(t_list *ptr, int i, int rows)
 {
 	t_3dpt	*truc;
 
-	truc = new_3dpoint(i % rows, i / rows, *(int*)ptr->content);
+	truc = new_3dpoint(i % rows, i / rows, *(int*)ptr->content * 0.5);
 	free(ptr->content);
 	ptr->content = (void*)truc;
 	ptr->content_size = sizeof(t_3dpt);
