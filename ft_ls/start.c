@@ -6,101 +6,86 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/22 04:49:14 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/24 01:19:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <strings.h>
-#include <dirent.h>
-#include <sys/stat.h>
-#include <time.h>
-#include <sys/types.h>
-#include <pwd.h>
-#include <grp.h>
-#include <uuid/uuid.h>
+#include "ft_ls.h"
 
-void	write_rights(struct stat *ptr)
+char	*get_full_name(char *path, char *name)
 {
-	if (S_ISDIR(ptr->st_mode))
-		printf("%c", 'd');
-	else if (S_ISBLK(ptr->st_mode))
-		printf("%c", 'b');
-	else if (S_ISCHR(ptr->st_mode))
-		printf("%c", 'c');
-	else if (S_ISFIFO(ptr->st_mode))
-		printf("%c", 'p');
-	else if (S_ISSOCK(ptr->st_mode))
-		printf("%c", 's');
-	else if (S_ISLNK(ptr->st_mode))
-		printf("%c", 'l');
+	char			*full_name;
+	char			*tmp;
+
+	if (ft_strcmp(".", path))
+	{
+		tmp = ft_strjoin(path, "/");
+		full_name = ft_strjoin(tmp, name);
+		free(tmp);
+	}
 	else
-		printf("%c", '-');
-	printf("%c%c%c%c%c%c%c%c%c",
-	ptr->st_mode & S_IRUSR ? 'r' : '-',
-	ptr->st_mode & S_IWUSR ? 'w' : '-',
-	ptr->st_mode & S_IXUSR ? 'x' : '-',
-	ptr->st_mode & S_IRGRP ? 'r' : '-',
-	ptr->st_mode & S_IWGRP ? 'w' : '-',
-	ptr->st_mode & S_IXGRP ? 'x' : '-',
-	ptr->st_mode & S_IROTH ? 'r' : '-',
-	ptr->st_mode & S_IWOTH ? 'w' : '-',
-	ptr->st_mode & S_IXOTH ? 'x' : '-');
+		full_name = ft_strdup(name);
+	return (full_name);
 }
 
-const char	*g_month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-	"Aug", "Sep", "Oct", "Nov", "Dec"};
-
-void	write_date(struct tm *t)
+void	check_sizes(int *tab, struct stat *ptr)
 {
-	printf("%s %02d %02d:%02d", g_month[t->tm_mon],
-	t->tm_mday, t->tm_hour + 1, t->tm_min);
+	int len;
+
+	len = int_strlen(ptr->st_nlink, 10);
+	if (len > tab[0])
+		tab[0] = len;
+	len = ft_strlen(getpwuid(ptr->st_uid)->pw_name);
+	if (len > tab[1])
+		tab[1] = len;
+	len = ft_strlen(getgrgid(ptr->st_gid)->gr_name);
+	if (len > tab[2])
+		tab[2] = len;
+	len = int_strlen(ptr->st_size, 10);
+	if (len > tab[3])
+		tab[3] = len;
 }
 
-void	print_line(struct stat *ptr, char *name)
+int		*get_sizes_pad(char *path)
 {
-	char test[250];
-
-	write_rights(ptr);
-	printf(" %2hu ", ptr->st_nlink);
-	printf("%s  ", getpwuid(ptr->st_uid)->pw_name);
-	printf("%s", getgrgid(ptr->st_gid)->gr_name);
-	printf("%9lld ", ptr->st_size);
-	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
-	printf(" %-s", name);
-	bzero(test, 250);
-	if (S_ISLNK(ptr->st_mode) && readlink(name, test, 250))
-		printf(" -> %s", test);
-	printf("\n");
-}
-
-void	print_dir_line(char *path)
-{
+	int				*tab;
 	struct dirent	*dp;
 	DIR				*dirp;
 	struct stat		ptr;
+	char			*full_name;
 
 	dirp = opendir(path);
+	tab = malloc(sizeof(int) * 4);
+	ft_bzero(tab, sizeof(int) * 4);
 	if (dirp)
 		while ((dp = readdir(dirp)) != NULL)
 		{
-			if (lstat(dp->d_name, &ptr) == 0)
-				print_line(&ptr, dp->d_name);
-			else
-				printf("%s failed\n", dp->d_name);
+			full_name = get_full_name(path, dp->d_name);
+			if (lstat(full_name, &ptr) == 0)
+				check_sizes(tab, &ptr);
+			free(full_name);
 		}
 	(void)closedir(dirp);
+	return (tab);
 }
 
 int		main(int ac, char **av)
 {
 	struct stat ptr;
+	char		*lnk;
+	int			tab[] = {0, 0, 0, 0};
 
-	if (ac > 1 && stat(av[1], &ptr) == 0)
+	if (ac > 1 && lstat(av[1], &ptr) == 0)
 	{
-		print_dir_line(av[1]);
+		if (S_ISDIR(ptr.st_mode))
+		{
+			if (S_ISLNK(ptr.st_mode) && readlink(av[1], lnk, 250))
+				print_dir_line(lnk);
+			else
+				print_dir_line(av[1]);
+		}
+		else
+			print_line(&ptr, av[1], ".", tab);
 	}
 	else if (ac == 1)
 		print_dir_line(".");

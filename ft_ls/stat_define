@@ -54,3 +54,9 @@ structure dirent includes the following members:
 
 ino_t  d_ino       file serial number
 char   d_name[]    name of entry
+
+
+***********************************
+A FAIRE:
+***********************************
+liens sym vers dir en target (-H?)
