@@ -3,6 +3,7 @@ NAME = libft.a
 FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = src/
+
 SRC_CONV_PATH = conv/
 SRC_LST_PATH = lst/
 SRC_PRINT_PATH = print/
@@ -25,8 +26,11 @@ SRC_LST_FILES = ft_lstapp.c		\
 			ft_lstcat.c 	\
 			ft_lstcpy.c 	\
 			ft_lstnew.c		\
-			ft_lstgetnb.c	\
-			ft_lstadd.c
+			ft_lstget.c	\
+			ft_lstadd.c		\
+			ft_lstcmp.c		\
+			ft_lstmove.c	\
+			ft_lst_tri.c
 
 SRC_MEM_FILES = ft_memalloc.c	\
 			ft_memcmp.c		\
@@ -77,7 +81,7 @@ SRC_STR_FILES =	ft_striter.c	\
 			ft_strncpy.c	\
 			ft_strseekc.c
 
-STR_CONV_FILES = ft_isalnum.c	\
+SRC_CONV_FILES = ft_isalnum.c	\
 			ft_isalpha.c	\
 			ft_atoi.c		\
 			ft_atoli.c		\
@@ -119,7 +123,7 @@ obj/%.o: src/%.c
 		gcc $(FLAGS) $(INC) -c $< -o $@
 
 $(NAME):
-	@ar rc $(NAME) $(OBJ)
+	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
 clean:

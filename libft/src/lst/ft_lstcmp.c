@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstgetnb.c                                      :+:      :+:    :+:   */
+/*   ft_lstcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 01:00:32 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/02/28 01:41:53 by aeguzqui         ###   ########.fr       */
+/*   Created: 2017/03/24 04:58:05 by aeguzqui          #+#    #+#             */
+/*   Updated: 2017/03/24 05:01:07 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstgetnb(t_list *start, size_t index)
+int	ft_lstcmp(t_list *l1, t_list *l2, int (*f)(t_list *l1, t_list *l2))
 {
-	size_t	i;
-	t_list	*ptr;
-
-	if (!index)
-		return (NULL);
-	i = 1;
-	ptr = start;
-	while (ptr && i++ < index)
-		ptr = ptr->next;
-	return (ptr);
+	if (l1 && l2 && f)
+		return (f(l1, l2));
+	return (0);
 }

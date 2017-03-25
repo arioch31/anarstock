@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstaff.c                                        :+:      :+:    :+:   */
+/*   ft_lstmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/30 17:06:28 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/25 00:13:23 by aeguzqui         ###   ########.fr       */
+/*   Created: 2017/03/24 05:07:46 by aeguzqui          #+#    #+#             */
+/*   Updated: 2017/03/25 00:55:23 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	aff_elem(t_list *lst)
+void	ft_lstmove(t_list **dest, t_list **elem)
 {
-	ft_putchar('"');
-	ft_putstr((char*)lst->content);
-	ft_putchar('"');
-	ft_putstr("->");
-	ft_putnbr(lst->content_size);
-	ft_putchar('\t');
-	lst = lst->next;
-}
+	t_list *tmp1;
+	t_list *tmp2;
 
-void		ft_lstaff(t_list *lst, void (*f)(t_list *elem))
-{
-	if (f)
-		ft_lstiter(lst, f);
-	else
-		ft_lstiter(lst, &aff_elem);
-	ft_putchar('\n');
+	if (dest && elem)
+	{
+		ft_putstr((char*)(*dest)->content);
+		ft_putstr("\t");
+		ft_putstr((char*)(*elem)->content);
+		ft_putendl("\ttest");
+		tmp1 = *dest;
+		tmp2 = *elem;
+		*dest = tmp2;
+		*elem = tmp2->next;
+		(*dest)->next = tmp1;
+	}
 }

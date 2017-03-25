@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/24 01:21:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/24 04:57:06 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,28 @@ void	print_dir_line(char *path)
 				printf("%s failed, code: %s\n", full_name, strerror(errno));
 			free(full_name);
 		}
+	(void)closedir(dirp);
+}
+
+void	explore_dir(char *path)
+{
+	struct dirent	*dp;
+	DIR				*dirp;
+	struct stat		ptr;
+	char			*full_name;
+	int				*tab;
+
+	tab = get_sizes_pad(path);
+	dirp = opendir(path);
+	if (dirp)
+		while ((dp = readdir(dirp)) != NULL)
+		{
+			full_name = get_full_name(path, dp->d_name);
+			if (lstat(full_name, &ptr) == 0)
+				print_line(&ptr, dp->d_name, path, tab);// ft_lstadd
+			free(full_name);
+		}
+	// trier et afficher !
+	// recursiver !
 	(void)closedir(dirp);
 }
