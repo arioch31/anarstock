@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/24 03:38:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/28 06:02:33 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,31 @@
 # include <errno.h>
 # include "libft.h"
 
-char	*get_full_name(char *path, char *name);
-void	check_sizes(int *tab, struct stat *ptr);
-int		*get_sizes_pad(char *path);
+typedef struct	s_env
+{
+	int		recursive; //R
+	int		line;		//l
+	int		show_hidden;//a
+	int		reverse_order;//r
+	int		sort_by;//uUtSc
+	char	**targets;
+	int		nb_targets;
+}				t_env;
 
-void	write_rights(struct stat *ptr);
-void	write_date(struct tm *t);
-void	print_dir_line(char *path);
-void	print_line(struct stat *ptr, char *name, char *path, int *tab);
+typedef struct	s_entry
+{
+	char		*name;
+	struct stat	*data;
+}				t_entry;
+
+char			*get_full_name(char *path, char *name);
+void			check_sizes(int *tab, struct stat *ptr);
+int				*get_sizes_pad(char *path);
+
+void			write_rights(struct stat *ptr);
+void			write_date(struct tm *t);
+void			print_dir_line(char *path);
+void			print_line(struct stat *ptr, char *name, char *path, int *tab);
+void			explore_dir(char *path);
 
 #endif

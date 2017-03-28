@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/24 01:19:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/28 06:39:40 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		*get_sizes_pad(char *path)
 	return (tab);
 }
 
-int		main(int ac, char **av)
+void	test(int ac, char **av)
 {
 	struct stat ptr;
 	char		*lnk;
@@ -89,5 +89,56 @@ int		main(int ac, char **av)
 	}
 	else if (ac == 1)
 		print_dir_line(".");
+}
+
+int		option_checker(t_env *env, char c)
+{
+	if (!ft_strchr("lRrauUtSc", c))
+		return (0);
+	if (c == 'l')
+		env->line = 1;
+
+	return (1);
+}
+
+int		option_reader(t_env *env, char *param)
+{
+	int cpt;
+
+	cpt = 0;
+	if (param)
+		while (param[++cpt])
+		{
+			if (option_checker(env, param[cpt]))
+				printf("option %c ok\n", param[cpt]);
+			else
+				printf("option %c pas ok\n", param[cpt]);
+		}
+	return (cpt);
+}
+
+int		main(int ac, char **av)
+{
+	int		cpt;
+	t_env	*env;
+
+	cpt = 0;
+	env = malloc(sizeof(t_env));
+	env->targets = malloc(ac * sizeof(char*));
+	env->nb_targets = 0;
+	while (++cpt < ac)
+	{
+		if (av[cpt][0] == '-')
+			option_reader(env, av[cpt]);
+		else
+		{
+			env->targets[env->nb_targets] = av[cpt];
+			printf("target: %s\n", av[cpt]);
+			env->nb_targets++;
+		}
+	}
+	test(ac, av);
+	printf("test\n");
+	explore_dir(".");
 	return (0);
 }
