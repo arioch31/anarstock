@@ -6,15 +6,15 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/07 16:02:37 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/25 05:50:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/27 23:48:15 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-** !!!! utiliser avec des pointeurs de debut de chaine ou l'adresse
-**														inclue dans next
+** !!!! utiliser avec des pointeurs de debut de chaine ou pointeurs vers
+**													l'adresse inclue dans next
 */
 
 void	ft_lstinsert_all(t_list **alst, t_list **new)

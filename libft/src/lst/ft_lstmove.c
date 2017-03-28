@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 05:07:46 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/25 00:55:23 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/27 23:45:51 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ void	ft_lstmove(t_list **dest, t_list **elem)
 
 	if (dest && elem)
 	{
-		ft_putstr((char*)(*dest)->content);
-		ft_putstr("\t");
-		ft_putstr((char*)(*elem)->content);
-		ft_putendl("\ttest");
 		tmp1 = *dest;
 		tmp2 = *elem;
 		*dest = tmp2;

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/25 03:56:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/27 23:38:00 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstcmp(t_list *l1, t_list *l2,
 					int (*f)(t_list *l1, t_list *l2));
 void				ft_lstmove(t_list **dest, t_list **elem);
-t_list				*ft_lst_tri(t_list *strt, int (*f)(t_list *l1, t_list *l2));
+t_list				*ft_lst_tri_as(t_list *l, int (*f)(t_list *l1, t_list *l2));
+t_list				*ft_lst_tri_ds(t_list *l, int (*f)(t_list *l1, t_list *l2));
 
 #endif
