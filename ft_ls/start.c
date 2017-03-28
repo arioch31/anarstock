@@ -6,11 +6,38 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/28 06:39:40 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 00:49:50 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int		option_checker(t_env *env, char c)
+{
+	int flag;
+	int flag2;
+
+	if (!(flag = ft_strseekc("RlaruUtcS", c)) || flag > 8)
+		return (0);
+	flag2 = (int)pow(2, flag);
+	if (flag2 < 16)
+		env->flags = (env->flags | flag2);
+	else
+		env->flags = (env->flags & 15) | flag2;
+	return (1);
+}
+
+int		option_reader(t_env *env, char *param)
+{
+	int cpt;
+
+	cpt = 0;
+	if (param)
+		while (param[++cpt])
+			if (!option_checker(env, param[cpt]))
+				exit(printf("option %c invalide\n", param[cpt]));
+	return (cpt);
+}
 
 char	*get_full_name(char *path, char *name)
 {
@@ -69,6 +96,33 @@ int		*get_sizes_pad(char *path)
 	return (tab);
 }
 
+void	test2(int ac, char **av)
+{
+	struct stat ptr;
+	char		*lnk;
+	int			i;
+	int			tab[] = {0, 0, 0, 0};
+	i = 0;
+	while (i < ac)
+	{
+		if (lstat(av[i], &ptr))
+			printf("%s failed, code: %s\n",av[i], strerror(errno));
+		else if (S_ISDIR(ptr.st_mode))
+		{
+			if (S_ISLNK(ptr.st_mode) && readlink(av[i], lnk, 250))
+				print_dir_line(lnk);
+			else
+				print_dir_line(av[i]);
+		}
+		else
+			print_line(&ptr, av[i], ".", tab);
+		printf("\n");
+		i++;
+	}
+	if (ac == 0)
+		print_dir_line(".");
+}
+
 void	test(int ac, char **av)
 {
 	struct stat ptr;
@@ -91,32 +145,6 @@ void	test(int ac, char **av)
 		print_dir_line(".");
 }
 
-int		option_checker(t_env *env, char c)
-{
-	if (!ft_strchr("lRrauUtSc", c))
-		return (0);
-	if (c == 'l')
-		env->line = 1;
-
-	return (1);
-}
-
-int		option_reader(t_env *env, char *param)
-{
-	int cpt;
-
-	cpt = 0;
-	if (param)
-		while (param[++cpt])
-		{
-			if (option_checker(env, param[cpt]))
-				printf("option %c ok\n", param[cpt]);
-			else
-				printf("option %c pas ok\n", param[cpt]);
-		}
-	return (cpt);
-}
-
 int		main(int ac, char **av)
 {
 	int		cpt;
@@ -126,6 +154,7 @@ int		main(int ac, char **av)
 	env = malloc(sizeof(t_env));
 	env->targets = malloc(ac * sizeof(char*));
 	env->nb_targets = 0;
+	env->flags = 0;
 	while (++cpt < ac)
 	{
 		if (av[cpt][0] == '-')
@@ -137,8 +166,8 @@ int		main(int ac, char **av)
 			env->nb_targets++;
 		}
 	}
-	test(ac, av);
-	printf("test\n");
-	explore_dir(".");
+	test2(env->nb_targets, env->targets);
+	printf("testoptions %02x\n", env->flags);
+	//explore_dir(".");
 	return (0);
 }

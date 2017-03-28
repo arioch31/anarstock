@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/28 06:02:33 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 00:20:25 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,23 @@
 # include <grp.h>
 # include <uuid/uuid.h>
 # include <errno.h>
+# include <math.h>
 # include "libft.h"
+
+# define F_RECURSIVE 1
+# define F_INLINE 2
+# define F_HIDDEN 4
+# define F_REV_ORDER 8
+# define F_SORT_TIME_1 16
+# define F_SORT_TIME_2 32
+# define F_SORT_TIME_3 64
+# define F_SORT_SIZE 128
 
 typedef struct	s_env
 {
-	int		recursive; //R
-	int		line;		//l
-	int		show_hidden;//a
-	int		reverse_order;//r
-	int		sort_by;//uUtSc
-	char	**targets;
+	int		flags;
 	int		nb_targets;
+	char	**targets;
 }				t_env;
 
 typedef struct	s_entry

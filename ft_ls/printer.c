@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/28 06:58:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 00:28:05 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,58 +107,4 @@ void	aff_entry(t_list *entry)
 	printf("name :%s\t", ent->name);
 	print_line(ent->data, ent->name, NULL, tab);
 	printf("OK\n");
-}
-
-t_list	*add_entry(char *path, char *name)
-{
-	t_entry			*entry;
-	struct stat		*ptr;
-	char			*full_name;
-	t_list			*ret;
-
-	ret = NULL;
-	ptr = malloc(sizeof(struct stat));
-	full_name = get_full_name(path, name);
-	if (lstat(full_name, ptr) == 0)
-	{
-		entry = malloc(sizeof(t_entry));
-		entry->name = ft_strdup(name);
-		entry->data = ptr;
-		ret = ft_lstnew(NULL, 0);
-		ret->content = (void*)entry;
-		ret->content_size = 1;
-		free(full_name);
-	}
-	return (ret);
-}
-
-t_list	*list_entries(DIR *dirp, char *path)
-{
-	t_list			*lst;
-	t_list			*tmp;
-	struct dirent	*dp;
-
-	lst = NULL;
-	tmp = NULL;
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		tmp = add_entry(path, dp->d_name);
-		ft_lstadd(&lst, tmp);
-	}
-	return (lst);
-}
-
-void	explore_dir(char *path)
-{
-	DIR				*dirp;
-	t_list			*entries;
-
-	dirp = opendir(path);
-	if (dirp)
-	{
-		entries = list_entries(dirp, path);
-		printf("\ntest aff lst\n");
-		ft_lstaff(entries, &aff_entry);
-	}
-	(void)closedir(dirp);
 }
