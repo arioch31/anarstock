@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 01:14:58 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/27 23:37:55 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:39:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ t_list	*ft_lst_tri_as(t_list *start, int (*f)(t_list *l1, t_list *l2))
 	dest = NULL;
 	while (ptr1)
 	{
-		ft_putstr("dest:\t");
-		ft_lstaff(dest, NULL);
 		tmp = ptr1->next;
 		ptr1->next = NULL;
 		if (!dest)
@@ -52,8 +50,6 @@ t_list	*ft_lst_tri_ds(t_list *start, int (*f)(t_list *l1, t_list *l2))
 	dest = NULL;
 	while (ptr1)
 	{
-		ft_putstr("dest:\t");
-		ft_lstaff(dest, NULL);
 		tmp = ptr1->next;
 		ptr1->next = NULL;
 		if (!dest)

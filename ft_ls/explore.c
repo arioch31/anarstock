@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:26:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 02:02:25 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:39:19 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_list	*list_entries(DIR *dirp, char *path)
 	return (lst);
 }
 
-void	explore_dir(char *path)
+void	explore_dir(t_env *env, char *path)
 {
 	DIR				*dirp;
 	t_list			*entries;
@@ -95,6 +95,11 @@ void	explore_dir(char *path)
 	{
 		entries = list_entries(dirp, path);
 		printf("\ntest aff lst\n");
+		ft_lstaff(entries, &aff_entry);
+		printf("\ntest sort lst\n");
+		entries = sort_choose(env, entries);
+		printf("\ntest debug\n");
+
 		ft_lstaff(entries, &aff_entry);
 	}
 	(void)closedir(dirp);

@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 02:30:54 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:32:13 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int		option_reader(t_env *env, char *param)
 	return (cpt);
 }
 
+const int	g_tab[4] = {0, 0, 0, 0};
+
 void	test2(int ac, char **av, t_env *env)
 {
 	struct stat ptr;
 	char		*lnk;
 	int			i;
-	int			tab[] = {0, 0, 0, 0};
 
 	i = 0;
 	while (i < ac)
@@ -59,12 +60,13 @@ void	test2(int ac, char **av, t_env *env)
 				print_dir_line(av[i]);
 		}
 		else
-			print_line(&ptr, av[i], ".", tab);
+			print_line(&ptr, av[i], ".", (int*)g_tab);
 		printf("\n");
 		i++;
 	}
 	if (ac == 0)
-		print_dir_line(".");
+		//print_dir_line(".");
+		explore_dir(env, ".");
 }
 
 int		main(int ac, char **av)
@@ -89,5 +91,7 @@ int		main(int ac, char **av)
 	}
 	test2(env->nb_targets, env->targets, env);
 	printf("testoptions %02x\n", env->flags);
+	free(env->targets);
+	free(env);
 	return (0);
 }

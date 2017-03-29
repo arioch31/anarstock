@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 02:07:10 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:43:52 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@
 # define F_HIDE_USER 8
 # define F_NO_EXPLORE 16
 # define F_REV_ORDER 32
-# define F_SORT_TIME_1 64
-# define F_SORT_TIME_2 128
-# define F_SORT_TIME_3 256
-# define F_SORT_TIME_4 512
+# define F_SORT_TIME_M 64
+# define F_SORT_TIME_A 128
+# define F_SORT_TIME_CH 256
+# define F_SORT_TIME_CR 512 //darwin 64 macro a verifier
 # define F_SORT_SIZE 1024
 # define F_NO_SORT 2048
 
@@ -62,6 +62,7 @@ void			write_rights(struct stat *ptr);
 void			write_date(struct tm *t);
 void			print_dir_line(char *path);
 void			print_line(struct stat *ptr, char *name, char *path, int *tab);
-void			explore_dir(char *path);
+void			explore_dir(t_env *env, char *path);
+t_list			*sort_choose(t_env *env, t_list *lst);
 
 #endif

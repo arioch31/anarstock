@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 02:10:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:38:41 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 const char	*g_month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 	"Aug", "Sep", "Oct", "Nov", "Dec"};
+
+const int	g_tab1[4] = {0, 0, 0, 0};
 
 void	write_rights(struct stat *ptr)
 {
@@ -123,11 +125,7 @@ void	print_dir_line(char *path)
 void	aff_entry(t_list *entry)
 {
 	t_entry	*ent;
-	int		tab[] = {0, 0, 0, 0};
 
-	printf("try");
 	ent = (t_entry*)entry->content;
-	printf("name :%s\t", ent->name);
-	print_line(ent->data, ent->name, NULL, tab);
-	printf("OK\n");
+	print_line(ent->data, ent->name, NULL, (int*)g_tab1);
 }
