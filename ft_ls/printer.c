@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 00:28:05 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 02:10:42 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,29 @@ void	print_line(struct stat *ptr, char *name, char *path, int *tab)
 		free(full_name);
 	}
 	printf("\n");
+}
+
+int		*get_sizes_pad(char *path)
+{
+	int				*tab;
+	struct dirent	*dp;
+	DIR				*dirp;
+	struct stat		ptr;
+	char			*full_name;
+
+	dirp = opendir(path);
+	tab = malloc(sizeof(int) * 4);
+	ft_bzero(tab, sizeof(int) * 4);
+	if (dirp)
+		while ((dp = readdir(dirp)) != NULL)
+		{
+			full_name = get_full_name(path, dp->d_name);
+			if (lstat(full_name, &ptr) == 0)
+				check_sizes(tab, &ptr);
+			free(full_name);
+		}
+	(void)closedir(dirp);
+	return (tab);
 }
 
 void	print_dir_line(char *path)

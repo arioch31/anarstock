@@ -15,40 +15,32 @@ u_long   st_blksize;/* optimal file sys I/O ops blocksize */
 u_long   st_flags;  /* user defined flags for file */
 u_long   st_gen;    /* file generation number */
 }
-
-
 mode_t
 S_ISREG => fichier ordinaire
 S_ISFIFO => fichier FIFO
 S_ISCHR => fichier spécial de type caractère
 S_ISBLK => fichier spécial de type bloc
 S_ISDIR => répertoire
-socket link, symbolic link?
-
 FLAGS
 S_IRUSR S_IWUSR S_IXUSR
 S_IRGRP S_IWGRP S_IXGRP
 S_IROTH S_IWOTH S_IXOTH
-
-
 timespec gmtime() -> struct tm :
-
 int tm_hour 	heure (0 - 23)
 int tm_mday 	jour du mois (1 - 31)
 int tm_min 	minutes (0 - 59)
 int tm_mon 	mois (0 - 11, 0 correspond à janvier)
-
-
 #include <dirent.h>
 structure dirent includes the following members:
-
-
 ino_t  d_ino       file serial number
 char   d_name[]    name of entry
-
-
 ***********************************
 A FAIRE:
 ***********************************
 liens sym vers dir en target (-H?)
 gerer les erreurs de getpwuid et getgrgid (sgflt strlen) => aff numerique
+
+options faisables a ajouter:
+-f => pas de sort
+-g =>pas de username...
+-d =>pas de read dans les dir

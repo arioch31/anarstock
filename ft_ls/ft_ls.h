@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 00:20:25 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/03/29 02:07:10 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,20 @@
 # include <grp.h>
 # include <uuid/uuid.h>
 # include <errno.h>
-# include <math.h>
 # include "libft.h"
 
 # define F_RECURSIVE 1
 # define F_INLINE 2
 # define F_HIDDEN 4
-# define F_REV_ORDER 8
-# define F_SORT_TIME_1 16
-# define F_SORT_TIME_2 32
-# define F_SORT_TIME_3 64
-# define F_SORT_SIZE 128
+# define F_HIDE_USER 8
+# define F_NO_EXPLORE 16
+# define F_REV_ORDER 32
+# define F_SORT_TIME_1 64
+# define F_SORT_TIME_2 128
+# define F_SORT_TIME_3 256
+# define F_SORT_TIME_4 512
+# define F_SORT_SIZE 1024
+# define F_NO_SORT 2048
 
 typedef struct	s_env
 {
@@ -52,6 +55,8 @@ typedef struct	s_entry
 char			*get_full_name(char *path, char *name);
 void			check_sizes(int *tab, struct stat *ptr);
 int				*get_sizes_pad(char *path);
+
+void			aff_entry(t_list *entry);
 
 void			write_rights(struct stat *ptr);
 void			write_date(struct tm *t);
