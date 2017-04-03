@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 05:43:52 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/03 04:24:12 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define F_RECURSIVE 1
 # define F_INLINE 2
-# define F_HIDDEN 4
+# define F_NO_HIDDEN 4
 # define F_HIDE_USER 8
 # define F_NO_EXPLORE 16
 # define F_REV_ORDER 32
@@ -56,11 +56,8 @@ char			*get_full_name(char *path, char *name);
 void			check_sizes(int *tab, struct stat *ptr);
 int				*get_sizes_pad(char *path);
 
-void			aff_entry(t_list *entry);
-
 void			write_rights(struct stat *ptr);
 void			write_date(struct tm *t);
-void			print_dir_line(char *path);
 void			print_line(struct stat *ptr, char *name, char *path, int *tab);
 void			explore_dir(t_env *env, char *path);
 t_list			*sort_choose(t_env *env, t_list *lst);

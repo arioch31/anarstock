@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:26:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 05:39:19 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/03 05:08:15 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ char	*get_full_name(char *path, char *name)
 	return (full_name);
 }
 
+void	delete_entry(void *lst, size_t useless)
+{
+	t_entry			*entry;
+
+	(void)useless;
+	entry = (t_entry*)lst;
+	free(entry->name);
+	free(entry->data);
+}
+
 t_list	*add_entry(char *path, char *name)
 {
 	t_entry			*entry;
@@ -66,6 +76,8 @@ t_list	*add_entry(char *path, char *name)
 		ret->content_size = 1;
 		free(full_name);
 	}
+	else
+		printf("%s read failed: %s\n", full_name, strerror(errno));
 	return (ret);
 }
 
@@ -85,22 +97,83 @@ t_list	*list_entries(DIR *dirp, char *path)
 	return (lst);
 }
 
+void	aff_entries(t_list *entry, t_env *env, char *path, int *format)
+{
+	t_entry	*ent;
+
+	while (entry)
+	{
+		ent = (t_entry*)entry->content;
+		if (!(!(env->flags & F_NO_HIDDEN) && ent->name[0] == '.'))
+			print_line(ent->data, ent->name, path, format);
+		entry = entry->next;
+	}
+}
+
+u_long	check_entries(t_list *entry, t_env *env, int *format)
+{
+	t_entry	*ent;
+	u_long	ret;
+
+	ret = 0;
+	while (entry)
+	{
+		ent = (t_entry*)entry->content;
+		if (ft_strncmp(ent->name, ".", 2) && ft_strncmp(ent->name, "..", 3))
+		{
+			check_sizes(format, ent->data);
+			ret += ent->data->st_blocks;
+		}
+		entry = entry->next;
+	}
+	return (ret);
+}
+
+void	recursive_explo(t_env *env, char *path, t_list *entry)
+{
+	t_entry	*ent;
+	char	*full_name;
+
+	while (entry)
+	{
+		ent = (t_entry*)entry->content;
+		if (S_ISDIR(ent->data->st_mode) && ft_strncmp(ent->name, ".", 2)
+		&& ft_strncmp(ent->name, "..", 3))
+		{
+			full_name = get_full_name(path, ent->name);
+			explore_dir(env, full_name);
+			free(full_name);
+		}
+		entry = entry->next;
+	}
+}
+
 void	explore_dir(t_env *env, char *path)
 {
 	DIR				*dirp;
 	t_list			*entries;
+	int				tab[4];
+	struct stat		ptr;
+	u_long			size;
 
-	dirp = opendir(path);
-	if (dirp)
+	ft_bzero(tab, 4 * sizeof(int));
+	if (!(env->flags & F_NO_EXPLORE) && (dirp = opendir(path)))
 	{
 		entries = list_entries(dirp, path);
-		printf("\ntest aff lst\n");
-		ft_lstaff(entries, &aff_entry);
-		printf("\ntest sort lst\n");
+		size = check_entries(entries, env, tab);
+		printf("\n%s:\n%lu\n", path, size);
 		entries = sort_choose(env, entries);
-		printf("\ntest debug\n");
-
-		ft_lstaff(entries, &aff_entry);
+		aff_entries(entries, env, path, tab);
+		if (env->flags & F_RECURSIVE)
+			recursive_explo(env, path, entries);
+		(void)closedir(dirp);
+		ft_lstdel(&entries, &delete_entry);
 	}
-	(void)closedir(dirp);
+	else if ((env->flags & F_NO_EXPLORE) && (lstat(path, &ptr) == 0))
+	{
+		check_sizes(tab, &ptr);
+		print_line(&ptr, path, NULL, tab);
+	}
+	else
+		printf("%s read failed: %s\n", path, strerror(errno));
 }

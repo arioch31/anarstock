@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/29 05:38:41 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/03 05:12:20 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	write_date(struct tm *t)
 	t->tm_mday, t->tm_hour + 1, t->tm_min);
 }
 
-void	print_line(struct stat *ptr, char *name, char *path, int *tab)
+void	print_line(struct stat *ptr, char *name, char *path, int *tab)//env et t_list?
 {
 	char lnk[256];
 	char *full_name;
@@ -63,69 +63,15 @@ void	print_line(struct stat *ptr, char *name, char *path, int *tab)
 	printf("%*lld ", tab[3], ptr->st_size);
 	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
 	printf(" %-s", name);
-	bzero(lnk, 256);
+	ft_bzero(lnk, 256);
 	if (S_ISLNK(ptr->st_mode) && path)
 	{
 		full_name = get_full_name(path, name);
 		if (readlink(full_name, lnk, 256) > 0)
 			printf(" -> %s", lnk);
 		else
-			printf("%s not read from %s", lnk, full_name);
+			printf("%s link not read from %s", lnk, full_name);
 		free(full_name);
 	}
 	printf("\n");
-}
-
-int		*get_sizes_pad(char *path)
-{
-	int				*tab;
-	struct dirent	*dp;
-	DIR				*dirp;
-	struct stat		ptr;
-	char			*full_name;
-
-	dirp = opendir(path);
-	tab = malloc(sizeof(int) * 4);
-	ft_bzero(tab, sizeof(int) * 4);
-	if (dirp)
-		while ((dp = readdir(dirp)) != NULL)
-		{
-			full_name = get_full_name(path, dp->d_name);
-			if (lstat(full_name, &ptr) == 0)
-				check_sizes(tab, &ptr);
-			free(full_name);
-		}
-	(void)closedir(dirp);
-	return (tab);
-}
-
-void	print_dir_line(char *path)
-{
-	struct dirent	*dp;
-	DIR				*dirp;
-	struct stat		ptr;
-	char			*full_name;
-	int				*tab;
-
-	tab = get_sizes_pad(path);
-	dirp = opendir(path);
-	if (dirp)
-		while ((dp = readdir(dirp)) != NULL)
-		{
-			full_name = get_full_name(path, dp->d_name);
-			if (lstat(full_name, &ptr) == 0)
-				print_line(&ptr, dp->d_name, path, tab);
-			else
-				printf("%s failed, code: %s\n", full_name, strerror(errno));
-			free(full_name);
-		}
-	(void)closedir(dirp);
-}
-
-void	aff_entry(t_list *entry)
-{
-	t_entry	*ent;
-
-	ent = (t_entry*)entry->content;
-	print_line(ent->data, ent->name, NULL, (int*)g_tab1);
 }
