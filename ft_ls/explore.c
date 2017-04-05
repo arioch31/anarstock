@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:26:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/03 05:08:15 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/05 03:23:26 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_full_name(char *path, char *name)
 	char			*full_name;
 	char			*tmp;
 
-	if (ft_strcmp(".", path))
+	if (path && ft_strcmp(".", path))
 	{
 		tmp = ft_strjoin(path, "/");
 		full_name = ft_strjoin(tmp, name);
@@ -44,89 +44,6 @@ char	*get_full_name(char *path, char *name)
 	else
 		full_name = ft_strdup(name);
 	return (full_name);
-}
-
-void	delete_entry(void *lst, size_t useless)
-{
-	t_entry			*entry;
-
-	(void)useless;
-	entry = (t_entry*)lst;
-	free(entry->name);
-	free(entry->data);
-}
-
-t_list	*add_entry(char *path, char *name)
-{
-	t_entry			*entry;
-	struct stat		*ptr;
-	char			*full_name;
-	t_list			*ret;
-
-	ret = NULL;
-	ptr = malloc(sizeof(struct stat));
-	full_name = get_full_name(path, name);
-	if (lstat(full_name, ptr) == 0)
-	{
-		entry = malloc(sizeof(t_entry));
-		entry->name = ft_strdup(name);
-		entry->data = ptr;
-		ret = ft_lstnew(NULL, 0);
-		ret->content = (void*)entry;
-		ret->content_size = 1;
-		free(full_name);
-	}
-	else
-		printf("%s read failed: %s\n", full_name, strerror(errno));
-	return (ret);
-}
-
-t_list	*list_entries(DIR *dirp, char *path)
-{
-	t_list			*lst;
-	t_list			*tmp;
-	struct dirent	*dp;
-
-	lst = NULL;
-	tmp = NULL;
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		tmp = add_entry(path, dp->d_name);
-		ft_lstadd(&lst, tmp);
-	}
-	return (lst);
-}
-
-void	aff_entries(t_list *entry, t_env *env, char *path, int *format)
-{
-	t_entry	*ent;
-
-	while (entry)
-	{
-		ent = (t_entry*)entry->content;
-		if (!(!(env->flags & F_NO_HIDDEN) && ent->name[0] == '.'))
-			print_line(ent->data, ent->name, path, format);
-		entry = entry->next;
-	}
-}
-
-u_long	check_entries(t_list *entry, t_env *env, int *format)
-{
-	t_entry	*ent;
-	u_long	ret;
-
-	ret = 0;
-	while (entry)
-	{
-		ent = (t_entry*)entry->content;
-		if (ft_strncmp(ent->name, ".", 2) && ft_strncmp(ent->name, "..", 3))
-		{
-			check_sizes(format, ent->data);
-			ret += ent->data->st_blocks;
-		}
-		entry = entry->next;
-	}
-	return (ret);
 }
 
 void	recursive_explo(t_env *env, char *path, t_list *entry)
@@ -141,6 +58,7 @@ void	recursive_explo(t_env *env, char *path, t_list *entry)
 		&& ft_strncmp(ent->name, "..", 3))
 		{
 			full_name = get_full_name(path, ent->name);
+			printf("\n");
 			explore_dir(env, full_name);
 			free(full_name);
 		}
@@ -152,18 +70,18 @@ void	explore_dir(t_env *env, char *path)
 {
 	DIR				*dirp;
 	t_list			*entries;
-	int				tab[4];
+	int				tab[5];
 	struct stat		ptr;
 	u_long			size;
 
-	ft_bzero(tab, 4 * sizeof(int));
+	ft_bzero(tab, 5 * sizeof(int));
+	size = 0;
 	if (!(env->flags & F_NO_EXPLORE) && (dirp = opendir(path)))
 	{
-		entries = list_entries(dirp, path);
-		size = check_entries(entries, env, tab);
-		printf("\n%s:\n%lu\n", path, size);
+		tab[4] = (env->flags & F_NO_HIDDEN);
+		entries = list_entries(dirp, path, &size, tab);
 		entries = sort_choose(env, entries);
-		aff_entries(entries, env, path, tab);
+		aff_entries(entries, env, tab, size);
 		if (env->flags & F_RECURSIVE)
 			recursive_explo(env, path, entries);
 		(void)closedir(dirp);
@@ -175,5 +93,5 @@ void	explore_dir(t_env *env, char *path)
 		print_line(&ptr, path, NULL, tab);
 	}
 	else
-		printf("%s read failed: %s\n", path, strerror(errno));
+		printf("ft_ls: %s: %s\n", path, strerror(errno));
 }

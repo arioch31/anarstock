@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/03 04:48:59 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/05 04:49:38 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int		option_checker(t_env *env, char c)
 	int flag;
 	int flag2;
 
-	if (!c || ((flag = ft_strseekc("RlagdruUtcSf", c) + 1) && flag > 12))
+	if (!c || ((flag = ft_strseekc("RlagdrtucUSf", c) + 1) && flag > 12))
 		return (0);
 	flag2 = 1 << (flag - 1);
 	if (flag2 < 64)
 		env->flags = (env->flags | flag2);
 	else
 		env->flags = (env->flags & 63) | flag2;
+	if (!AUTHORISE_U && (env->flags & F_SORT_TIME_CR))
+		exit(printf("-U n'est pas supporté par le système\n"));
 	return (1);
 }
 
@@ -38,10 +40,10 @@ int		option_reader(t_env *env, char *param)
 			if (!option_checker(env, param[cpt]))
 				exit(printf("option %c invalide\n", param[cpt]));
 	}
+	if (env->flags < F_SORT_TIME_M)
+			env->flags = env->flags | F_SORT_TIME_M;
 	return (cpt);
 }
-
-const int	g_tab[4] = {0, 0, 0, 0};
 
 t_env	*env_setup(int ac, char **av)
 {
@@ -73,12 +75,12 @@ int		main(int ac, char **av)
 	i = 0;
 	while (i < env->nb_targets)
 	{
+		printf("%s", i ? "\n" : "");
 		explore_dir(env, env->targets[i]);
 		i++;
 	}
 	if (env->nb_targets == 0)
 		explore_dir(env, ".");
-	printf("testoptions %02x\n", env->flags);
 	free(env->targets);
 	free(env);
 	return (0);

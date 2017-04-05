@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/03 05:12:20 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/05 04:59:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,55 @@
 const char	*g_month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 	"Aug", "Sep", "Oct", "Nov", "Dec"};
 
-const int	g_tab1[4] = {0, 0, 0, 0};
+void	print_inline(t_entry *entry, int *tab)
+{
+	char		lnk[256];
+	char		*full_name;
+	struct stat	*ptr;
+
+	ptr = entry->data;
+	write_rights(ptr);
+	printf(" %*hu ", tab[0], ptr->st_nlink);
+	printf("%-*s  ", tab[1], getpwuid(ptr->st_uid)->pw_name);
+	printf("%-*s ", tab[2], getgrgid(ptr->st_gid)->gr_name);
+	printf("%*lld ", tab[3], ptr->st_size);
+	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
+	printf(" %-s", entry->name);
+	ft_bzero(lnk, 256);
+	if (S_ISLNK(ptr->st_mode) && (entry->path))
+	{
+		full_name = get_full_name((entry->path), entry->name);
+		if (readlink(full_name, lnk, 256) > 0)
+			printf(" -> %s", lnk);
+		else
+			printf("%s link not read from %s", lnk, full_name);
+		free(full_name);
+	}
+	printf("\n");
+}
+
+void	aff_entries(t_list *entry, t_env *env, int *format, u_long size)
+{
+	t_entry	*ent;
+
+	if (env->nb_targets > 1 || env->flags & F_RECURSIVE)
+		printf("%s:\n", ((t_entry*)entry->content)->path);
+	if (env->flags & F_INLINE)
+		printf("total %lu\n", size);
+	while (entry)
+	{
+		ent = (t_entry*)entry->content;
+		if (!(!(env->flags & F_NO_HIDDEN) && ent->name[0] == '.'))
+		{
+			if (env->flags & F_INLINE)
+				print_inline(ent, format);
+			else
+				printf("%s\t", ent->name);
+		}
+		entry = entry->next;
+	}
+	printf("%s", (env->flags & F_INLINE) ? "" : "\n");
+}
 
 void	write_rights(struct stat *ptr)
 {
@@ -51,7 +99,7 @@ void	write_date(struct tm *t)
 	t->tm_mday, t->tm_hour + 1, t->tm_min);
 }
 
-void	print_line(struct stat *ptr, char *name, char *path, int *tab)//env et t_list?
+void	print_line(struct stat *ptr, char *name, char *path, int *tab)
 {
 	char lnk[256];
 	char *full_name;
@@ -64,7 +112,7 @@ void	print_line(struct stat *ptr, char *name, char *path, int *tab)//env et t_li
 	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
 	printf(" %-s", name);
 	ft_bzero(lnk, 256);
-	if (S_ISLNK(ptr->st_mode) && path)
+	if (S_ISLNK(ptr->st_mode))
 	{
 		full_name = get_full_name(path, name);
 		if (readlink(full_name, lnk, 256) > 0)
