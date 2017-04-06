@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 01:12:01 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/05 04:59:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/06 23:27:16 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,23 @@
 const char	*g_month[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
 	"Aug", "Sep", "Oct", "Nov", "Dec"};
 
-void	print_inline(t_entry *entry, int *tab)
+void	write_date(t_env *env, struct stat *ptr)
+{
+	struct tm *t;
+
+	if (env->flags & F_USE_TIME_A)
+		t = localtime(&ptr->st_atimespec.tv_sec);
+	else if (env->flags & F_USE_TIME_CH)
+		t = localtime(&ptr->st_ctimespec.tv_sec);
+	else if (env->flags & F_USE_TIME_CR)
+		t = localtime(&ptr->st_birthtimespec.tv_sec);
+	else
+		t = localtime(&ptr->st_mtimespec.tv_sec);
+	printf("%s %02d %02d:%02d", g_month[t->tm_mon],
+	t->tm_mday, t->tm_hour, t->tm_min);
+}
+
+void	print_inline(t_env *env, t_entry *entry, int *tab)
 {
 	char		lnk[256];
 	char		*full_name;
@@ -27,7 +43,7 @@ void	print_inline(t_entry *entry, int *tab)
 	printf("%-*s  ", tab[1], getpwuid(ptr->st_uid)->pw_name);
 	printf("%-*s ", tab[2], getgrgid(ptr->st_gid)->gr_name);
 	printf("%*lld ", tab[3], ptr->st_size);
-	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
+	write_date(env, ptr);
 	printf(" %-s", entry->name);
 	ft_bzero(lnk, 256);
 	if (S_ISLNK(ptr->st_mode) && (entry->path))
@@ -56,7 +72,7 @@ void	aff_entries(t_list *entry, t_env *env, int *format, u_long size)
 		if (!(!(env->flags & F_NO_HIDDEN) && ent->name[0] == '.'))
 		{
 			if (env->flags & F_INLINE)
-				print_inline(ent, format);
+				print_inline(env, ent, format);
 			else
 				printf("%s\t", ent->name);
 		}
@@ -91,35 +107,4 @@ void	write_rights(struct stat *ptr)
 	ptr->st_mode & S_IROTH ? 'r' : '-',
 	ptr->st_mode & S_IWOTH ? 'w' : '-',
 	ptr->st_mode & S_IXOTH ? 'x' : '-');
-}
-
-void	write_date(struct tm *t)
-{
-	printf("%s %02d %02d:%02d", g_month[t->tm_mon],
-	t->tm_mday, t->tm_hour + 1, t->tm_min);
-}
-
-void	print_line(struct stat *ptr, char *name, char *path, int *tab)
-{
-	char lnk[256];
-	char *full_name;
-
-	write_rights(ptr);
-	printf(" %*hu ", tab[0], ptr->st_nlink);
-	printf("%-*s  ", tab[1], getpwuid(ptr->st_uid)->pw_name);
-	printf("%-*s ", tab[2], getgrgid(ptr->st_gid)->gr_name);
-	printf("%*lld ", tab[3], ptr->st_size);
-	write_date(gmtime(&ptr->st_mtimespec.tv_sec));
-	printf(" %-s", name);
-	ft_bzero(lnk, 256);
-	if (S_ISLNK(ptr->st_mode))
-	{
-		full_name = get_full_name(path, name);
-		if (readlink(full_name, lnk, 256) > 0)
-			printf(" -> %s", lnk);
-		else
-			printf("%s link not read from %s", lnk, full_name);
-		free(full_name);
-	}
-	printf("\n");
 }

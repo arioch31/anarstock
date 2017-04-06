@@ -44,3 +44,6 @@ options faisables a ajouter:
 -f => pas de sort
 -g =>pas de username...
 -d =>pas de read dans les dir
+
+
+F_SORT_TIME_CR => F_CHECK_TIME_CR ???

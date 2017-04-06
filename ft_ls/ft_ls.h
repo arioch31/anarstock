@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/05 04:34:46 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/06 23:27:43 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@
 # define F_HIDE_USER 8
 # define F_NO_EXPLORE 16
 # define F_REV_ORDER 32
-# define F_SORT_TIME_M 64
-# define F_SORT_TIME_A 128
-# define F_SORT_TIME_CH 256
-# define F_SORT_TIME_CR 512
+# define F_USE_TIME_A 64
+# define F_USE_TIME_CH 128
+# define F_USE_TIME_CR 256
+# define F_SORT_TIME 512
 # define F_SORT_SIZE 1024
 # define F_NO_SORT 2048
 
@@ -59,8 +59,8 @@ int				*get_sizes_pad(char *path);
 
 void			aff_entries(t_list *ent, t_env *env, int *format, u_long size);
 void			write_rights(struct stat *ptr);
-void			write_date(struct tm *t);
-void			print_line(struct stat *ptr, char *name, char *path, int *tab);
+void			write_date(t_env *env, struct stat *ptr);
+void			print_inline(t_env *env, t_entry *entry, int *tab);
 void			explore_dir(t_env *env, char *path);
 t_list			*sort_choose(t_env *env, t_list *lst);
 

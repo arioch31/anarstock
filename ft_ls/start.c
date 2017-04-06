@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/15 02:03:59 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/05 04:49:38 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/06 23:12:15 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ int		option_checker(t_env *env, char c)
 	int flag;
 	int flag2;
 
-	if (!c || ((flag = ft_strseekc("RlagdrtucUSf", c) + 1) && flag > 12))
+	if (!c || ((flag = ft_strseekc("RlagdrucUtSf", c) + 1) && flag > 12))
 		return (0);
 	flag2 = 1 << (flag - 1);
 	if (flag2 < 64)
 		env->flags = (env->flags | flag2);
+	else if (flag2 > 511)
+		env->flags = (env->flags & 511) | flag2;
 	else
-		env->flags = (env->flags & 63) | flag2;
-	if (!AUTHORISE_U && (env->flags & F_SORT_TIME_CR))
+		env->flags = (env->flags & 0xFFFFFE3F) | flag2;
+	if (!AUTHORISE_U && (env->flags & F_USE_TIME_CR))
 		exit(printf("-U n'est pas supporté par le système\n"));
 	return (1);
 }
@@ -40,8 +42,6 @@ int		option_reader(t_env *env, char *param)
 			if (!option_checker(env, param[cpt]))
 				exit(printf("option %c invalide\n", param[cpt]));
 	}
-	if (env->flags < F_SORT_TIME_M)
-			env->flags = env->flags | F_SORT_TIME_M;
 	return (cpt);
 }
 

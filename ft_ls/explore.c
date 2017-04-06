@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:26:47 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/05 03:23:26 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/06 23:28:39 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ void	explore_dir(t_env *env, char *path)
 	}
 	else if ((env->flags & F_NO_EXPLORE) && (lstat(path, &ptr) == 0))
 	{
+		entries = add_entry(NULL, path);
 		check_sizes(tab, &ptr);
-		print_line(&ptr, path, NULL, tab);
+		print_inline(env, entries->content, tab);
+		ft_lstdel(&entries, &delete_entry);
 	}
 	else
 		printf("ft_ls: %s: %s\n", path, strerror(errno));
