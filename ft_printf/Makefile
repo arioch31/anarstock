@@ -6,9 +6,9 @@ SRC_PATH = ./src/
 
 INC_PATH = ./includes/
 
-INC_LIB_PATH = ./libft/includes
+INC_LIB_PATH = ../libft/includes
 
-OBJ_PATH = ./libft/obj/
+OBJ_PATH = ../libft/obj/
 
 SRC_FILES =	checker.c converter.c ft_printf.c ft_wchar.c padder.c param.c utils.c buff_arg.c
 
@@ -23,16 +23,16 @@ INC_LIB = $(addprefix -I,$(INC_LIB_PATH))
 all: lib_make $(NAME)
 
 lib_make:
-	make -C libft/
+	make -C ../libft/
 lib_re:
-	make -C libft/ re
+	make -C ../libft/ re
 lib_fclean:
-	make -C libft/ fclean
+	make -C ../libft/ fclean
 $(NAME):
 	gcc -c $(FLAGS) $(SRC) $(INC) $(INC_LIB)
-	mkdir -p libft/obj
-	mv $(SRC_FILES:.c=.o) ./libft/obj
-	cp libft/libft.a $(NAME)
+	mkdir -p ../libft/obj
+	mv $(SRC_FILES:.c=.o) ../libft/obj
+	cp ../libft/libft.a $(NAME)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 clean:
