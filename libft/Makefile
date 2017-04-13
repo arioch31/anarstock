@@ -30,7 +30,8 @@ SRC_LST_FILES = ft_lstapp.c		\
 			ft_lstadd.c		\
 			ft_lstcmp.c		\
 			ft_lstmove.c	\
-			ft_lst_tri.c
+			ft_lst_tri.c	\
+			ft_lstcheck.c
 
 SRC_MEM_FILES = ft_memalloc.c	\
 			ft_memcmp.c		\
@@ -79,7 +80,7 @@ SRC_STR_FILES =	ft_striter.c	\
 			ft_strncmp.c	\
 			ft_strequ.c		\
 			ft_strncpy.c	\
-			ft_strseekc.c
+			ft_strindex.c
 
 SRC_CONV_FILES = ft_isalnum.c	\
 			ft_isalpha.c	\

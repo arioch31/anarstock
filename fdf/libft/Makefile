@@ -82,7 +82,7 @@ SRC_FILES =	ft_ispace.c		\
 			ft_lstcat.c 	\
 			ft_lstcpy.c 	\
 			ft_lstgetnb.c	\
-			ft_strseekc.c
+			ft_strindex.c
 
 OBJ = $(addprefix $(OBJ_PATH),$(SRC_FILES:.c=.o))
 

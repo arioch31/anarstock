@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strseekc.c                                      :+:      :+:    :+:   */
+/*   ft_lstcheck.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aeguzqui <aeguzqui@42.fr>                  +#+  +:+       +#+        */
+/*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/14 20:29:14 by aeguzqui          #+#    #+#             */
-/*   Updated: 2016/01/14 23:14:29 by aeguzqui         ###   ########.fr       */
+/*   Created: 2017/04/13 02:27:18 by aeguzqui          #+#    #+#             */
+/*   Updated: 2017/04/13 02:32:57 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strseekc(char *str, char c)
+int		ft_lstcheck(t_list *lst, int (*f)(t_list*))
 {
-	unsigned int i;
-
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	return (i);
+	if (lst->next)
+	{
+		if (!ft_lstcheck((lst->next), f))
+			return (0);
+	}
+	return (f(lst));
 }

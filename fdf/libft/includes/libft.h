@@ -85,7 +85,7 @@ char				*ft_ultoa_base(unsigned long long nb, int base, int maj);
 char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
-size_t				ft_strseekc(char *str, char c);
+size_t				ft_strindex(char *str, char c);
 void				ft_print_tab(char **tab);
 
 /*

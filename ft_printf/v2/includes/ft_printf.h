@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/12 04:39:55 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/13 02:11:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # define FLAGS		"hlLjtz"
 # define PREFLAGS	"0-+ #"
 # define NUMERICS	"0123456789"
-
+# define OTHER		"$*."
 # define F_ZERO 1
-# define F_SPACE 2
-# define F_MINUS 4
-# define F_PLUS 8
+# define F_MINUS 2
+# define F_PLUS 4
+# define F_SPACE 8
 # define F_DIESE 16
 
 typedef struct			s_param

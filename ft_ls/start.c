@@ -17,7 +17,7 @@ int		option_checker(t_env *env, char c)
 	int flag;
 	int flag2;
 
-	if (!c || ((flag = ft_strseekc("RlagdrucUtSf", c) + 1) && flag > 12))
+	if (!c || ((flag = ft_strindex("RlagdrucUtSf", c) + 1) && flag > 12))
 		return (0);
 	flag2 = 1 << (flag - 1);
 	if (flag2 < 64)

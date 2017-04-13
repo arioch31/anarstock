@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/03/27 23:38:00 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/13 02:33:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char				*ft_umaxtoa_base(uintmax_t n, int base, int maj);
 int					int_strlen(uintmax_t n, int base);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int n, int fd);
-size_t				ft_strseekc(char *str, char c);
+size_t				ft_strindex(char *str, char c);
 void				ft_print_tab(char **tab);
 
 /*
@@ -114,5 +114,6 @@ int					ft_lstcmp(t_list *l1, t_list *l2,
 void				ft_lstmove(t_list **dest, t_list **elem);
 t_list				*ft_lst_tri_as(t_list *l, int (*f)(t_list *l1, t_list *l2));
 t_list				*ft_lst_tri_ds(t_list *l, int (*f)(t_list *l1, t_list *l2));
+int					ft_lstcheck(t_list *lst, int (*f)(t_list*));
 
 #endif
