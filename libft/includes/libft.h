@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/13 02:33:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/13 05:23:58 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(const char *s1, const char *s2);
 char				*ft_strtrim(const char *str);
 char				**ft_strsplit(const char *str, char c);
+char				**ft_strsplit_charset(const char *str, char *charset);
 unsigned int		nb_words(const char *str, char c);
 char				*ft_itoa(int n);
 char				*ft_ultoa_base(unsigned long long nb, int base, int maj);

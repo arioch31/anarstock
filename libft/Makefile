@@ -66,7 +66,6 @@ SRC_STR_FILES =	ft_striter.c	\
 			ft_strrchr.c	\
 			ft_strclr.c		\
 			ft_strlen.c		\
-			ft_strsplit.c	\
 			ft_strcmp.c		\
 			ft_strmap.c		\
 			ft_strstr.c		\
@@ -80,6 +79,8 @@ SRC_STR_FILES =	ft_striter.c	\
 			ft_strncmp.c	\
 			ft_strequ.c		\
 			ft_strncpy.c	\
+			ft_strsplit.c	\
+			ft_strsplit_charset.c	\
 			ft_strindex.c
 
 SRC_CONV_FILES = ft_isalnum.c	\
