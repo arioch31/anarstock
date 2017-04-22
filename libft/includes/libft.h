@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/13 05:23:58 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/22 02:15:53 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+void	*ft_lstiter_ret(t_list *lst, void *(*f)(t_list *elem, void *r), void *ret);
+void	*ft_lstiter_ret_rev(t_list *lst, void *(*f)(t_list *elem,  void *r), void *ret);
+t_list				*ft_lstxnew(size_t nb);
+
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstcmp(t_list *l1, t_list *l2,
 					int (*f)(t_list *l1, t_list *l2));

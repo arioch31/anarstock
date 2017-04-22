@@ -5,26 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/12 23:50:45 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/22 02:37:48 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/02/12 03:09:28 by aeguzqui          #+#    #+#             */
+/*   Updated: 2017/04/22 02:06:43 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
-int	main(int ac, char **av)
+int	main(void)
 {
-	int i;
-	t_list *lst;
+	int x,y;
 
-	i = 0;
-	lst = ft_lstxnew(ac);
-	while (i < ac)
-	{
-		ft_lstget(lst, i + 1)->content = av[i];
-		i++;
-	}
-	ft_lstaff(lst, NULL);
+	printf("\n%s\n", "test");
+	ft_printf("lolol %1$d %slolol%s", 8, "tets", "test");
+
+	printf("\n\n%12$d  %3$+*1$.*2$d %4$d", 8, 25, 5, 9);
+
 	return (0);
 }
