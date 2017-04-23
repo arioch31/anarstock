@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/12 23:50:45 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/23 23:40:04 by aeguzqui         ###   ########.fr       */
+/*   Created: 2016/02/09 21:18:07 by aeguzqui          #+#    #+#             */
+/*   Updated: 2017/04/23 22:55:41 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-int	main(int ac, char **av)
+t_list	*ft_lstlast(t_list *start)
 {
-	int i;
-	t_list *lst;
-
-	i = 0;
-	lst = ft_lstxnew(ac);
-	while (i < ac)
-	{
-		ft_lstget(lst, i + 1)->content = av[i];
-		i++;
-	}
-	ft_lstaff(lst, NULL);
-	printf("%2$*3$.*3$s %1$d\n", 24, 'e', "poop");
-	return (0);
+	while (start && start->next)
+		start = start->next;
+	return (start);
 }

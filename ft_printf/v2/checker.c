@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/22 02:29:01 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/23 22:35:25 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@ int		smell_dollarz(t_printer *pri, char *str, size_t size)
 	int		target;
 	t_list	*ptr;
 
-	target = get_dollar(str + 1);
-	if (target > pri->dollars)
+	if ((target = get_dollar(str + 1)))
 	{
-		ft_lstapp(&(pri->args), ft_lstxnew(target - pri->dollars));
-		pri->dollars = target;
+		if (target > pri->dollars)
+		{
+			ft_lstapp(&(pri->args), ft_lstxnew(target - pri->dollars));
+			pri->dollars = target;
+		}
+		ptr = ft_lstget(pri->args, target);
+		if (ptr->content_size && ptr->content_size != size)
+			return (-1);
+		ptr->content_size = size;
+		return (1);
 	}
-	ptr = ft_lstget(pri->args, target);
-	if (ptr->content_size && ptr->content_size != size)
-		return (0);
-	ptr->content_size = size;
-	return (1);
+	return (0);
 }
 
 int		assign_args(t_printer *pri, va_list ap)

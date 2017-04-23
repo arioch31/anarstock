@@ -13,7 +13,8 @@ SRC_STR_PATH = str/
 INC_PATH = includes/
 OBJ_PATH = obj/
 
-SRC_LST_FILES = ft_lstapp.c		\
+SRC_LST_FILES = ft_lstlast.c \
+			ft_lstapp.c		\
 			ft_lstlen.c 	\
 			ft_lstdelone.c	\
 			ft_lstdel.c		\

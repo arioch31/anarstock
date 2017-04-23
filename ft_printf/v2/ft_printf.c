@@ -6,11 +6,25 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/22 01:59:46 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/23 23:38:31 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	add_param_list(t_printer *pri, t_list *ptr)
+{
+	t_param	*elem;
+	t_list	*list_elem;
+
+	list_elem = ft_lstnew(NULL, 0);
+	elem = malloc(sizeof(t_param));
+	ft_bzero(elem, sizeof(t_param));
+	list_elem->content = elem;
+	list_elem->content_size = sizeof(t_param*);
+	elem->ptr = ptr;
+	ft_lstapp(&(pri->params), list_elem);
+}
 
 int		arg_sub(const char *str)
 {
@@ -29,9 +43,8 @@ int		arg_sub(const char *str)
 		return (0);
 }
 
-t_list		*str_tolist(const char *str)
+int		str_tolist(const char *str, t_printer *pri)
 {
-	t_list	*start;
 	t_list	*elem;
 	char	*ptr;
 	int		test;
@@ -45,47 +58,41 @@ t_list		*str_tolist(const char *str)
 		else if (*ptr != '%')
 			test = ft_strchr(ptr, '%') - ptr;
 		else if (!(test = arg_sub(ptr)))
-			return (NULL);
+			return (-1);
 		elem = ft_lstnew(NULL, 0);
 		elem->content = ptr;
 		elem->content_size = test;
-		ft_lstapp(&start, elem);
+		ft_lstapp(&(pri->lst), elem);
+		if (*ptr = '%')
+			add_param_list(pri, ft_lstlast(pri->lst));
 		ptr += test;
-	}
-	return (start);
-}
-
-int		param_list(t_printer *pri)
-{
-	t_list *ptr;
-	t_param	*elem;
-	t_list	*list_elem;
-	char	*tmp;
-
-	ptr = pri->lst;
-	while (ptr)
-	{
-		if (((tmp = (char*)ptr->content)) && *tmp == '%')
-		{
-			list_elem = ft_lstnew(NULL, 0);
-			elem = malloc(sizeof(t_param));
-			ft_bzero(elem, sizeof(t_param));
-			list_elem->content = elem;
-			list_elem->content_size = sizeof(t_param*);
-			elem->ptr = ptr;
-			ft_lstapp(&(pri->params), list_elem);
-		}
-		ptr = ptr->next;
 	}
 	return (ft_lstlen(pri->params));
 }
 
-int		sort_params(t_printer *pri, va_list ap)
+int		smell_param(t_printer *pri, va_list ap)
 {
-	if (get_dollar((char*)pri->params->content + 1))
-		assign_args(pri, ap);
-	else
-		return (0);
+	t_list	*ptr;
+	int		i;
+	char	*str;
+
+	ptr = pri->params;
+	while (ptr)
+	{
+		str = ptr->content;
+		if ((i = smell_dollarz(pri, str, 0)) < 0 || !i && pri->dollars)
+			return (0);
+		while (ft_strchr(NUMERICS, *(str + 1)))
+			str++;
+		if (*(++str) == '*' && ((i = smell_dollarz(pri, str, sizeof(int)) > 0)))
+		{
+			while (ft_strchr(NUMERICS, *(str + 1)))
+				str++;
+			if (*str == '.' && *(++str) == '*')
+				i = smell_dollarz(pri, str, sizeof(int));
+		}
+		ptr = ptr->next;
+	}
 	return (1);
 }
 
@@ -103,7 +110,7 @@ int		ft_printf(const char *str, ...)
 	}
 	pri = malloc(sizeof(t_printer));
 	ft_bzero(pri, sizeof(t_printer));
-	if (!(pri->lst = str_tolist(str)))
+	if (str_tolist(str) < 0)
 		return (-1);
 	if (!param_list(pri) && ft_lstlen(pri->lst) > 1)
 		return (-1);

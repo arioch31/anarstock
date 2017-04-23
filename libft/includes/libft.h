@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/22 02:15:53 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/23 22:57:06 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void				ft_print_tab(char **tab);
 /*
 ** fonctions liste
 */
-
+t_list				*ft_lstlast(t_list *start);
 t_list				*ft_lstnew(const void *content, size_t content_size);
 void				ft_lstadd(t_list **alst, t_list *nouveau);
 void				ft_lstapp(t_list **alst, t_list *nouveau);
@@ -109,8 +109,10 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdelpropre(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-void	*ft_lstiter_ret(t_list *lst, void *(*f)(t_list *elem, void *r), void *ret);
-void	*ft_lstiter_ret_rev(t_list *lst, void *(*f)(t_list *elem,  void *r), void *ret);
+void				*ft_lstiter_ret(t_list *lst, void *(*f)(t_list *e, void *r),
+					void *ret);
+void				*ft_lstiter_ret_rev(t_list *lst, void *(*f)(t_list *elem,
+					void *r), void *ret);
 t_list				*ft_lstxnew(size_t nb);
 
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
