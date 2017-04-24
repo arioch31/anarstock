@@ -6,17 +6,41 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/23 23:38:31 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/25 00:10:35 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	add_param_list(t_printer *pri, t_list *ptr)
+int		smell_param(t_printer *pri, t_list *ptr)
+{
+	int		i;
+	char	*str;
+
+	str = ptr->content;
+	if ((i = smell_dollarz(pri, str, arg_size(str))) < 0
+	|| (!i && pri->dollars))
+		return (0);
+	while (ft_strchr(NUMERICS, *(str + 1)))
+		str++;
+	if (*(++str) == '*' && ((i = smell_dollarz(pri, str, sizeof(int)) > 0)))
+	{
+		while (ft_strchr(NUMERICS, *(str + 1)))
+			str++;
+		if (*str == '.' && *(++str) == '*'
+		&& smell_dollarz(pri, str, sizeof(int)) < 0)
+			return (0);
+	}
+	return (1);
+}
+
+int		add_param_list(t_printer *pri, t_list *ptr)
 {
 	t_param	*elem;
 	t_list	*list_elem;
 
+	if (!smell_param(pri, ptr))
+		return (0);
 	list_elem = ft_lstnew(NULL, 0);
 	elem = malloc(sizeof(t_param));
 	ft_bzero(elem, sizeof(t_param));
@@ -24,9 +48,10 @@ void	add_param_list(t_printer *pri, t_list *ptr)
 	list_elem->content_size = sizeof(t_param*);
 	elem->ptr = ptr;
 	ft_lstapp(&(pri->params), list_elem);
+	return (1);
 }
 
-int		arg_sub(const char *str)
+int		arg_len(const char *str)
 {
 	char	*sub;
 
@@ -57,52 +82,25 @@ int		str_tolist(const char *str, t_printer *pri)
 			test = ft_strlen(ptr);
 		else if (*ptr != '%')
 			test = ft_strchr(ptr, '%') - ptr;
-		else if (!(test = arg_sub(ptr)))
+		else if (!(test = arg_len(ptr)))
 			return (-1);
 		elem = ft_lstnew(NULL, 0);
 		elem->content = ptr;
 		elem->content_size = test;
 		ft_lstapp(&(pri->lst), elem);
-		if (*ptr = '%')
-			add_param_list(pri, ft_lstlast(pri->lst));
+		if (*ptr = '%' && !add_param_list(pri, ft_lstlast(pri->lst)))
+			return (-1);
 		ptr += test;
 	}
 	return (ft_lstlen(pri->params));
-}
-
-int		smell_param(t_printer *pri, va_list ap)
-{
-	t_list	*ptr;
-	int		i;
-	char	*str;
-
-	ptr = pri->params;
-	while (ptr)
-	{
-		str = ptr->content;
-		if ((i = smell_dollarz(pri, str, 0)) < 0 || !i && pri->dollars)
-			return (0);
-		while (ft_strchr(NUMERICS, *(str + 1)))
-			str++;
-		if (*(++str) == '*' && ((i = smell_dollarz(pri, str, sizeof(int)) > 0)))
-		{
-			while (ft_strchr(NUMERICS, *(str + 1)))
-				str++;
-			if (*str == '.' && *(++str) == '*')
-				i = smell_dollarz(pri, str, sizeof(int));
-		}
-		ptr = ptr->next;
-	}
-	return (1);
 }
 
 int		ft_printf(const char *str, ...)
 {
 	va_list		ap;
 	t_printer	*pri;
-	char		*tmp;
+	int			i;
 
-	tmp = NULL;
 	if (!str)
 	{
 		ft_putstr("(null)");
@@ -110,14 +108,12 @@ int		ft_printf(const char *str, ...)
 	}
 	pri = malloc(sizeof(t_printer));
 	ft_bzero(pri, sizeof(t_printer));
-	if (str_tolist(str) < 0)
+	if ((i = str_tolist(str)) && i < 0)
 		return (-1);
-	if (!param_list(pri) && ft_lstlen(pri->lst) > 1)
-		return (-1);
-
-//	va_start(ap, str);
+//	if (i)
+//	{va_start(ap, str);
 //	get_values(p, ap, lst);
 //	va_end(ap);
-//	clear_params(p);
+//	clear_params(p);}
 	return (lst_write(pri->lst));
 }
