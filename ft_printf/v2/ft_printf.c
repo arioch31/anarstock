@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/25 00:10:35 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/29 03:55:33 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,38 @@ int		str_tolist(const char *str, t_printer *pri)
 	return (ft_lstlen(pri->params));
 }
 
+int		get_values(t_printer *pri, va_list *ap)
+{
+	t_list	*ptr;
+
+	ptr = pri->args;
+	while (ptr)
+	{
+		if (!ptr->content_size)
+			return (0);
+		else
+			ptr->content = va_arg(ap, ptr->content_size);
+	}
+	return (1);
+}
+
+int		clear_printer(t_printer *pri, int ret, char *msg)
+{
+	if (msg)
+	{
+		ft_putstr("ft_printf: ");
+		ft_putstr(msg);
+	}
+	if (pri)
+	{
+		ft_lstdel(pri->lst, NULL);
+		ft_lstdel(pri->args, NULL);
+		ft_lstdel(pri->params, NULL);
+		free(pri);
+	}
+	return (ret);
+}
+
 int		ft_printf(const char *str, ...)
 {
 	va_list		ap;
@@ -109,11 +141,14 @@ int		ft_printf(const char *str, ...)
 	pri = malloc(sizeof(t_printer));
 	ft_bzero(pri, sizeof(t_printer));
 	if ((i = str_tolist(str)) && i < 0)
-		return (-1);
-//	if (i)
-//	{va_start(ap, str);
-//	get_values(p, ap, lst);
-//	va_end(ap);
-//	clear_params(p);}
+		return (clear_printer(pri, -1, "incorrect parameters \n"));
+	if (i && pri->dollars)
+	{
+		va_start(ap, str);
+		i = get_values(pri, &ap);
+		va_end(ap);
+		if (!i)
+			return (clear_printer(pri, -1, "$ incorrect format\n"));
+	}
 	return (lst_write(pri->lst));
 }

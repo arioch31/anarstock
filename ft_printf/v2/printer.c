@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 21:33:04 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/22 00:56:04 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/04/27 00:10:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ int		lst_write(t_list *p)
 		}
 		else
 		{
-			ft_putstr("\"");
-
 			write(1, p->content, p->content_size);
-			ft_putstr("\" ");
-			ft_putnbr(p->content_size);
-			ft_putstr("\n");
 			cpt += p->content_size;
 		}
 		p = p->next;
