@@ -6,55 +6,33 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:09:53 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/23 22:35:25 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/05/09 18:15:50 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		get_dollar(char *str)
+int		get_prec(t_param *p, const char *str, va_list *ap)
 {
-	int i;
-
-	i = 0;
-	if (*str != '0' && ft_strchr(NUMERICS, *str))
+	if (*str == '.')
 	{
-		i = ft_atoi(str);
-		while (ft_strchr(NUMERICS, *str))
-			str++;
-		if (*str == '$')
-			return (i);
-	}
-	return (0);
-}
-
-int		smell_dollarz(t_printer *pri, char *str, size_t size)
-{
-	int		target;
-	t_list	*ptr;
-
-	if ((target = get_dollar(str + 1)))
-	{
-		if (target > pri->dollars)
+		str++;
+		if (*str == '*')
 		{
-			ft_lstapp(&(pri->args), ft_lstxnew(target - pri->dollars));
-			pri->dollars = target;
+			p->precision = va_arg(ap, int);
+			str++;
 		}
-		ptr = ft_lstget(pri->args, target);
-		if (ptr->content_size && ptr->content_size != size)
-			return (-1);
-		ptr->content_size = size;
-		return (1);
+		else
+		{
+			p->precision = ft_atoi(str);
+			while (ft_strchr(NUMERICS, *str))
+				str++;
+		}
 	}
-	return (0);
+	return (get_types(p, str));
 }
 
-int		assign_args(t_printer *pri, va_list ap)
-{
-
-}
-
-int		get_sizes(t_param *p, char *str)
+int		get_withd(t_param *p, const char *str, va_list *ap)
 {
 	int i;
 
@@ -66,17 +44,18 @@ int		get_sizes(t_param *p, char *str)
 			p->flags &= (1 << (i - 1));
 		str++;
 	}
-	p->withd = ft_atoi(str);
-	while (ft_strchr(NUMERICS, *str))
-		str++;
-	if (*str == '.')
+	if (*str == '*')
 	{
-		p->precision = ft_atoi(++str);
-		p->precision++;
+		p->withd = va_arg(ap, int);
+		str++;
+	}
+	else
+	{
+		p->withd = ft_atoi(str);
 		while (ft_strchr(NUMERICS, *str))
 			str++;
 	}
-	return (get_types(p, str));
+	return (get_prec(p, str, ap));
 }
 
 int		get_types(t_param *p, char *str)

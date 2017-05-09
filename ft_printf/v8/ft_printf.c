@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/05/05 02:26:36 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/05/09 19:11:08 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,28 @@ int		arg_len(const char *str)
 int		inner_pf(int fd, const char *str, va_list *ap)
 {
 	char	*ptr;
-	char	*ptr2;
 	int		test;
 	int		ret;
 
-	ptr = (char*)str;
-	while (*ptr)
+	while (*str)
 	{
-		if (!(ptr2 = ft_strchr(ptr, '%')))
-			test = ft_strlen(ptr);
-		else if (*ptr != '%')
-			test = ptr2 - ptr;
-		else if (!(test = arg_len(ptr)))
+		if (*str == '%' && (test = arg_len(str)))
+		{
+			ret += print_arg(fd, str, ap, ret);
+			str += test;
+		}
+		else if (*str == '%' && !test)
 			return (-1);
 		else
 		{
-			ptr += test;
-			test = 0;
-			ret += print_arg(fd, ptr, ap, ret);
+			if (!(ptr2 = ft_strchr(str, '%')))
+				test = ft_strlen(str);
+			else
+				test = ptr - str;
+			write(fd, &str, test);
+			str += test;
+			ret += test;
 		}
-		write(fd, &ptr, test);
-		ptr += test;
-		ret += test;
 	}
 	return (ret);
 }
