@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/25 10:57:26 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/04/23 22:57:06 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/05/11 04:44:48 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int					ft_isascii (int c);
 int					ft_isdigit (int c);
 int					ft_isprint (int c);
 int					ft_ispace (char c);
+int					uint_strlen(uintmax_t n, int base);
+int					int_strlen(intmax_t n);
 void				*ft_memccpy (void *dest, const void *src, int c, size_t n);
 void				*ft_memchr (const void *str, int c, size_t n);
 int					ft_memcmp (const void *s1, const void *s2, size_t n);

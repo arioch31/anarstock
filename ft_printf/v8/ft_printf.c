@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 17:14:48 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/05/09 19:11:08 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/05/11 02:02:27 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int		inner_pf(int fd, const char *str, va_list *ap)
 	{
 		if (*str == '%' && (test = arg_len(str)))
 		{
-			ret += print_arg(fd, str, ap, ret);
 			str += test;
+			test = print_arg(fd, str, ap, ret);
 		}
-		else if (*str == '%' && !test)
+		else if (*str == '%' && !(test > 0))
 			return (-1);
 		else
 		{
@@ -52,8 +52,8 @@ int		inner_pf(int fd, const char *str, va_list *ap)
 				test = ptr - str;
 			write(fd, &str, test);
 			str += test;
-			ret += test;
 		}
+		ret += test;
 	}
 	return (ret);
 }

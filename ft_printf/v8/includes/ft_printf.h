@@ -6,7 +6,7 @@
 /*   By: aeguzqui <aeguzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 10:34:41 by aeguzqui          #+#    #+#             */
-/*   Updated: 2017/05/09 19:12:42 by aeguzqui         ###   ########.fr       */
+/*   Updated: 2017/05/11 05:18:55 by aeguzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include <stdarg.h>
 # define CONVERTERS "dDiuUoOxXcCsSpn%"
+# define INT_CONV	"diuxo"
 # define FLAGS		"hlLjtz"
 # define PREFLAGS	"0-+ #"
 # define NUMERICS	"0123456789"
@@ -27,12 +28,12 @@
 
 typedef struct			s_param
 {
-	size_t				p_index;
 	int					flags;
 	size_t				withd;
 	size_t				precision;
 	char				length;
 	char				type;
+	void				*target;
 }						t_param;
 
 /*
@@ -48,9 +49,8 @@ int						ft_vprintf(int fd, const char *str, ...);
 /*
 ** ft_printf.c
 */
-
-int						get_dollar(char *str);
-int						get_sizes(t_param *p, char *str);
+int						get_prec(t_param *p, const char *str, va_list *ap);
+int						get_withd(t_param *p, const char *str, va_list *ap);
 int						get_types(t_param *p, char *str);
 
 #endif
